@@ -3,158 +3,177 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Методический навигатор: Интерактивные игры</title>
+    <title>Навигатор интерактивных платформ</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         :root {
             --primary: #2c3e50;
             --accent: #3498db;
             --success: #27ae60;
-            --bg: #f4f7f6;
+            --white: #ffffff;
         }
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #333; background: var(--bg); margin: 0; padding: 0; }
-        header { background: var(--primary); color: white; padding: 40px 20px; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-        .container { max-width: 1000px; margin: 20px auto; padding: 20px; background: white; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
-        h1 { margin: 0; font-size: 24px; }
-        h2 { color: var(--primary); border-bottom: 2px solid var(--accent); padding-bottom: 10px; margin-top: 30px; }
+        body { font-family: 'Segoe UI', sans-serif; background: #f0f2f5; margin: 0; padding: 0; color: #333; }
+        header { background: var(--primary); color: white; padding: 30px 20px; text-align: center; }
+        .container { max-width: 1100px; margin: 20px auto; padding: 20px; }
         
-        /* Таблица классификации */
-        table { width: 100%; border-collapse: collapse; margin: 20px 0; background: white; }
-        th, td { padding: 12px; border: 1px solid #ddd; text-align: left; }
-        th { background-color: var(--accent); color: white; }
-        tr:nth-child(even) { background-color: #f9f9f9; }
+        h2 { border-left: 5px solid var(--accent); padding-left: 15px; color: var(--primary); }
+
+        /* Сетка платформ */
+        .platform-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); 
+            gap: 15px; 
+            margin: 20px 0; 
+        }
+        .platform-card {
+            background: var(--white);
+            border: 2px solid transparent;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: 0.3s;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            position: relative;
+        }
+        .platform-card:hover { transform: translateY(-5px); box-shadow: 0 6px 12px rgba(0,0,0,0.1); }
+        .platform-card.selected { border-color: var(--accent); background: #eef7ff; }
+        
+        .platform-card i { font-size: 40px; color: var(--accent); margin-bottom: 10px; }
+        .platform-card h3 { margin: 10px 0 5px; font-size: 18px; }
+        
+        .link-btn {
+            display: inline-block;
+            margin-top: 10px;
+            color: var(--accent);
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: bold;
+        }
+        .link-btn:hover { text-decoration: underline; }
 
         /* Калькулятор */
-        .calculator { background: #e8f4fd; padding: 25px; border-radius: 10px; border-left: 5px solid var(--accent); }
-        .controls { display: flex; gap: 15px; margin-bottom: 20px; flex-wrap: wrap; }
-        select, button { padding: 12px 20px; border-radius: 6px; border: 1px solid #ccc; font-size: 16px; }
-        button { background: var(--success); color: white; border: none; cursor: pointer; transition: 0.3s; font-weight: bold; }
-        button:hover { background: #219150; transform: translateY(-2px); }
-        #resultDisplay { padding: 15px; border-radius: 6px; background: white; min-height: 50px; display: none; border: 1px dashed var(--accent); }
-
-        /* Секции по возрастам */
-        .grade-info { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 20px; }
-        .grade-card { padding: 15px; border: 1px solid #eee; border-radius: 8px; background: #fff; }
-        .grade-card h3 { color: var(--accent); margin-top: 0; }
+        .calc-box {
+            background: var(--white);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            margin-top: 30px;
+        }
+        .step { margin-bottom: 20px; }
+        select { width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #ccc; font-size: 16px; }
         
-        footer { text-align: center; padding: 20px; color: #777; font-size: 14px; }
+        #calcBtn {
+            width: 100%;
+            padding: 15px;
+            background: var(--success);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        #resultArea {
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 8px;
+            display: none;
+            border: 1px solid var(--accent);
+            background: #f9fcff;
+        }
     </style>
 </head>
 <body>
 
 <header>
-    <h1>Эффективность интерактивных викторин и квестов</h1>
-    <p>Специализированный сайт-навигатор для учителей 5–9 классов</p>
+    <h1>Методический навигатор</h1>
+    <p>Выбор инструментов для учащихся 5–9 классов [cite: 35]</p>
 </header>
 
 <div class="container">
-    <h2>1. Классификатор образовательных платформ</h2>
-    <p>На основе теоретического анализа (Глава 1), инструменты распределены по их функциональному назначению[cite: 71, 73]:</p>
-    <table>
-        <thead>
-            <tr>
-                <th>Тип инструмента</th>
-                <th>Примеры платформ</th>
-                <th>Рекомендуемые классы</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>Викторины-соревнования</td>
-                <td>Quizizz, Kahoot, MyQuiz</td>
-                <td>5–9 классы</td>
-            </tr>
-            <tr>
-                <td>Интерактивные упражнения</td>
-                <td>LearningApps, Wordwall</td>
-                <td>5–7 классы</td>
-            </tr>
-            <tr>
-                <td>Сюжетные квесты</td>
-                <td>Genially, Learnis</td>
-                <td>7–9 классы</td>
-            </tr>
-            <tr>
-                <td>Тренажеры-головоломки</td>
-                <td>Joyteka, Udoba</td>
-                <td>5–6 классы</td>
-            </tr>
-        </tbody>
-    </table>
-
-    <h2>2. Инструмент: Рассчитать вовлечение</h2>
-    <div class="calculator">
-        <p>Выберите параметры вашего урока для подбора оптимальной методики:</p>
-        <div class="controls">
-            <select id="gradeSelect">
-                <option value="">Выберите класс...</option>
-                <option value="5-6">5–6 класс (Младший подростковый)</option>
-                <option value="7-8">7–8 класс (Средний подростковый)</option>
-                <option value="9">9 класс (Старший подростковый)</option>
-            </select>
-            <select id="platformSelect">
-                <option value="">Выберите платформу...</option>
-                <option value="Quizizz">Quizizz / Kahoot</option>
-                <option value="LearningApps">LearningApps / Wordwall</option>
-                <option value="Genially">Genially / Web-квесты</option>
-                <option value="Joyteka">Joyteka (Квест-комнаты)</option>
-            </select>
-            <button onclick="calculate()">Рассчитать результат</button>
+    <h2>1. Выберите платформу</h2>
+    <div class="platform-grid" id="grid">
+        <div class="platform-card" onclick="selectPlatform('Quizizz', 'https://quizizz.com')">
+            <i class="fas fa-bolt"></i>
+            <h3>Quizizz</h3>
+            <a href="https://quizizz.com" target="_blank" class="link-btn">Открыть сайт <i class="fas fa-external-link-alt"></i></a>
         </div>
-        <div id="resultDisplay"></div>
+        <div class="platform-card" onclick="selectPlatform('Genially', 'https://genially.com')">
+            <i class="fas fa-project-diagram"></i>
+            <h3>Genially</h3>
+            <a href="https://genially.com" target="_blank" class="link-btn">Открыть сайт <i class="fas fa-external-link-alt"></i></a>
+        </div>
+        <div class="platform-card" onclick="selectPlatform('LearningApps', 'https://learningapps.org')">
+            <i class="fas fa-puzzle-piece"></i>
+            <h3>LearningApps</h3>
+            <a href="https://learningapps.org" target="_blank" class="link-btn">Открыть сайт <i class="fas fa-external-link-alt"></i></a>
+        </div>
+        <div class="platform-card" onclick="selectPlatform('Wordwall', 'https://wordwall.net')">
+            <i class="fas fa-th"></i>
+            <h3>Wordwall</h3>
+            <a href="https://wordwall.net" target="_blank" class="link-btn">Открыть сайт <i class="fas fa-external-link-alt"></i></a>
+        </div>
+        <div class="platform-card" onclick="selectPlatform('Joyteka', 'https://joyteka.com')">
+            <i class="fas fa-dungeon"></i>
+            <h3>Joyteka</h3>
+            <a href="https://joyteka.com" target="_blank" class="link-btn">Открыть сайт <i class="fas fa-external-link-alt"></i></a>
+        </div>
     </div>
 
-    <h2>3. Методические рекомендации по возрастам</h2>
-    <div class="grade-info">
-        <div class="grade-card">
-            <h3>5–6 классы</h3>
-            <p><strong>Акцент:</strong> Яркая визуализация и простые механики (Wordwall)[cite: 76].</p>
-            <p><strong>Роль учителя:</strong> «Модератор-игротехник», поддерживающий темп и азарт[cite: 182].</p>
+    <div class="calc-box">
+        <h2>2. Рассчитать вовлечение [cite: 168, 179]</h2>
+        <div class="step">
+            <label>Для какого класса планируется урок?</label>
+            <select id="grade">
+                <option value="6">6 класс (Акцент на азарт) [cite: 171]</option>
+                <option value="9">9 класс (Акцент на логику) [cite: 174]</option>
+            </select>
         </div>
-        <div class="grade-card">
-            <h3>8–9 классы</h3>
-            <p><strong>Акцент:</strong> Сложные сюжетные линии и критическое мышление (Genially)[cite: 76, 174].</p>
-            <p><strong>Роль учителя:</strong> «Тьютор-консультант», дающий автономию в решении задач[cite: 184].</p>
-        </div>
+        <input type="hidden" id="selectedPlatform" value="">
+        <button id="calcBtn" onclick="runCalc()">Рассчитать эффективность</button>
+        
+        <div id="resultArea"></div>
     </div>
 </div>
 
-<footer>
-    <p>© 2025 Курсовая работа | Костанайский Высший педагогический колледж [cite: 1, 7]</p>
-</footer>
-
 <script>
-    function calculate() {
-        const grade = document.getElementById('gradeSelect').value;
-        const platform = document.getElementById('platformSelect').value;
-        const display = document.getElementById('resultDisplay');
+    let currentPlatform = "";
+
+    function selectPlatform(name, link) {
+        currentPlatform = name;
+        // Визуальное выделение
+        const cards = document.querySelectorAll('.platform-card');
+        cards.forEach(c => c.classList.remove('selected'));
+        event.currentTarget.classList.add('selected');
+    }
+
+    function runCalc() {
+        const grade = document.getElementById('grade').value;
+        const res = document.getElementById('resultArea');
         
-        if(!grade || !platform) {
-            alert("Пожалуйста, выберите и класс, и платформу.");
+        if (!currentPlatform) {
+            alert("Сначала выберите иконку платформы выше!");
             return;
         }
 
-        display.style.display = 'block';
-        let res = "";
+        res.style.display = "block";
+        let text = "";
 
-        if (grade === "5-6") {
-            if (platform === "Quizizz" || platform === "Joyteka") {
-                res = "<strong>Прогноз: Высокая эффективность (83-85%)!</strong><br>Для этого возраста ведущим фактором является игровая мотивация и потребность в быстром одобрении[cite: 171, 243].";
+        if (grade === "6") {
+            if (currentPlatform === "Quizizz" || currentPlatform === "Wordwall") {
+                text = "<strong>Результат: Высокий (83-85%) [cite: 162, 243]</strong><br>Для 6 классов идеально подходят игровые механики и быстрая обратная связь[cite: 171].";
             } else {
-                res = "<strong>Прогноз: Средняя вовлеченность.</strong><br>Рекомендуется использовать более динамичные игровые формы для удержания внимания.";
+                text = "<strong>Результат: Средний.</strong><br>Для 6 класса лучше использовать более динамичные инструменты[cite: 75].";
             }
-        } else if (grade === "9") {
-            if (platform === "Genially") {
-                res = "<strong>Прогноз: Оптимальный выбор (80%)!</strong><br>Учащиеся этого возраста ценят интеллектуальный вызов и возможность принимать самостоятельные решения внутри квеста[cite: 165, 174].";
-            } else if (platform === "Quizizz") {
-                res = "<strong>Прогноз: Умеренная вовлеченность (40-45%).</strong><br>Простые викторины могут казаться девятиклассникам монотонными[cite: 160, 174].";
+        } else { // 9 класс
+            if (currentPlatform === "Genially" || currentPlatform === "Joyteka") {
+                text = "<strong>Результат: Оптимальный (74-80%) [cite: 164, 244]</strong><br>Учащиеся 9 классов предпочитают сложные квесты и интеллектуальные задачи[cite: 174].";
             } else {
-                res = "<strong>Прогноз: Стабильный результат.</strong><br>Подходит для отработки предметных навыков[cite: 166].";
+                text = "<strong>Результат: Умеренный.</strong><br>Простые викторины могут показаться девятиклассникам монотонными[cite: 174].";
             }
-        } else {
-            res = "<strong>Прогноз: Хорошая вовлеченность.</strong><br>Платформа подходит для систематизации знаний и тренировки памяти[cite: 139].";
         }
-
-        display.innerHTML = res;
+        res.innerHTML = `<strong>Платформа: ${currentPlatform}</strong><br>${text}`;
     }
 </script>
 
