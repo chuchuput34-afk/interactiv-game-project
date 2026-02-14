@@ -82,7 +82,7 @@
 
         .video-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
         .video-item { border-radius: 15px; overflow: hidden; background: white; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
-        .video-item iframe { width: 100%; height: 180px; border: none; }
+        .video-item video, .video-item iframe { width: 100%; height: 180px; border: none; display: block; }
         .video-item p { padding: 10px; font-weight: bold; text-align: center; margin: 0; }
 
         footer { text-align: center; padding: 30px; color: #666; font-size: 0.9rem; }
@@ -128,14 +128,18 @@
     </div>
 
     <div class="section-card">
-        <h2><i class="fas fa-video"></i> 3. Видеоинструкции по всем типам</h2>
+        <h2><i class="fas fa-video"></i> 3. Видеоинструкции</h2>
         <div class="video-grid">
-            <div class="video-item"><iframe src="https://www.youtube.com/embed/fA54A8vWfyc"></iframe><p>Quizizz и викторины</p></div>
+            <div class="video-item">
+                <video controls>
+                    <source src="Дизайн без названия.mp4" type="video/mp4">
+                    Ваш браузер не поддерживает видео.
+                </video>
+                <p>Инструкция: Работа в Quizizz</p>
+            </div>
             <div class="video-item"><iframe src="https://www.youtube.com/embed/j_8uD_CPrw0"></iframe><p>LearningApps и упражнения</p></div>
             <div class="video-item"><iframe src="https://www.youtube.com/embed/AWh8e_r9iWk"></iframe><p>Joyteka и квесты</p></div>
             <div class="video-item"><iframe src="https://www.youtube.com/embed/k-8S9_P7mXQ"></iframe><p>Genially: Мастер-класс</p></div>
-            <div class="video-item"><iframe src="https://www.youtube.com/embed/pCH8L7UOnmU"></iframe><p>CoreApp и Udoba</p></div>
-            <div class="video-item"><iframe src="https://www.youtube.com/embed/t6E2v9Ea2V0"></iframe><p>Plickers и Baamboozle</p></div>
         </div>
     </div>
 </div>
