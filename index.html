@@ -38,7 +38,6 @@
         h2 { color: #4834d4; margin-bottom: 20px; display: flex; align-items: center; }
         h2 i { margin-right: 10px; }
 
-        /* Все 12 платформ */
         .platform-grid { 
             display: grid; 
             grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); 
@@ -65,7 +64,6 @@
         }
         .visit-link:hover { background: var(--accent); color: white; }
 
-        /* Калькулятор */
         .grade-buttons { display: flex; justify-content: center; gap: 10px; margin: 20px 0; flex-wrap: wrap; }
         .grade-btn { 
             padding: 12px 25px; border: none; background: white; 
@@ -82,7 +80,6 @@
 
         #resultArea { margin-top: 20px; padding: 20px; border-radius: 15px; display: none; border-left: 8px solid var(--success); }
 
-        /* Все Видеоинструкции */
         .video-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
         .video-item { border-radius: 15px; overflow: hidden; background: white; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
         .video-item iframe { width: 100%; height: 180px; border: none; }
@@ -144,7 +141,7 @@
 </div>
 
 <footer>
-    <p>Алексеева А.А. 2026 | Костанайский Высший педагогический колледж</p>
+    <p>Алексеева Е.В. 2025 | Костанайский Высший педагогический колледж</p>
 </footer>
 
 <script>
@@ -166,10 +163,29 @@
         const area = document.getElementById('resultArea');
         if(!plat || !grade) { alert("Выберите платформу и класс!"); return; }
         area.style.display = "block";
-        let score = (grade <= 6 && type === 'quiz') ? 85 : (grade >= 8 && type === 'quest') ? 80 : 65;
-        let text = score === 85 ? "Высокий азарт и вовлеченность." : score === 80 ? "Оптимально для развития логики." : "Средняя эффективность.";
         
-        area.innerHTML = `<h3>Анализ: ${plat}</h3><p style="font-size:1.5rem; color:#27ae60; font-weight:bold;">Результат: ${score}%</p><p>${text}</p>`;
+        let score = 0;
+        let info = "";
+
+        if (type === 'quiz') {
+            const data = {5: 90, 6: 85, 7: 70, 8: 55, 9: 40};
+            score = data[grade];
+            info = "Азарт, высокая скорость реакции, мгновенная проверка знаний.";
+        } else if (type === 'task') {
+            const data = {5: 75, 6: 70, 7: 58, 8: 46, 9: 35};
+            score = data[grade];
+            info = "Отработка навыков, закрепление темы, работа с визуальными образами.";
+        } else if (type === 'quest') {
+            const data = {5: 20, 6: 30, 7: 47, 8: 64, 9: 80};
+            score = data[grade];
+            info = "Глубокое погружение, логические задачи, развитие критического мышления.";
+        }
+        
+        let color = score >= 70 ? "#27ae60" : score >= 50 ? "#f39c12" : "#e74c3c";
+        area.style.borderLeftColor = color;
+        area.innerHTML = `<h3>Анализ: ${plat}</h3>
+            <p style="font-size:1.5rem; color:${color}; font-weight:bold;">Эффективность: ${score}%</p>
+            <p><i>Особенности:</i> ${info}</p>`;
     }
 </script>
 </body>
