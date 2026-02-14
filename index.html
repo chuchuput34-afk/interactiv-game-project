@@ -13,77 +13,47 @@
             --glass: rgba(255, 255, 255, 0.95);
         }
 
-        body { 
-            font-family: 'Segoe UI', sans-serif; 
-            background: #f0f2f5; 
-            margin: 0; padding: 0; color: #2d3436; 
-        }
-
-        header { 
-            background: var(--gradient); 
-            color: white; padding: 50px 20px; 
-            text-align: center; 
-            clip-path: polygon(0 0, 100% 0, 100% 90%, 0% 100%);
-        }
-
+        body { font-family: 'Segoe UI', sans-serif; background: #f0f2f5; margin: 0; padding: 0; color: #2d3436; }
+        header { background: var(--gradient); color: white; padding: 50px 20px; text-align: center; clip-path: polygon(0 0, 100% 0, 100% 90%, 0% 100%); }
         .container { max-width: 1200px; margin: -30px auto 50px; padding: 20px; }
-
-        .section-card { 
-            background: var(--glass); 
-            border-radius: 20px; padding: 30px; 
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            margin-bottom: 30px;
-        }
-
+        .section-card { background: var(--glass); border-radius: 20px; padding: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); margin-bottom: 30px; }
+        
         h2 { color: #4834d4; margin-bottom: 20px; display: flex; align-items: center; }
         h2 i { margin-right: 10px; }
 
-        .platform-grid { 
-            display: grid; 
-            grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); 
-            gap: 15px; 
-        }
-
+        /* Платформы */
+        .platform-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 15px; }
         .platform-card {
-            background: white; border-radius: 15px; padding: 15px;
-            text-align: center; cursor: pointer; transition: 0.3s;
-            border: 2px solid transparent; position: relative;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            background: white; border-radius: 15px; padding: 15px; text-align: center; 
+            cursor: pointer; transition: 0.3s; border: 2px solid transparent; 
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05); display: flex; flex-direction: column; justify-content: space-between;
         }
-
         .platform-card:hover { transform: translateY(-5px); border-color: var(--accent); }
-        .platform-card.selected { background: #f0f7ff; border-color: var(--accent); box-shadow: 0 0 15px rgba(0, 210, 255, 0.3); }
+        .platform-card.selected { background: #f0f7ff; border-color: var(--accent); }
+        .platform-card i { font-size: 30px; color: #764ba2; margin-bottom: 10px; }
 
-        .platform-card i { font-size: 35px; margin-bottom: 10px; color: #764ba2; }
-        .platform-card h3 { margin: 5px 0; font-size: 15px; }
-
-        .visit-link {
-            display: block; margin-top: 10px; padding: 5px;
-            background: #eee; border-radius: 5px; color: #4834d4;
-            text-decoration: none; font-size: 12px; font-weight: bold;
+        /* Кнопки действий */
+        .action-btns { display: flex; flex-direction: column; gap: 5px; margin-top: 10px; }
+        .btn-sm { 
+            padding: 6px; border-radius: 6px; text-decoration: none; font-size: 11px; 
+            font-weight: bold; transition: 0.2s; border: 1px solid #ddd;
         }
-        .visit-link:hover { background: var(--accent); color: white; }
+        .btn-visit { background: #eee; color: #4834d4; }
+        .btn-visit:hover { background: var(--accent); color: white; }
+        .btn-example { background: #f0f7ff; color: #3498db; border-color: #3498db; }
+        .btn-example:hover { background: #3498db; color: white; }
 
+        /* Калькулятор и Классы */
         .grade-buttons { display: flex; justify-content: center; gap: 10px; margin: 20px 0; flex-wrap: wrap; }
-        .grade-btn { 
-            padding: 12px 25px; border: none; background: white; 
-            border-radius: 50px; cursor: pointer; font-weight: bold;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05); transition: 0.3s;
-        }
+        .grade-btn { padding: 12px 25px; border: none; background: white; border-radius: 50px; cursor: pointer; font-weight: bold; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
         .grade-btn.active { background: var(--gradient); color: white; }
-
-        #calcBtn {
-            width: 100%; padding: 18px; background: var(--gradient);
-            color: white; border: none; border-radius: 50px; font-size: 1.1rem;
-            font-weight: bold; cursor: pointer; box-shadow: 0 5px 15px rgba(118, 75, 162, 0.3);
-        }
-
+        #calcBtn { width: 100%; padding: 18px; background: var(--gradient); color: white; border: none; border-radius: 50px; font-weight: bold; cursor: pointer; }
         #resultArea { margin-top: 20px; padding: 20px; border-radius: 15px; display: none; border-left: 8px solid var(--success); }
 
+        /* Видео */
         .video-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
         .video-item { border-radius: 15px; overflow: hidden; background: white; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
-        .video-item video, .video-item iframe { width: 100%; height: 180px; border: none; display: block; }
-        .video-item p { padding: 10px; font-weight: bold; text-align: center; margin: 0; }
+        video, iframe { width: 100%; height: 180px; border: none; display: block; }
 
         footer { text-align: center; padding: 30px; color: #666; font-size: 0.9rem; }
     </style>
@@ -91,27 +61,43 @@
 <body>
 
 <header>
-    <h1>Методический навигатор</h1>
-    <p>Инструменты для активизации обучения (5–9 классы)</p>
+    <h1>Навигатор Интерактива</h1>
+    <p>Алексеева Е.В. 2025 | Методический инструмент (5–9 классы)</p>
 </header>
 
 <div class="container">
     <div class="section-card">
-        <h2><i class="fas fa-layer-group"></i> 1. Платформы (нажмите для выбора или перехода)</h2>
+        <h2><i class="fas fa-tasks"></i> 1. Выбор платформы и примеры</h2>
         <div class="platform-grid">
-            <div class="platform-card" onclick="selectP('Quizizz', 'quiz')"><i class="fas fa-bolt"></i><h3>Quizizz</h3><a href="https://quizizz.com" target="_blank" class="visit-link">Перейти <i class="fas fa-external-link-alt"></i></a></div>
-            <div class="platform-card" onclick="selectP('Kahoot', 'quiz')"><i class="fas fa-fire"></i><h3>Kahoot</h3><a href="https://kahoot.com" target="_blank" class="visit-link">Перейти</a></div>
-            <div class="platform-card" onclick="selectP('MyQuiz', 'quiz')"><i class="fas fa-stopwatch"></i><h3>MyQuiz</h3><a href="https://myquiz.ru" target="_blank" class="visit-link">Перейти</a></div>
-            <div class="platform-card" onclick="selectP('Baamboozle', 'quiz')"><i class="fas fa-gamepad"></i><h3>Baamboozle</h3><a href="https://baamboozle.com" target="_blank" class="visit-link">Перейти</a></div>
-            <div class="platform-card" onclick="selectP('Plickers', 'quiz')"><i class="fas fa-qrcode"></i><h3>Plickers</h3><a href="https://plickers.com" target="_blank" class="visit-link">Перейти</a></div>
-            <div class="platform-card" onclick="selectP('LearningApps', 'task')"><i class="fas fa-puzzle-piece"></i><h3>LearningApps</h3><a href="https://learningapps.org" target="_blank" class="visit-link">Перейти</a></div>
-            <div class="platform-card" onclick="selectP('Wordwall', 'task')"><i class="fas fa-th"></i><h3>Wordwall</h3><a href="https://wordwall.net" target="_blank" class="visit-link">Перейти</a></div>
-            <div class="platform-card" onclick="selectP('Udoba', 'task')"><i class="fas fa-cubes"></i><h3>Udoba</h3><a href="https://udoba.org" target="_blank" class="visit-link">Перейти</a></div>
-            <div class="platform-card" onclick="selectP('Joyteka', 'quest')"><i class="fas fa-key"></i><h3>Joyteka</h3><a href="https://joyteka.com" target="_blank" class="visit-link">Перейти</a></div>
-            <div class="platform-card" onclick="selectP('Genially', 'quest')"><i class="fas fa-magic"></i><h3>Genially</h3><a href="https://genially.com" target="_blank" class="visit-link">Перейти</a></div>
-            <div class="platform-card" onclick="selectP('Learnis', 'quest')"><i class="fas fa-map-signs"></i><h3>Learnis</h3><a href="https://learnis.ru" target="_blank" class="visit-link">Перейти</a></div>
-            <div class="platform-card" onclick="selectP('CoreApp', 'quest')"><i class="fas fa-rocket"></i><h3>CoreApp</h3><a href="https://coreapp.ai" target="_blank" class="visit-link">Перейти</a></div>
-        </div>
+            <div class="platform-card" onclick="selectP('Quizizz', 'quiz')">
+                <i class="fas fa-bolt"></i><h3>Quizizz</h3>
+                <div class="action-btns">
+                    <a href="https://quizizz.com" target="_blank" class="btn-sm btn-visit">Сайт платформы</a>
+                    <a href="https://quizizz.com/admin/quiz/61499cc8740263001d9f8605" target="_blank" class="btn-sm btn-example">Пример задания</a>
+                </div>
+            </div>
+            <div class="platform-card" onclick="selectP('Genially', 'quest')">
+                <i class="fas fa-magic"></i><h3>Genially</h3>
+                <div class="action-btns">
+                    <a href="https://genially.com" target="_blank" class="btn-sm btn-visit">Сайт платформы</a>
+                    <a href="https://view.genial.ly/examples/breakout-education" target="_blank" class="btn-sm btn-example">Пример задания</a>
+                </div>
+            </div>
+            <div class="platform-card" onclick="selectP('LearningApps', 'task')">
+                <i class="fas fa-puzzle-piece"></i><h3>LearningApps</h3>
+                <div class="action-btns">
+                    <a href="https://learningapps.org" target="_blank" class="btn-sm btn-visit">Сайт платформы</a>
+                    <a href="https://learningapps.org/index.php?category=2&s=" target="_blank" class="btn-sm btn-example">Пример задания</a>
+                </div>
+            </div>
+            <div class="platform-card" onclick="selectP('Joyteka', 'quest')">
+                <i class="fas fa-key"></i><h3>Joyteka</h3>
+                <div class="action-btns">
+                    <a href="https://joyteka.com" target="_blank" class="btn-sm btn-visit">Сайт платформы</a>
+                    <a href="https://joyteka.com/ru/quest" target="_blank" class="btn-sm btn-example">Пример задания</a>
+                </div>
+            </div>
+            </div>
     </div>
 
     <div class="section-card">
@@ -131,65 +117,43 @@
         <h2><i class="fas fa-video"></i> 3. Видеоинструкции</h2>
         <div class="video-grid">
             <div class="video-item">
-                <video controls>
-                    <source src="Дизайн без названия.mp4" type="video/mp4">
-                    Ваш браузер не поддерживает видео.
-                </video>
-                <p>Инструкция: Работа в Quizizz</p>
+                <video controls><source src="Дизайн без названия.mp4" type="video/mp4"></video>
+                <p>Твое видео: Работа в Quizizz</p>
             </div>
-            <div class="video-item"><iframe src="https://www.youtube.com/embed/j_8uD_CPrw0"></iframe><p>LearningApps и упражнения</p></div>
-            <div class="video-item"><iframe src="https://www.youtube.com/embed/AWh8e_r9iWk"></iframe><p>Joyteka и квесты</p></div>
-            <div class="video-item"><iframe src="https://www.youtube.com/embed/k-8S9_P7mXQ"></iframe><p>Genially: Мастер-класс</p></div>
+            <div class="video-item"><iframe src="https://www.youtube.com/embed/j_8uD_CPrw0"></iframe><p>Упражнения LearningApps</p></div>
         </div>
     </div>
 </div>
 
 <footer>
-    <p>Алексеева Е.В. 2025 | Костанайский Высший педагогический колледж</p>
+    <p>© 2025 Алексеева Е.В. | Костанайский Высший педагогический колледж</p>
 </footer>
 
 <script>
     let plat = ""; let type = ""; let grade = null;
-
     function selectP(n, t) {
         plat = n; type = t;
         document.querySelectorAll('.platform-card').forEach(c => c.classList.remove('selected'));
         event.currentTarget.classList.add('selected');
     }
-
     function selectGrade(n, b) {
         grade = n;
         document.querySelectorAll('.grade-btn').forEach(btn => btn.classList.remove('active'));
         b.classList.add('active');
     }
-
     function runCalc() {
         const area = document.getElementById('resultArea');
         if(!plat || !grade) { alert("Выберите платформу и класс!"); return; }
         area.style.display = "block";
         
         let score = 0;
-        let info = "";
+        if (type === 'quiz') score = {5:90, 6:85, 7:70, 8:55, 9:40}[grade];
+        else if (type === 'task') score = {5:75, 6:70, 7:58, 8:46, 9:35}[grade];
+        else if (type === 'quest') score = {5:20, 6:30, 7:47, 8:64, 9:80}[grade];
 
-        if (type === 'quiz') {
-            const data = {5: 90, 6: 85, 7: 70, 8: 55, 9: 40};
-            score = data[grade];
-            info = "Азарт, высокая скорость реакции, мгновенная проверка знаний.";
-        } else if (type === 'task') {
-            const data = {5: 75, 6: 70, 7: 58, 8: 46, 9: 35};
-            score = data[grade];
-            info = "Отработка навыков, закрепление темы, работа с визуальными образами.";
-        } else if (type === 'quest') {
-            const data = {5: 20, 6: 30, 7: 47, 8: 64, 9: 80};
-            score = data[grade];
-            info = "Глубокое погружение, логические задачи, развитие критического мышления.";
-        }
-        
         let color = score >= 70 ? "#27ae60" : score >= 50 ? "#f39c12" : "#e74c3c";
         area.style.borderLeftColor = color;
-        area.innerHTML = `<h3>Анализ: ${plat}</h3>
-            <p style="font-size:1.5rem; color:${color}; font-weight:bold;">Эффективность: ${score}%</p>
-            <p><i>Особенности:</i> ${info}</p>`;
+        area.innerHTML = `<h3>Анализ: ${plat}</h3><p style="font-size:1.5rem; color:${color}; font-weight:bold;">Эффективность: ${score}%</p>`;
     }
 </script>
 </body>
