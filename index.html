@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Интерактивные викторины и квесты</title>
+    <style>
+        body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; max-width: 1000px; margin: 0 auto; padding: 20px; }
+        header { background: #4a90e2; color: white; padding: 20px; text-align: center; border-radius: 8px; }
+        .section { margin: 20px 0; padding: 20px; border: 1px solid #ddd; border-radius: 8px; }
+        button { background: #27ae60; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; font-size: 16px; }
+        button:hover { background: #219150; }
+        select { padding: 10px; font-size: 16px; margin-right: 10px; }
+        #result { margin-top: 15px; font-weight: bold; color: #2c3e50; }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Эффективность интерактивных викторин и квестов</h1>
+    <p>Методический инструмент для учителей среднего звена (5–9 классы)</p>
+</header>
+
+<div class="section">
+    <h2>1. Калькулятор: Рассчитать вовлечение</h2>
+    <p>Выберите класс и платформу, чтобы узнать прогноз эффективности:</p>
+    <select id="classSelect">
+        <option value="6">6 класс</option>
+        <option value="9">9 класс</option>
+    </select>
+    <select id="platformSelect">
+        <option value="Quizizz">Quizizz</option>
+        <option value="Genially">Genially</option>
+        <option value="Wordwall">Wordwall</option>
+    </select>
+    <button onclick="calculateEngagement()">Рассчитать</button>
+    <div id="result"></div>
+</div>
+
+<div class="section">
+    <h2>2. Классификатор платформ</h2>
+    <p>Здесь будет твоя таблица с инструментами (Kahoot, LearningApps, Joyteka и др.).</p>
+</div>
+
+<script>
+    function calculateEngagement() {
+        const grade = document.getElementById('classSelect').value;
+        const platform = document.getElementById('platformSelect').value;
+        let message = "";
+
+        if (grade === "6" && (platform === "Quizizz" || platform === "Wordwall")) {
+            message = "Высокая эффективность (85%)! Для 6 класса важен азарт и быстрая проверка знаний.";
+        } else if (grade === "9" && platform === "Genially") {
+            message = "Оптимальный выбор (80%)! 9 классу нравятся сложные сюжетные квесты.";
+        } else {
+            message = "Средний уровень вовлечения. Попробуйте сменить платформу согласно возрасту.";
+        }
+        
+        document.getElementById('result').innerText = message;
+    }
+</script>
+
+</body>
+</html>
