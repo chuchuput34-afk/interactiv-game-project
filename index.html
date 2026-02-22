@@ -44,10 +44,22 @@
             border-radius: 30px; padding: 40px; 
             box-shadow: 0 8px 32px rgba(31, 38, 135, 0.1);
             margin-bottom: 40px; border: 1px solid rgba(255,255,255,0.4); 
+            animation: fadeIn 0.8s ease-out;
         }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
         h2 { color: var(--accent); margin-bottom: 30px; display: flex; align-items: center; font-size: 1.8rem; }
         h2 i { margin-right: 15px; }
+
+        /* Кнопка Рандом */
+        .magic-box { text-align: center; margin-bottom: 30px; }
+        .btn-magic { 
+            background: #6c5ce7; color: white; border: none; padding: 12px 25px; 
+            border-radius: 50px; cursor: pointer; font-weight: bold; transition: 0.3s;
+            box-shadow: 0 4px 15px rgba(108, 92, 231, 0.4);
+        }
+        .btn-magic:hover { transform: scale(1.1); background: #4834d4; }
 
         /* Платформы */
         .platform-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px; }
@@ -55,11 +67,21 @@
             background: rgba(255,255,255,0.9); border-radius: 20px; padding: 25px; 
             text-align: center; cursor: pointer; transition: 0.4s; 
             border: 1px solid transparent; box-shadow: 0 4px 15px rgba(0,0,0,0.03);
-            display: flex; flex-direction: column;
+            display: flex; flex-direction: column; position: relative;
         }
         .platform-card:hover { transform: translateY(-10px); box-shadow: 0 15px 30px rgba(72, 52, 212, 0.15); border-color: var(--accent); }
         .platform-card.selected { background: #fff; border: 2px solid var(--accent); transform: scale(1.05); }
+        .platform-card.random-active { border: 3px solid #ff9f43; background: #fff8f0; transform: scale(1.08); box-shadow: 0 0 20px #ff9f43; }
         .platform-card i { font-size: 40px; color: var(--accent); margin-bottom: 15px; }
+
+        /* Подсказки (Tooltips) */
+        .platform-card::after {
+            content: attr(data-tip);
+            position: absolute; bottom: 105%; left: 50%; transform: translateX(-50%);
+            background: #2d3436; color: white; padding: 8px 12px; border-radius: 8px;
+            font-size: 0.7rem; white-space: nowrap; opacity: 0; pointer-events: none; transition: 0.3s; z-index: 10;
+        }
+        .platform-card:hover::after { opacity: 1; bottom: 110%; }
 
         .action-btns { display: flex; flex-direction: column; gap: 8px; margin-top: 15px; }
         .btn-sm { padding: 10px; border-radius: 12px; text-decoration: none; font-size: 12px; font-weight: bold; transition: 0.3s; text-align: center; }
@@ -85,7 +107,8 @@
 
         /* Видео сетка */
         .video-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; }
-        .video-item { border-radius: 25px; overflow: hidden; background: white; box-shadow: 0 10px 20px rgba(0,0,0,0.05); border: 1px solid rgba(0,0,0,0.05); }
+        .video-item { border-radius: 25px; overflow: hidden; background: white; box-shadow: 0 10px 20px rgba(0,0,0,0.05); border: 1px solid rgba(0,0,0,0.05); transition: 0.3s; }
+        .video-item:hover { transform: scale(1.02); }
         video, iframe { width: 100%; height: 200px; border: none; display: block; background: #000; }
         .video-item p { padding: 15px; font-weight: bold; text-align: center; margin: 0; font-size: 0.9rem; background: #fff; }
         
@@ -109,18 +132,23 @@
 <div class="container">
     <div class="section-card">
         <h2><i class="fas fa-layer-group"></i> 1. Инструментарий</h2>
-        <div class="platform-grid">
-            <div class="platform-card" onclick="selectP('Quizizz', 'quiz')"><i class="fas fa-bolt"></i><h3>Quizizz</h3><div class="action-btns"><a href="https://quizizz.com" target="_blank" class="btn-sm btn-visit">Сайт</a><a href="https://wayground.com/join/quiz/68dea19819181cf4ab42fcf2/start?studentShare=true" target="_blank" class="btn-sm btn-example">Пример</a></div></div>
-            <div class="platform-card" onclick="selectP('Kahoot', 'quiz')"><i class="fas fa-fire"></i><h3>Kahoot</h3><div class="action-btns"><a href="https://kahoot.com" target="_blank" class="btn-sm btn-visit">Сайт</a><a href="https://create.kahoot.it/details/f138bd56-3c68-4a22-8d33-95e29dcbeed8" target="_blank" class="btn-sm btn-example">Пример</a></div></div>
-            <div class="platform-card" onclick="selectP('Baamboozle', 'quiz')"><i class="fas fa-gamepad"></i><h3>Baamboozle</h3><div class="action-btns"><a href="https://baamboozle.com" target="_blank" class="btn-sm btn-visit">Сайт</a><a href="https://www.baamboozle.com/game/4124665" target="_blank" class="btn-sm btn-example">Пример</a></div></div>
-            <div class="platform-card" onclick="selectP('Wordwall', 'task')"><i class="fas fa-th"></i><h3>Wordwall</h3><div class="action-btns"><a href="https://wordwall.net" target="_blank" class="btn-sm btn-visit">Сайт</a><a href="https://wordwall.net/resource/71348871" target="_blank" class="btn-sm btn-example">Пример</a></div></div>
-            <div class="platform-card" onclick="selectP('LearningApps', 'task')"><i class="fas fa-puzzle-piece"></i><h3>LearningApps</h3><div class="action-btns"><a href="https://learningapps.org" target="_blank" class="btn-sm btn-visit">Сайт</a><a href="https://learningapps.org/watch?v=pad9ze4xj25" target="_blank" class="btn-sm btn-example">Пример</a></div></div>
-            <div class="platform-card" onclick="selectP('Udoba', 'task')"><i class="fas fa-cubes"></i><h3>Udoba</h3><div class="action-btns"><a href="https://udoba.org" target="_blank" class="btn-sm btn-visit">Сайт</a><a href="https://udoba.org/node/269725/embed" target="_blank" class="btn-sm btn-example">Пример</a></div></div>
-            <div class="platform-card" onclick="selectP('Joyteka', 'quest')"><i class="fas fa-key"></i><h3>Joyteka</h3><div class="action-btns"><a href="https://joyteka.com" target="_blank" class="btn-sm btn-visit">Сайт</a><a href="https://joyteka.com/101058095" target="_blank" class="btn-sm btn-example">Пример</a></div></div>
-            <div class="platform-card" onclick="selectP('MyQuiz', 'quiz')"><i class="fas fa-stopwatch"></i><h3>MyQuiz</h3><div class="action-btns"><a href="https://myquiz.ru" target="_blank" class="btn-sm btn-visit">Сайт</a><a href="https://play.myquiz.ru/p/00976569" target="_blank" class="btn-sm btn-example">Пример</a></div></div>
-            <div class="platform-card" onclick="selectP('Plickers', 'quiz')"><i class="fas fa-qrcode"></i><h3>Plickers</h3><div class="action-btns"><a href="https://plickers.com" target="_blank" class="btn-sm btn-visit">Сайт</a><a href="#" class="btn-sm btn-example">Пример</a></div></div>
-            <div class="platform-card" onclick="selectP('Genially', 'quest')"><i class="fas fa-magic"></i><h3>Genially</h3><div class="action-btns"><a href="https://genially.com" target="_blank" class="btn-sm btn-visit">Сайт</a><a href="https://view.genially.com/698f4fc03aa44fce3dd77315/interactive-content-start" target="_blank" class="btn-sm btn-example">Пример</a></div></div>
-            <div class="platform-card" onclick="selectP('Gimkit', 'quiz')"><i class="fas fa-university"></i><h3>Gimkit</h3><div class="action-btns"><a href="https://gimkit.com" target="_blank" class="btn-sm btn-visit">Сайт</a><a href="https://www.gimkit.com/view/6166e00b2170df0022272e73" target="_blank" class="btn-sm btn-example">Пример</a></div></div>
+        
+        <div class="magic-box">
+            <button class="btn-magic" onclick="randomPlatform()"><i class="fas fa-magic"></i> Магический выбор инструмента</button>
+        </div>
+
+        <div class="platform-grid" id="pGrid">
+            <div class="platform-card" data-tip="Лидер для квизов и тестов" onclick="selectP('Quizizz', 'quiz')"><i class="fas fa-bolt"></i><h3>Quizizz</h3><div class="action-btns"><a href="https://quizizz.com" target="_blank" class="btn-sm btn-visit">Сайт</a><a href="https://wayground.com/join/quiz/68dea19819181cf4ab42fcf2/start?studentShare=true" target="_blank" class="btn-sm btn-example">Пример</a></div></div>
+            <div class="platform-card" data-tip="Классика игровых викторин" onclick="selectP('Kahoot', 'quiz')"><i class="fas fa-fire"></i><h3>Kahoot</h3><div class="action-btns"><a href="https://kahoot.com" target="_blank" class="btn-sm btn-visit">Сайт</a><a href="https://create.kahoot.it/details/f138bd56-3c68-4a22-8d33-95e29dcbeed8" target="_blank" class="btn-sm btn-example">Пример</a></div></div>
+            <div class="platform-card" data-tip="Командные игры и азарт" onclick="selectP('Baamboozle', 'quiz')"><i class="fas fa-gamepad"></i><h3>Baamboozle</h3><div class="action-btns"><a href="https://baamboozle.com" target="_blank" class="btn-sm btn-visit">Сайт</a><a href="https://www.baamboozle.com/game/4124665" target="_blank" class="btn-sm btn-example">Пример</a></div></div>
+            <div class="platform-card" data-tip="Многообразие шаблонов (колесо, пары)" onclick="selectP('Wordwall', 'task')"><i class="fas fa-th"></i><h3>Wordwall</h3><div class="action-btns"><a href="https://wordwall.net" target="_blank" class="btn-sm btn-visit">Сайт</a><a href="https://wordwall.net/resource/71348871" target="_blank" class="btn-sm btn-example">Пример</a></div></div>
+            <div class="platform-card" data-tip="Простые пазлы и классификация" onclick="selectP('LearningApps', 'task')"><i class="fas fa-puzzle-piece"></i><h3>LearningApps</h3><div class="action-btns"><a href="https://learningapps.org" target="_blank" class="btn-sm btn-visit">Сайт</a><a href="https://learningapps.org/watch?v=pad9ze4xj25" target="_blank" class="btn-sm btn-example">Пример</a></div></div>
+            <div class="platform-card" onclick="selectP('Udoba', 'task')" data-tip="Конструктор H5P контента"><i class="fas fa-cubes"></i><h3>Udoba</h3><div class="action-btns"><a href="https://udoba.org" target="_blank" class="btn-sm btn-visit">Сайт</a><a href="https://udoba.org/node/269725/embed" target="_blank" class="btn-sm btn-example">Пример</a></div></div>
+            <div class="platform-card" onclick="selectP('Joyteka', 'quest')" data-tip="Квест-комнаты и викторины"><i class="fas fa-key"></i><h3>Joyteka</h3><div class="action-btns"><a href="https://joyteka.com" target="_blank" class="btn-sm btn-visit">Сайт</a><a href="https://joyteka.com/101058095" target="_blank" class="btn-sm btn-example">Пример</a></div></div>
+            <div class="platform-card" onclick="selectP('MyQuiz', 'quiz')" data-tip="Массовые онлайн викторины"><i class="fas fa-stopwatch"></i><h3>MyQuiz</h3><div class="action-btns"><a href="https://myquiz.ru" target="_blank" class="btn-sm btn-visit">Сайт</a><a href="https://play.myquiz.ru/p/00976569" target="_blank" class="btn-sm btn-example">Пример</a></div></div>
+            <div class="platform-card" onclick="selectP('Plickers', 'quiz')" data-tip="Опрос по QR-картам (без гаджетов у детей)"><i class="fas fa-qrcode"></i><h3>Plickers</h3><div class="action-btns"><a href="https://plickers.com" target="_blank" class="btn-sm btn-visit">Сайт</a><a href="#" class="btn-sm btn-example">Пример</a></div></div>
+            <div class="platform-card" onclick="selectP('Genially', 'quest')" data-tip="Интерактивные презентации и квесты"><i class="fas fa-magic"></i><h3>Genially</h3><div class="action-btns"><a href="https://genially.com" target="_blank" class="btn-sm btn-visit">Сайт</a><a href="https://view.genially.com/698f4fc03aa44fce3dd77315/interactive-content-start" target="_blank" class="btn-sm btn-example">Пример</a></div></div>
+            <div class="platform-card" onclick="selectP('Gimkit', 'quiz')" data-tip="Экономическая стратегия в квизах"><i class="fas fa-university"></i><h3>Gimkit</h3><div class="action-btns"><a href="https://gimkit.com" target="_blank" class="btn-sm btn-visit">Сайт</a><a href="https://www.gimkit.com/view/6166e00b2170df0022272e73" target="_blank" class="btn-sm btn-example">Пример</a></div></div>
         </div>
     </div>
 
@@ -140,50 +168,17 @@
     <div class="section-card">
         <h2><i class="fas fa-video"></i> 3. Видеоинструкции</h2>
         <div class="video-grid">
-            <div class="video-item">
-                <video controls><source src="Quizizz.mp4" type="video/mp4"></video>
-                <p>1. Quizizz</p>
-            </div>
-            <div class="video-item">
-                 <video controls><source src="Kahoot.mp4" type="video/mp4"></video>
-                <p>2. Kahoot</p>
-            </div>
-            <div class="video-item">
-                <video controls><source src="bamboozle.mp4" type="video/mp4"></video>
-                <p>3. Baamboozle</p>
-            </div>
-            <div class="video-item">
-                <div class="video-placeholder"><i class="fas fa-play-circle"></i>Ожидание</div>
-                <p>4. Wordwall</p>
-            </div>
-            <div class="video-item">
-                <video controls><source src="LearningApps .mp4" type="video/mp4"></video>
-                <p>5. LearningApps</p>
-            </div>
-            <div class="video-item">
-                <video controls><source src="Udoba.mp4" type="video/mp4"></video>
-                <p>6. Udoba</p>
-            </div>
-            <div class="video-item">
-                <div class="video-placeholder"><i class="fas fa-play-circle"></i>Ожидание</div>
-                <p>7. Joyteka</p>
-            </div>
-            <div class="video-item">
-                <video controls><source src="MyQuiz.mp4" type="video/mp4"></video>
-                <p>8. MyQuiz</p>
-            </div>
-            <div class="video-item">
-                <div class="video-placeholder"><i class="fas fa-play-circle"></i>Ожидание</div>
-                <p>9. Plickers</p>
-            </div>
-            <div class="video-item">
-                <div class="video-placeholder"><i class="fas fa-play-circle"></i>Ожидание</div>
-                <p>10. Genially</p>
-            </div>
-            <div class="video-item">
-                <div class="video-placeholder"><i class="fas fa-play-circle"></i>Ожидание</div>
-                <p>11. Gimkit</p>
-            </div>
+            <div class="video-item"><video controls><source src="Quizizz.mp4" type="video/mp4"></video><p>1. Quizizz</p></div>
+            <div class="video-item"><video controls><source src="Kahoot.mp4" type="video/mp4"></video><p>2. Kahoot</p></div>
+            <div class="video-item"><video controls><source src="bamboozle.mp4" type="video/mp4"></video><p>3. Baamboozle</p></div>
+            <div class="video-item"><div class="video-placeholder"><i class="fas fa-play-circle"></i>Ожидание</div><p>4. Wordwall</p></div>
+            <div class="video-item"><video controls><source src="LearningApps .mp4" type="video/mp4"></video><p>5. LearningApps</p></div>
+            <div class="video-item"><video controls><source src="Udoba.mp4" type="video/mp4"></video><p>6. Udoba</p></div>
+            <div class="video-item"><div class="video-placeholder"><i class="fas fa-play-circle"></i>Ожидание</div><p>7. Joyteka</p></div>
+            <div class="video-item"><video controls><source src="MyQuiz.mp4" type="video/mp4"></video><p>8. MyQuiz</p></div>
+            <div class="video-item"><div class="video-placeholder"><i class="fas fa-play-circle"></i>Ожидание</div><p>9. Plickers</p></div>
+            <div class="video-item"><div class="video-placeholder"><i class="fas fa-play-circle"></i>Ожидание</div><p>10. Genially</p></div>
+            <div class="video-item"><div class="video-placeholder"><i class="fas fa-play-circle"></i>Ожидание</div><p>11. Gimkit</p></div>
         </div>
     </div>
 </div>
@@ -192,16 +187,35 @@
 
 <script>
     let plat = ""; let type = ""; let grade = null;
+
     function selectP(n, t) {
         plat = n; type = t;
-        document.querySelectorAll('.platform-card').forEach(c => c.classList.remove('selected'));
+        document.querySelectorAll('.platform-card').forEach(c => c.classList.remove('selected', 'random-active'));
         event.currentTarget.classList.add('selected');
     }
+
     function selectGrade(n, b) {
         grade = n;
         document.querySelectorAll('.grade-btn').forEach(btn => btn.classList.remove('active'));
         b.classList.add('active');
     }
+
+    function randomPlatform() {
+        const cards = document.querySelectorAll('.platform-card');
+        cards.forEach(c => c.classList.remove('random-active', 'selected'));
+        let count = 0;
+        let interval = setInterval(() => {
+            let randomIndex = Math.floor(Math.random() * cards.length);
+            cards.forEach(c => c.classList.remove('random-active'));
+            cards[randomIndex].classList.add('random-active');
+            count++;
+            if(count > 15) {
+                clearInterval(interval);
+                cards[randomIndex].click(); // Автовыбор после "рулетки"
+            }
+        }, 100);
+    }
+
     function runCalc() {
         const area = document.getElementById('resultArea');
         if(!plat || !grade) { alert("Выберите платформу и класс!"); return; }
