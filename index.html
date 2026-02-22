@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Навигатор Интерактива | Алексеева А.А.</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         :root {
             --main-bg: linear-gradient(120deg, #e0c3fc 0%, #8ec5fc 100%);
@@ -19,6 +20,7 @@
             background: var(--main-bg);
             background-attachment: fixed;
             margin: 0; padding: 0; color: var(--text); 
+            scroll-behavior: smooth;
         }
 
         header { 
@@ -55,11 +57,11 @@
         /* Кнопка Магический выбор */
         .magic-box { text-align: center; margin-bottom: 30px; }
         .btn-magic { 
-            background: #6c5ce7; color: white; border: none; padding: 12px 25px; 
+            background: #6c5ce7; color: white; border: none; padding: 12px 30px; 
             border-radius: 50px; cursor: pointer; font-weight: bold; transition: 0.3s;
-            box-shadow: 0 4px 15px rgba(108, 92, 231, 0.4);
+            box-shadow: 0 4px 15px rgba(108, 92, 231, 0.4); font-size: 1rem;
         }
-        .btn-magic:hover { transform: scale(1.1); background: #4834d4; }
+        .btn-magic:hover { transform: scale(1.05); background: #4834d4; }
 
         /* Платформы */
         .platform-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px; }
@@ -69,7 +71,7 @@
             border: 1px solid transparent; box-shadow: 0 4px 15px rgba(0,0,0,0.03);
             display: flex; flex-direction: column; position: relative;
         }
-        .platform-card:hover { transform: translateY(-10px); box-shadow: 0 15px 30px rgba(72, 52, 212, 0.15); border-color: var(--accent); }
+        .platform-card:hover { transform: translateY(-10px); border-color: var(--accent); }
         .platform-card.selected { background: #fff; border: 2px solid var(--accent); transform: scale(1.05); }
         .platform-card.random-active { border: 3px solid #ff9f43; background: #fff8f0; transform: scale(1.08); box-shadow: 0 0 20px #ff9f43; }
         .platform-card i { font-size: 40px; color: var(--accent); margin-bottom: 15px; }
@@ -79,7 +81,7 @@
             content: attr(data-tip);
             position: absolute; bottom: 105%; left: 50%; transform: translateX(-50%);
             background: #2d3436; color: white; padding: 8px 12px; border-radius: 8px;
-            font-size: 0.7rem; white-space: nowrap; opacity: 0; pointer-events: none; transition: 0.3s; z-index: 10;
+            font-size: 0.75rem; white-space: nowrap; opacity: 0; pointer-events: none; transition: 0.3s; z-index: 10;
         }
         .platform-card:hover::after { opacity: 1; bottom: 110%; }
 
@@ -175,7 +177,17 @@
     </div>
 
     <div class="section-card">
-        <h2><i class="fas fa-video"></i> 3. Видеоинструкции</h2>
+        <h2><i class="fas fa-chart-area"></i> 3. Сравнительная эффективность</h2>
+        <div style="position: relative; height:350px; width:100%;">
+            <canvas id="efficiencyChart"></canvas>
+        </div>
+        <p style="font-size: 0.85rem; margin-top: 20px; color: #636e72; text-align: center; font-style: italic;">
+            *График отражает возрастную динамику: от игровых викторин в 5 классе к сложным квестам в 9-м.
+        </p>
+    </div>
+
+    <div class="section-card">
+        <h2><i class="fas fa-video"></i> 4. Видеоинструкции</h2>
         <div class="video-grid">
             <div class="video-item"><video controls><source src="Quizizz.mp4" type="video/mp4"></video><p>1. Quizizz</p></div>
             <div class="video-item"><video controls><source src="Kahoot.mp4" type="video/mp4"></video><p>2. Kahoot</p></div>
@@ -197,7 +209,7 @@
 <script>
     let plat = ""; let type = ""; let grade = null;
 
-    // Логика кнопки Прогресса
+    // ИНИЦИАЛИЗАЦИЯ КНОПКИ ПРОГРЕССА
     const progressPath = document.querySelector('#progressPath');
     const pathLength = progressPath.getTotalLength();
     progressPath.style.strokeDasharray = `${pathLength} ${pathLength}`;
@@ -220,6 +232,7 @@
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
+    // ЛОГИКА ВЫБОРА
     function selectP(n, t) {
         plat = n; type = t;
         document.querySelectorAll('.platform-card').forEach(c => c.classList.remove('selected', 'random-active'));
@@ -232,6 +245,7 @@
         b.classList.add('active');
     }
 
+    // МАГИЧЕСКИЙ РАНДОМ
     function randomPlatform() {
         const cards = document.querySelectorAll('.platform-card');
         let count = 0;
@@ -247,6 +261,7 @@
         }, 100);
     }
 
+    // КАЛЬКУЛЯТОР
     function runCalc() {
         const area = document.getElementById('resultArea');
         if(!plat || !grade) { alert("Выберите платформу и класс!"); return; }
@@ -275,6 +290,47 @@
             <p><b>Методика:</b> ${rec}</p>
         `;
     }
+
+    // ИНИЦИАЛИЗАЦИЯ ГРАФИКА (CHART.JS)
+    const ctx = document.getElementById('efficiencyChart').getContext('2d');
+    new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: ['5 класс', '6 класс', '7 класс', '8 класс', '9 класс'],
+            datasets: [{
+                label: 'Викторины (Квизы)',
+                data: [90, 85, 70, 55, 40],
+                borderColor: '#4834d4',
+                backgroundColor: 'rgba(72, 52, 212, 0.1)',
+                tension: 0.4,
+                fill: true
+            }, {
+                label: 'Задания (Пазлы)',
+                data: [75, 70, 58, 46, 35],
+                borderColor: '#27ae60',
+                backgroundColor: 'transparent',
+                borderDash: [5, 5],
+                tension: 0.4
+            }, {
+                label: 'Квесты',
+                data: [20, 30, 47, 64, 80],
+                borderColor: '#e74c3c',
+                backgroundColor: 'rgba(231, 76, 60, 0.1)',
+                tension: 0.4,
+                fill: true
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: { position: 'bottom', labels: { font: { weight: 'bold' } } }
+            },
+            scales: {
+                y: { beginAtZero: true, max: 100, ticks: { callback: v => v + '%' } }
+            }
+        }
+    });
 </script>
 </body>
 </html>
