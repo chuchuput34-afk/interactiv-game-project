@@ -78,7 +78,7 @@
 
         @keyframes pulse { from { transform: scale(1); } to { transform: scale(1.08); } }
 
-        /* Брендовые цвета */
+        /* Брендовые цвета для рамок */
         .platform-card[data-brand="quizizz"]:hover { border-color: #8854c0; }
         .platform-card[data-brand="kahoot"]:hover { border-color: #4617b4; }
         .platform-card[data-brand="baamboozle"]:hover { border-color: #30cc71; }
@@ -100,7 +100,6 @@
         .btn-visit { background: #f1f2f6; color: var(--accent); }
         .btn-example { background: linear-gradient(to right, #4834d4, #686de0); color: white; }
 
-        /* Калькулятор */
         .grade-bar { display: flex; justify-content: center; gap: 8px; margin: 25px 0; flex-wrap: wrap; }
         .grade-btn { padding: 10px 20px; border: none; background: white; border-radius: 50px; cursor: pointer; font-weight: bold; transition: 0.3s; }
         .grade-btn.active { background: var(--accent); color: white; }
@@ -288,11 +287,12 @@
     </div>
 </div>
 
-<footer><p>© 2025 Алексеева А.А. | КВПК г. Костанай</p></footer>
+<footer><p>© 2025 Алексеева А.А. | Костанайский высший педагогический колледж</p></footer>
 
 <script>
     let plat = ""; let type = ""; let grade = null;
 
+    // Кнопка прогресса вверх
     const progressPath = document.querySelector('#progressPath');
     const pathLength = progressPath.getTotalLength();
     progressPath.style.strokeDasharray = `${pathLength} ${pathLength}`;
@@ -304,18 +304,21 @@
     });
     function scrollToTop() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
 
+    // Логика выбора платформы
     function selectP(n, t, el) {
         plat = n; type = t;
         document.querySelectorAll('.platform-card').forEach(c => c.classList.remove('selected', 'random-active'));
         el.classList.add('selected');
     }
 
+    // Выбор класса
     function selectGrade(n, b) {
         grade = n;
         document.querySelectorAll('.grade-btn').forEach(btn => btn.classList.remove('active'));
         b.classList.add('active');
     }
 
+    // Рандомайзер
     function randomPlatform() {
         const cards = document.querySelectorAll('.platform-card');
         let count = 0;
@@ -330,6 +333,7 @@
         }, 100);
     }
 
+    // Калькулятор вовлеченности
     function runCalc() {
         const area = document.getElementById('resultArea');
         if(!plat || !grade) { alert("Выберите инструмент и класс!"); return; }
