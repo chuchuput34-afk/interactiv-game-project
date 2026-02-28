@@ -36,7 +36,7 @@
             font-weight: 800;
         }
 
-        .container { max-width: 1200px; margin: -20px auto 50px; padding: 20px; }
+        .container { max-width: 1200px; margin: -40px auto 50px; padding: 20px; }
 
         .section-card { 
             background: var(--glass-bg); 
@@ -58,7 +58,6 @@
             border-radius: 50px; cursor: pointer; font-weight: bold; transition: 0.3s;
             box-shadow: 0 4px 15px rgba(108, 92, 231, 0.4);
         }
-        .btn-magic:hover { transform: scale(1.05); background: #4834d4; }
 
         .platform-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 20px; }
         
@@ -72,13 +71,13 @@
         .platform-card img { width: 55px; height: 55px; object-fit: contain; margin-bottom: 12px; border-radius: 10px; }
         .logo-placeholder { width: 55px; height: 55px; border-radius: 12px; color: white; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 1.4rem; margin-bottom: 12px; }
 
-        .platform-card:hover { transform: translateY(-8px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+        .platform-card:hover { transform: translateY(-8px); }
         .platform-card.selected { border: 2px solid var(--accent); background: #fff; transform: scale(1.03); }
         .platform-card.random-active { border: 3px solid #ff9f43; background: #fff8f0; animation: pulse 0.5s infinite alternate; }
 
         @keyframes pulse { from { transform: scale(1); } to { transform: scale(1.08); } }
 
-        /* Брендовые цвета для рамок */
+        /* Брендовые цвета при наведении */
         .platform-card[data-brand="quizizz"]:hover { border-color: #8854c0; }
         .platform-card[data-brand="kahoot"]:hover { border-color: #4617b4; }
         .platform-card[data-brand="baamboozle"]:hover { border-color: #30cc71; }
@@ -230,7 +229,7 @@
                 <h3>Plickers</h3>
                 <div class="action-btns">
                     <a href="https://plickers.com" target="_blank" class="btn-sm btn-visit">Сайт</a>
-                    <a href="#" class="btn-sm btn-example">Пример</a>
+                    <a href="#" class="btn-sm btn-example">Ждем ссылку</a>
                 </div>
             </div>
 
@@ -266,7 +265,7 @@
             <button class="grade-btn" onclick="selectGrade(9, this)">9 кл</button>
         </div>
         <button id="calcBtn" onclick="runCalc()">Рассчитать результат</button>
-        <div id="resultArea"><p><i class="fas fa-info-circle"></i> Выберите инструмент и класс выше...</p></div>
+        <div id="resultArea"><p>Выберите инструмент и класс выше...</p></div>
     </div>
 
     <div class="section-card">
@@ -287,12 +286,11 @@
     </div>
 </div>
 
-<footer><p>© 2025 Алексеева А.А. | Костанайский высший педагогический колледж</p></footer>
+<footer><p>© 2025 Алексеева А.А. | КВПК г. Костанай</p></footer>
 
 <script>
     let plat = ""; let type = ""; let grade = null;
 
-    // Кнопка прогресса вверх
     const progressPath = document.querySelector('#progressPath');
     const pathLength = progressPath.getTotalLength();
     progressPath.style.strokeDasharray = `${pathLength} ${pathLength}`;
@@ -304,21 +302,18 @@
     });
     function scrollToTop() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
 
-    // Логика выбора платформы
     function selectP(n, t, el) {
         plat = n; type = t;
         document.querySelectorAll('.platform-card').forEach(c => c.classList.remove('selected', 'random-active'));
         el.classList.add('selected');
     }
 
-    // Выбор класса
     function selectGrade(n, b) {
         grade = n;
         document.querySelectorAll('.grade-btn').forEach(btn => btn.classList.remove('active'));
         b.classList.add('active');
     }
 
-    // Рандомайзер
     function randomPlatform() {
         const cards = document.querySelectorAll('.platform-card');
         let count = 0;
@@ -333,7 +328,6 @@
         }, 100);
     }
 
-    // Калькулятор вовлеченности
     function runCalc() {
         const area = document.getElementById('resultArea');
         if(!plat || !grade) { alert("Выберите инструмент и класс!"); return; }
