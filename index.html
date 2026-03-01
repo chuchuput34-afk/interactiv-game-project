@@ -98,15 +98,12 @@
         .btn-video-jump { grid-column: span 2; background: #3498db; color: white; margin-top: 5px; border-radius: 10px; padding: 6px; font-size: 10px; text-decoration: none; font-weight: bold; }
 
         .sticky-side { position: sticky; top: 20px; }
-        
-        /* ОБНОВЛЕННЫЙ КАЛЬКУЛЯТОР */
         .grade-bar { display: flex; justify-content: center; gap: 8px; margin-bottom: 20px; flex-wrap: wrap; }
         .grade-btn { flex: 1; min-width: 60px; padding: 12px; border: none; background: white; border-radius: 15px; cursor: pointer; font-weight: bold; transition: 0.3s; }
         .grade-btn.active { background: var(--accent); color: white; transform: scale(1.1); }
         
         #calcBtn { width: 100%; padding: 18px; background: linear-gradient(to right, #4834d4, #686de0); color: white; border: none; border-radius: 15px; font-weight: bold; cursor: pointer; font-size: 1.1rem; }
 
-        /* Стиль для области результата с кольцом */
         #resultArea { 
             padding: 30px 20px; border-radius: 25px; 
             background: white; border: 1px solid #e0e0e0; 
@@ -176,105 +173,16 @@
                 <button onclick="randomPlatform()" style="background:#6c5ce7; color:white; border:none; padding:12px 25px; border-radius:50px; cursor:pointer; font-weight:bold; box-shadow: 0 4px 10px rgba(108, 92, 231, 0.4);">🎲 Магический выбор</button>
             </div>
             <div class="platform-grid">
-                <div class="platform-card" data-name="Quizizz" onclick="selectP('Quizizz', 'quiz', this)">
-                    <img src="Quizziz_Logo.png" onerror="this.style.opacity='0.3'">
-                    <h3>Quizizz</h3>
-                    <div class="action-btns">
-                        <a href="https://quizizz.com" target="_blank" class="btn-sm btn-visit" onclick="event.stopPropagation()">Сайт</a>
-                        <a href="https://wayground.com/join/quiz/68dea19819181cf4ab42fcf2/start?studentShare=true" target="_blank" class="btn-sm btn-example" onclick="event.stopPropagation()">Пример</a>
-                        <a href="javascript:void(0)" class="btn-video-jump" onclick="event.stopPropagation(); jumpToVideo('Quizizz')">📽 Инструкция</a>
-                    </div>
-                </div>
-
-                <div class="platform-card" data-name="Kahoot" onclick="selectP('Kahoot', 'quiz', this)">
-                    <img src="kahoot-1024x560-1.png" onerror="this.style.opacity='0.3'">
-                    <h3>Kahoot</h3>
-                    <div class="action-btns">
-                        <a href="https://kahoot.com" target="_blank" class="btn-sm btn-visit" onclick="event.stopPropagation()">Сайт</a>
-                        <a href="https://create.kahoot.it/details/f138bd56-3c68-4a22-8d33-95e29dcbeed8" target="_blank" class="btn-sm btn-example" onclick="event.stopPropagation()">Пример</a>
-                        <a href="javascript:void(0)" class="btn-video-jump" onclick="event.stopPropagation(); jumpToVideo('Kahoot')">📽 Инструкция</a>
-                    </div>
-                </div>
-
-                <div class="platform-card" data-name="Baamboozle" onclick="selectP('Baamboozle', 'quiz', this)">
-                    <img src="Baamboozle.png" onerror="this.style.opacity='0.3'">
-                    <h3>Baamboozle</h3>
-                    <div class="action-btns">
-                        <a href="https://baamboozle.com" target="_blank" class="btn-sm btn-visit" onclick="event.stopPropagation()">Сайт</a>
-                        <a href="https://www.baamboozle.com/game/4124665" target="_blank" class="btn-sm btn-example" onclick="event.stopPropagation()">Пример</a>
-                        <a href="javascript:void(0)" class="btn-video-jump" onclick="event.stopPropagation(); jumpToVideo('Baamboozle')">📽 Инструкция</a>
-                    </div>
-                </div>
-
-                <div class="platform-card" data-name="Wordwall" onclick="selectP('Wordwall', 'task', this)">
-                    <img src="Wordwall.png" onerror="this.style.opacity='0.3'">
-                    <h3>Wordwall</h3>
-                    <div class="action-btns">
-                        <a href="https://wordwall.net" target="_blank" class="btn-sm btn-visit" onclick="event.stopPropagation()">Сайт</a>
-                        <a href="https://wordwall.net/resource/71348871" target="_blank" class="btn-sm btn-example" onclick="event.stopPropagation()">Пример</a>
-                        <a href="javascript:void(0)" class="btn-video-jump" onclick="event.stopPropagation(); jumpToVideo('Wordwall')">📽 Инструкция</a>
-                    </div>
-                </div>
-
-                <div class="platform-card" data-name="LearningApps" onclick="selectP('LearningApps', 'task', this)">
-                    <img src="LearningApps.jpg" onerror="this.style.opacity='0.3'">
-                    <h3>LearningApps</h3>
-                    <div class="action-btns">
-                        <a href="https://learningapps.org" target="_blank" class="btn-sm btn-visit" onclick="event.stopPropagation()">Сайт</a>
-                        <a href="https://learningapps.org/watch?v=pad9ze4xj25" target="_blank" class="btn-sm btn-example" onclick="event.stopPropagation()">Пример</a>
-                        <a href="javascript:void(0)" class="btn-video-jump" onclick="event.stopPropagation(); jumpToVideo('LearningApps')">📽 Инструкция</a>
-                    </div>
-                </div>
-
-                <div class="platform-card" data-name="Udoba" onclick="selectP('Udoba', 'task', this)">
-                    <img src="Udoba.png" onerror="this.style.opacity='0.3'">
-                    <h3>Udoba</h3>
-                    <div class="action-btns">
-                        <a href="https://udoba.org" target="_blank" class="btn-sm btn-visit" onclick="event.stopPropagation()">Сайт</a>
-                        <a href="https://udoba.org/node/269725/embed" target="_blank" class="btn-sm btn-example" onclick="event.stopPropagation()">Пример</a>
-                        <a href="javascript:void(0)" class="btn-video-jump" onclick="event.stopPropagation(); jumpToVideo('Udoba')">📽 Инструкция</a>
-                    </div>
-                </div>
-
-                <div class="platform-card" data-name="Joyteka" onclick="selectP('Joyteka', 'quest', this)">
-                    <img src="Joyteka.png" onerror="this.style.opacity='0.3'">
-                    <h3>Joyteka</h3>
-                    <div class="action-btns">
-                        <a href="https://joyteka.com" target="_blank" class="btn-sm btn-visit" onclick="event.stopPropagation()">Сайт</a>
-                        <a href="https://joyteka.com/101058095" target="_blank" class="btn-sm btn-example" onclick="event.stopPropagation()">Пример</a>
-                        <a href="javascript:void(0)" class="btn-video-jump" onclick="event.stopPropagation(); jumpToVideo('Joyteka')">📽 Инструкция</a>
-                    </div>
-                </div>
-
-                <div class="platform-card" data-name="MyQuiz" onclick="selectP('MyQuiz', 'quiz', this)">
-                    <img src="myQuiz-Logo.png" onerror="this.style.opacity='0.3'">
-                    <h3>MyQuiz</h3>
-                    <div class="action-btns">
-                        <a href="https://myquiz.ru" target="_blank" class="btn-sm btn-visit" onclick="event.stopPropagation()">Сайт</a>
-                        <a href="https://play.myquiz.ru/p/00976569" target="_blank" class="btn-sm btn-example" onclick="event.stopPropagation()">Пример</a>
-                        <a href="javascript:void(0)" class="btn-video-jump" onclick="event.stopPropagation(); jumpToVideo('MyQuiz')">📽 Инструкция</a>
-                    </div>
-                </div>
-
-                <div class="platform-card" data-name="Genially" onclick="selectP('Genially', 'quest', this)">
-                    <img src="Genially.jpg" onerror="this.style.opacity='0.3'">
-                    <h3>Genially</h3>
-                    <div class="action-btns">
-                        <a href="https://genially.com" target="_blank" class="btn-sm btn-visit" onclick="event.stopPropagation()">Сайт</a>
-                        <a href="https://view.genially.com/698f4fc03aa44fce3dd77315/interactive-content-start" target="_blank" class="btn-sm btn-example" onclick="event.stopPropagation()">Пример</a>
-                        <a href="javascript:void(0)" class="btn-video-jump" onclick="event.stopPropagation(); jumpToVideo('Genially')">📽 Инструкция</a>
-                    </div>
-                </div>
-
-                <div class="platform-card" data-name="Gimkit" onclick="selectP('Gimkit', 'quiz', this)">
-                    <img src="Gimkit.png" onerror="this.style.opacity='0.3'">
-                    <h3>Gimkit</h3>
-                    <div class="action-btns">
-                        <a href="https://gimkit.com" target="_blank" class="btn-sm btn-visit" onclick="event.stopPropagation()">Сайт</a>
-                        <a href="https://www.gimkit.com/view/6166e00b2170df0022272e73" target="_blank" class="btn-sm btn-example" onclick="event.stopPropagation()">Пример</a>
-                        <a href="javascript:void(0)" class="btn-video-jump" onclick="event.stopPropagation(); jumpToVideo('Gimkit')">📽 Инструкция</a>
-                    </div>
-                </div>
+                <div class="platform-card" data-name="Quizizz" onclick="selectP('Quizizz', 'quiz', this)"><img src="Quizziz_Logo.png" onerror="this.style.opacity='0.3'"><h3>Quizizz</h3><div class="action-btns"><a href="https://quizizz.com" target="_blank" class="btn-sm btn-visit" onclick="event.stopPropagation()">Сайт</a><a href="https://wayground.com/join/quiz/68dea19819181cf4ab42fcf2/start?studentShare=true" target="_blank" class="btn-sm btn-example" onclick="event.stopPropagation()">Пример</a><a href="javascript:void(0)" class="btn-video-jump" onclick="event.stopPropagation(); jumpToVideo('Quizizz')">📽 Инструкция</a></div></div>
+                <div class="platform-card" data-name="Kahoot" onclick="selectP('Kahoot', 'quiz', this)"><img src="kahoot-1024x560-1.png" onerror="this.style.opacity='0.3'"><h3>Kahoot</h3><div class="action-btns"><a href="https://kahoot.com" target="_blank" class="btn-sm btn-visit" onclick="event.stopPropagation()">Сайт</a><a href="https://create.kahoot.it/details/f138bd56-3c68-4a22-8d33-95e29dcbeed8" target="_blank" class="btn-sm btn-example" onclick="event.stopPropagation()">Пример</a><a href="javascript:void(0)" class="btn-video-jump" onclick="event.stopPropagation(); jumpToVideo('Kahoot')">📽 Инструкция</a></div></div>
+                <div class="platform-card" data-name="Baamboozle" onclick="selectP('Baamboozle', 'quiz', this)"><img src="Baamboozle.png" onerror="this.style.opacity='0.3'"><h3>Baamboozle</h3><div class="action-btns"><a href="https://baamboozle.com" target="_blank" class="btn-sm btn-visit" onclick="event.stopPropagation()">Сайт</a><a href="https://www.baamboozle.com/game/4124665" target="_blank" class="btn-sm btn-example" onclick="event.stopPropagation()">Пример</a><a href="javascript:void(0)" class="btn-video-jump" onclick="event.stopPropagation(); jumpToVideo('Baamboozle')">📽 Инструкция</a></div></div>
+                <div class="platform-card" data-name="Wordwall" onclick="selectP('Wordwall', 'task', this)"><img src="Wordwall.png" onerror="this.style.opacity='0.3'"><h3>Wordwall</h3><div class="action-btns"><a href="https://wordwall.net" target="_blank" class="btn-sm btn-visit" onclick="event.stopPropagation()">Сайт</a><a href="https://wordwall.net/resource/71348871" target="_blank" class="btn-sm btn-example" onclick="event.stopPropagation()">Пример</a><a href="javascript:void(0)" class="btn-video-jump" onclick="event.stopPropagation(); jumpToVideo('Wordwall')">📽 Инструкция</a></div></div>
+                <div class="platform-card" data-name="LearningApps" onclick="selectP('LearningApps', 'task', this)"><img src="LearningApps.jpg" onerror="this.style.opacity='0.3'"><h3>LearningApps</h3><div class="action-btns"><a href="https://learningapps.org" target="_blank" class="btn-sm btn-visit" onclick="event.stopPropagation()">Сайт</a><a href="https://learningapps.org/watch?v=pad9ze4xj25" target="_blank" class="btn-sm btn-example" onclick="event.stopPropagation()">Пример</a><a href="javascript:void(0)" class="btn-video-jump" onclick="event.stopPropagation(); jumpToVideo('LearningApps')">📽 Инструкция</a></div></div>
+                <div class="platform-card" data-name="Udoba" onclick="selectP('Udoba', 'task', this)"><img src="Udoba.png" onerror="this.style.opacity='0.3'"><h3>Udoba</h3><div class="action-btns"><a href="https://udoba.org" target="_blank" class="btn-sm btn-visit" onclick="event.stopPropagation()">Сайт</a><a href="https://udoba.org/node/269725/embed" target="_blank" class="btn-sm btn-example" onclick="event.stopPropagation()">Пример</a><a href="javascript:void(0)" class="btn-video-jump" onclick="event.stopPropagation(); jumpToVideo('Udoba')">📽 Инструкция</a></div></div>
+                <div class="platform-card" data-name="Joyteka" onclick="selectP('Joyteka', 'quest', this)"><img src="Joyteka.png" onerror="this.style.opacity='0.3'"><h3>Joyteka</h3><div class="action-btns"><a href="https://joyteka.com" target="_blank" class="btn-sm btn-visit" onclick="event.stopPropagation()">Сайт</a><a href="https://joyteka.com/101058095" target="_blank" class="btn-sm btn-example" onclick="event.stopPropagation()">Пример</a><a href="javascript:void(0)" class="btn-video-jump" onclick="event.stopPropagation(); jumpToVideo('Joyteka')">📽 Инструкция</a></div></div>
+                <div class="platform-card" data-name="MyQuiz" onclick="selectP('MyQuiz', 'quiz', this)"><img src="myQuiz-Logo.png" onerror="this.style.opacity='0.3'"><h3>MyQuiz</h3><div class="action-btns"><a href="https://myquiz.ru" target="_blank" class="btn-sm btn-visit" onclick="event.stopPropagation()">Сайт</a><a href="https://play.myquiz.ru/p/00976569" target="_blank" class="btn-sm btn-example" onclick="event.stopPropagation()">Пример</a><a href="javascript:void(0)" class="btn-video-jump" onclick="event.stopPropagation(); jumpToVideo('MyQuiz')">📽 Инструкция</a></div></div>
+                <div class="platform-card" data-name="Genially" onclick="selectP('Genially', 'quest', this)"><img src="Genially.jpg" onerror="this.style.opacity='0.3'"><h3>Genially</h3><div class="action-btns"><a href="https://genially.com" target="_blank" class="btn-sm btn-visit" onclick="event.stopPropagation()">Сайт</a><a href="https://view.genially.com/698f4fc03aa44fce3dd77315/interactive-content-start" target="_blank" class="btn-sm btn-example" onclick="event.stopPropagation()">Пример</a><a href="javascript:void(0)" class="btn-video-jump" onclick="event.stopPropagation(); jumpToVideo('Genially')">📽 Инструкция</a></div></div>
+                <div class="platform-card" data-name="Gimkit" onclick="selectP('Gimkit', 'quiz', this)"><img src="Gimkit.png" onerror="this.style.opacity='0.3'"><h3>Gimkit</h3><div class="action-btns"><a href="https://gimkit.com" target="_blank" class="btn-sm btn-visit" onclick="event.stopPropagation()">Сайт</a><a href="https://www.gimkit.com/view/6166e00b2170df0022272e73" target="_blank" class="btn-sm btn-example" onclick="event.stopPropagation()">Пример</a><a href="javascript:void(0)" class="btn-video-jump" onclick="event.stopPropagation(); jumpToVideo('Gimkit')">📽 Инструкция</a></div></div>
             </div>
         </div>
 
@@ -288,7 +196,7 @@
                     <button class="grade-btn" onclick="selectGrade(8, this)">8 кл</button>
                     <button class="grade-btn" onclick="selectGrade(9, this)">9 кл</button>
                 </div>
-                <button id="calcBtn" onclick="runCalc()">Рассчитать вовлеченность</button>
+                <button id="calcBtn" onclick="runCalc()">Рассчитать результат</button>
                 
                 <div id="resultArea">
                     <div class="circular-progress" id="progressCircle">
@@ -304,16 +212,16 @@
     <div class="section-card">
         <h2><i class="fas fa-video"></i> 3. Видеоинструкции</h2>
         <div class="video-grid">
-            <div class="video-item" id="vid-Quizizz"><video controls><source src="Quizizz.mp4"></video><p>1. Quizizz</p></div>
-            <div class="video-item" id="vid-Kahoot"><video controls><source src="Kahoot.mp4"></video><p>2. Kahoot</p></div>
-            <div class="video-item" id="vid-Baamboozle"><video controls><source src="bamboozle.mp4"></video><p>3. Baamboozle</p></div> 
-            <div class="video-item" id="vid-Wordwall"><video controls><source src="Wordwall.mp4"></video><p>4. Wordwall</p></div>
-            <div class="video-item" id="vid-LearningApps"><video controls><source src="LearningApps .mp4"></video><p>5. LearningApps</p></div>
-            <div class="video-item" id="vid-Udoba"><video controls><source src="Udoba.mp4"></video><p>6. Udoba</p></div>
-            <div class="video-item" id="vid-Joyteka"><video controls><source src="Joyteka.mp4"></video><p>7. Joyteka</p></div>
-            <div class="video-item" id="vid-MyQuiz"><video controls><source src="MyQuiz.mp4"></video><p>8. MyQuiz</p></div>
-            <div class="video-item" id="vid-Genially"><video controls><source src="Genially.mp4"></video><p>9. Genially</p></div>
-            <div class="video-item" id="vid-Gimkit"><video controls><source src="Gimkit.mp4"></video><p>10. Gimkit</p></div>
+            <div class="video-item" id="vid-Quizizz"><video controls><source src="Quizizz.mp4" type="video/mp4"></video><p>1. Quizizz</p></div>
+            <div class="video-item" id="vid-Kahoot"><video controls><source src="Kahoot.mp4" type="video/mp4"></video><p>2. Kahoot</p></div>
+            <div class="video-item" id="vid-Baamboozle"><video controls><source src="Baamboozle.mp4" type="video/mp4"></video><p>3. Baamboozle</p></div> 
+            <div class="video-item" id="vid-Wordwall"><video controls><source src="Wordwall.mp4" type="video/mp4"></video><p>4. Wordwall</p></div>
+            <div class="video-item" id="vid-LearningApps"><video controls><source src="LearningApps.mp4" type="video/mp4"></video><p>5. LearningApps</p></div>
+            <div class="video-item" id="vid-Udoba"><video controls><source src="Udoba.mp4" type="video/mp4"></video><p>6. Udoba</p></div>
+            <div class="video-item" id="vid-Joyteka"><video controls><source src="Joyteka.mp4" type="video/mp4"></video><p>7. Joyteka</p></div>
+            <div class="video-item" id="vid-MyQuiz"><video controls><source src="MyQuiz.mp4" type="video/mp4"></video><p>8. MyQuiz</p></div>
+            <div class="video-item" id="vid-Genially"><video controls><source src="Genially.mp4" type="video/mp4"></video><p>9. Genially</p></div>
+            <div class="video-item" id="vid-Gimkit"><video controls><source src="Gimkit.mp4" type="video/mp4"></video><p>10. Gimkit</p></div>
         </div>
     </div>
 </div>
@@ -323,7 +231,6 @@
 <script>
     let plat = ""; let type = ""; let grade = null;
 
-    // Скролл вверх
     const progressPath = document.querySelector('#progressPath');
     const pathLength = progressPath.getTotalLength();
     progressPath.style.strokeDasharray = `${pathLength} ${pathLength}`;
@@ -372,36 +279,21 @@
         }, 60);
     }
 
-    // АНИМИРОВАННЫЙ РАСЧЕТ
     function runCalc() {
         if(!plat || !grade) { alert("Выберите класс и платформу!"); return; }
-        
         let targetScore = (type === 'quiz') ? {5:90,6:85,7:70,8:55,9:40}[grade] : (type === 'task' ? {5:75,6:70,7:58,8:46,9:35}[grade] : {5:20,6:30,7:47,8:64,9:80}[grade]);
-        
         let color = targetScore >= 75 ? "#27ae60" : (targetScore >= 50 ? "#f39c12" : "#ff3f34");
-        
         document.getElementById('resPlatName').innerText = plat;
         document.getElementById('resGradeInfo').innerText = `Для учеников ${grade} класса`;
-
         let progressCircle = document.getElementById('progressCircle');
         let progressValue = document.querySelector('.progress-value');
-        
         let startValue = 0;
-        let speed = 15;
-
         let progress = setInterval(() => {
-            if(startValue >= targetScore) {
-                clearInterval(progress);
-            } else {
-                startValue++;
-            }
-            
+            if(startValue >= targetScore) { clearInterval(progress); } else { startValue++; }
             progressValue.textContent = `${startValue}%`;
             progressValue.style.color = color;
             progressCircle.style.background = `conic-gradient(${color} ${startValue * 3.6}deg, #f0f0f0 0deg)`;
-            
-            if(startValue == targetScore) clearInterval(progress);
-        }, speed);
+        }, 15);
     }
 </script>
 </body>
