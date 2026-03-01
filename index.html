@@ -11,10 +11,7 @@
             --glass-bg: rgba(255, 255, 255, 0.7);
             --accent: #4834d4;
             --success: #27ae60;
-            --warning: #f39c12;
-            --danger: #ff3f34;
             --text: #2d3436;
-            --select-glow: rgba(72, 52, 212, 0.4);
         }
 
         body { 
@@ -39,7 +36,7 @@
             font-weight: 800;
         }
 
-        .container { max-width: 1300px; margin: 20px auto; padding: 0 20px; }
+        .container { max-width: 1350px; margin: 20px auto; padding: 0 20px; }
 
         .main-layout {
             display: grid;
@@ -58,10 +55,7 @@
             border-radius: 30px; padding: 30px; 
             box-shadow: 0 8px 32px rgba(31, 38, 135, 0.1);
             margin-bottom: 30px; border: 1px solid rgba(255,255,255,0.4); 
-            animation: fadeIn 0.8s ease-out;
         }
-
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
 
         h2 { color: var(--accent); margin-top: 0; margin-bottom: 25px; display: flex; align-items: center; font-size: 1.4rem; }
         h2 i { margin-right: 12px; }
@@ -72,30 +66,23 @@
             background: rgba(255,255,255,0.9); border-radius: 20px; padding: 20px; 
             text-align: center; cursor: pointer; transition: 0.3s; 
             border: 3px solid transparent; display: flex; flex-direction: column; align-items: center;
-            position: relative;
         }
 
-        .platform-card img { width: 50px; height: 50px; object-fit: contain; margin-bottom: 10px; border-radius: 8px; }
+        .platform-card img { width: 55px; height: 55px; object-fit: contain; margin-bottom: 10px; border-radius: 8px; }
         .platform-card:hover { transform: translateY(-5px); background: #fff; }
 
         .platform-card.selected { 
             border-color: var(--accent); 
             background: #fff; 
-            box-shadow: 0 0 20px var(--select-glow);
+            box-shadow: 0 0 20px rgba(72, 52, 212, 0.4);
             transform: scale(1.05);
-        }
-
-        .platform-card.random-active { 
-            border-color: #ff9f43; 
-            background: #fff8f0; 
-            box-shadow: 0 0 15px #ff9f43;
         }
 
         .action-btns { display: grid; grid-template-columns: 1fr 1fr; gap: 5px; margin-top: 12px; width: 100%; }
         .btn-sm { padding: 8px; border-radius: 10px; text-decoration: none; font-size: 10px; font-weight: bold; text-align: center; }
         .btn-visit { background: #f1f2f6; color: var(--accent); }
         .btn-example { background: linear-gradient(to right, #4834d4, #686de0); color: white; }
-        .btn-video-jump { grid-column: span 2; background: #3498db; color: white; margin-top: 5px; border-radius: 10px; padding: 6px; font-size: 10px; text-decoration: none; font-weight: bold; }
+        .btn-video-jump { grid-column: span 2; background: #3498db; color: white; border-radius: 10px; padding: 6px; font-size: 10px; text-decoration: none; font-weight: bold; }
 
         .sticky-side { position: sticky; top: 20px; }
         .grade-bar { display: flex; justify-content: center; gap: 8px; margin-bottom: 20px; flex-wrap: wrap; }
@@ -113,20 +100,20 @@
         }
 
         .circular-progress {
-            position: relative; height: 150px; width: 150px;
+            position: relative; height: 140px; width: 140px;
             border-radius: 50%; display: flex; align-items: center;
             justify-content: center; margin-bottom: 15px;
             background: conic-gradient(var(--accent) 0deg, #f0f0f0 0deg);
         }
         .circular-progress::before {
-            content: ""; position: absolute; height: 120px; width: 120px;
+            content: ""; position: absolute; height: 110px; width: 110px;
             border-radius: 50%; background-color: white;
         }
         .progress-value {
-            position: relative; font-size: 2.5rem; font-weight: 800; color: var(--text);
+            position: relative; font-size: 2.2rem; font-weight: 800; color: var(--text);
         }
 
-        .video-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
+        .video-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
         .video-item { border-radius: 25px; overflow: hidden; background: white; box-shadow: 0 4px 10px rgba(0,0,0,0.05); border: 4px solid transparent; transition: all 0.4s ease; }
         
         @keyframes videoHighlight {
@@ -154,9 +141,6 @@
         
         <div class="section-card">
             <h2><i class="fas fa-layer-group"></i> 1. Платформы</h2>
-            <div style="text-align: center; margin-bottom: 25px;">
-                <button onclick="randomPlatform()" style="background:#6c5ce7; color:white; border:none; padding:12px 25px; border-radius:50px; cursor:pointer; font-weight:bold; box-shadow: 0 4px 10px rgba(108, 92, 231, 0.4);">🎲 Магический выбор</button>
-            </div>
             <div class="platform-grid">
                 <div class="platform-card" data-name="Quizizz" onclick="selectP('Quizizz', 'quiz', this)">
                     <img src="Quizziz_Logo.png">
@@ -167,6 +151,7 @@
                         <a href="javascript:void(0)" class="btn-video-jump" onclick="event.stopPropagation(); jumpToVideo('Quizizz')">📽 Инструкция</a>
                     </div>
                 </div>
+
                 <div class="platform-card" data-name="Kahoot" onclick="selectP('Kahoot', 'quiz', this)">
                     <img src="kahoot-1024x560-1.png">
                     <h3>Kahoot</h3>
@@ -176,6 +161,7 @@
                         <a href="javascript:void(0)" class="btn-video-jump" onclick="event.stopPropagation(); jumpToVideo('Kahoot')">📽 Инструкция</a>
                     </div>
                 </div>
+
                 <div class="platform-card" data-name="Baamboozle" onclick="selectP('Baamboozle', 'quiz', this)">
                     <img src="Baamboozle.png">
                     <h3>Baamboozle</h3>
@@ -185,6 +171,7 @@
                         <a href="javascript:void(0)" class="btn-video-jump" onclick="event.stopPropagation(); jumpToVideo('Baamboozle')">📽 Инструкция</a>
                     </div>
                 </div>
+
                 <div class="platform-card" data-name="Wordwall" onclick="selectP('Wordwall', 'task', this)">
                     <img src="Wordwall.png">
                     <h3>Wordwall</h3>
@@ -194,6 +181,7 @@
                         <a href="javascript:void(0)" class="btn-video-jump" onclick="event.stopPropagation(); jumpToVideo('Wordwall')">📽 Инструкция</a>
                     </div>
                 </div>
+
                 <div class="platform-card" data-name="LearningApps" onclick="selectP('LearningApps', 'task', this)">
                     <img src="LearningApps.jpg">
                     <h3>LearningApps</h3>
@@ -203,6 +191,7 @@
                         <a href="javascript:void(0)" class="btn-video-jump" onclick="event.stopPropagation(); jumpToVideo('LearningApps')">📽 Инструкция</a>
                     </div>
                 </div>
+
                 <div class="platform-card" data-name="Udoba" onclick="selectP('Udoba', 'task', this)">
                     <img src="Udoba.png">
                     <h3>Udoba</h3>
@@ -212,6 +201,7 @@
                         <a href="javascript:void(0)" class="btn-video-jump" onclick="event.stopPropagation(); jumpToVideo('Udoba')">📽 Инструкция</a>
                     </div>
                 </div>
+
                 <div class="platform-card" data-name="Joyteka" onclick="selectP('Joyteka', 'quest', this)">
                     <img src="Joyteka.png">
                     <h3>Joyteka</h3>
@@ -221,6 +211,7 @@
                         <a href="javascript:void(0)" class="btn-video-jump" onclick="event.stopPropagation(); jumpToVideo('Joyteka')">📽 Инструкция</a>
                     </div>
                 </div>
+
                 <div class="platform-card" data-name="MyQuiz" onclick="selectP('MyQuiz', 'quiz', this)">
                     <img src="myQuiz-Logo.png">
                     <h3>MyQuiz</h3>
@@ -230,6 +221,7 @@
                         <a href="javascript:void(0)" class="btn-video-jump" onclick="event.stopPropagation(); jumpToVideo('MyQuiz')">📽 Инструкция</a>
                     </div>
                 </div>
+
                 <div class="platform-card" data-name="Genially" onclick="selectP('Genially', 'quest', this)">
                     <img src="Genially.jpg">
                     <h3>Genially</h3>
@@ -239,6 +231,7 @@
                         <a href="javascript:void(0)" class="btn-video-jump" onclick="event.stopPropagation(); jumpToVideo('Genially')">📽 Инструкция</a>
                     </div>
                 </div>
+
                 <div class="platform-card" data-name="Gimkit" onclick="selectP('Gimkit', 'quiz', this)">
                     <img src="Gimkit.png">
                     <h3>Gimkit</h3>
@@ -261,14 +254,14 @@
                     <button class="grade-btn" onclick="selectGrade(8, this)">8 кл</button>
                     <button class="grade-btn" onclick="selectGrade(9, this)">9 кл</button>
                 </div>
-                <button id="calcBtn" onclick="runCalc()">Рассчитать</button>
+                <button id="calcBtn" onclick="runCalc()">Рассчитать результат</button>
                 
                 <div id="resultArea">
                     <div class="circular-progress" id="progressCircle">
                         <span class="progress-value">0%</span>
                     </div>
                     <h3 id="resPlatName" style="color:var(--accent); margin:10px 0 5px 0;">Инструмент</h3>
-                    <p id="resGradeInfo" style="font-size: 0.9rem; color: #777; margin:0;">Выберите данные</p>
+                    <p id="resGradeInfo" style="font-size: 0.9rem; color: #777; margin:0;">Выберите платформу</p>
                 </div>
             </div>
         </div>
@@ -277,16 +270,16 @@
     <div class="section-card">
         <h2><i class="fas fa-video"></i> 3. Видеоинструкции</h2>
         <div class="video-grid">
-            <div class="video-item" id="vid-Quizizz"><video controls><source src="Quizizz.mp4" type="video/mp4"></video><p>Quizizz</p></div>
-            <div class="video-item" id="vid-Kahoot"><video controls><source src="Kahoot.mp4" type="video/mp4"></video><p>Kahoot</p></div>
-            <div class="video-item" id="vid-Wordwall"><video controls><source src="Baamboozle.mp4" type="video/mp4"></video><p>Baamboozle</p></div> 
-            <div class="video-item" id="vid-Wordwall"><video controls><source src="Wordwall.mp4" type="video/mp4"></video><p>Wordwall</p></div>
-            <div class="video-item" id="vid-LearningApps"><video controls><source src="LearningApps.mp4" type="video/mp4"></video><p>LearningApps</p></div>
-            <div class="video-item" id="vid-Udoba"><video controls><source src="Udoba.mp4" type="video/mp4"></video><p>Udoba</p></div>
-            <div class="video-item" id="vid-Joyteka"><video controls><source src="Joyteka.mp4" type="video/mp4"></video><p>Joyteka</p></div>
-            <div class="video-item" id="vid-MyQuiz"><video controls><source src="MyQuiz.mp4" type="video/mp4"></video><p>MyQuiz</p></div>
-            <div class="video-item" id="vid-Genially"><video controls><source src="Genially.mp4" type="video/mp4"></video><p>Genially</p></div>
-            <div class="video-item" id="vid-Gimkit"><video controls><source src="Gimkit.mp4" type="video/mp4"></video><p>Gimkit</p></div>
+            <div class="video-item" id="vid-Quizizz"><video controls><source src="Quizizz.mp4" type="video/mp4"></video><p>1. Quizizz</p></div>
+            <div class="video-item" id="vid-Kahoot"><video controls><source src="Kahoot.mp4" type="video/mp4"></video><p>2. Kahoot</p></div>
+            <div class="video-item" id="vid-Baamboozle"><video controls><source src="Baamboozle.mp4" type="video/mp4"></video><p>3. Baamboozle</p></div> 
+            <div class="video-item" id="vid-Wordwall"><video controls><source src="Wordwall.mp4" type="video/mp4"></video><p>4. Wordwall</p></div>
+            <div class="video-item" id="vid-LearningApps"><video controls><source src="LearningApps.mp4" type="video/mp4"></video><p>5. LearningApps</p></div>
+            <div class="video-item" id="vid-Udoba"><video controls><source src="Udoba.mp4" type="video/mp4"></video><p>6. Udoba</p></div>
+            <div class="video-item" id="vid-Joyteka"><video controls><source src="Joyteka.mp4" type="video/mp4"></video><p>7. Joyteka</p></div>
+            <div class="video-item" id="vid-MyQuiz"><video controls><source src="MyQuiz.mp4" type="video/mp4"></video><p>8. MyQuiz</p></div>
+            <div class="video-item" id="vid-Genially"><video controls><source src="Genially.mp4" type="video/mp4"></video><p>9. Genially</p></div>
+            <div class="video-item" id="vid-Gimkit"><video controls><source src="Gimkit.mp4" type="video/mp4"></video><p>10. Gimkit</p></div>
         </div>
     </div>
 </div>
@@ -298,15 +291,13 @@
 
     function selectP(n, t, el) {
         plat = n; type = t;
-        document.querySelectorAll('.platform-card').forEach(c => c.classList.remove('selected', 'random-active'));
+        document.querySelectorAll('.platform-card').forEach(c => c.classList.remove('selected'));
         el.classList.add('selected');
     }
 
     function jumpToVideo(n) {
         const target = document.getElementById('vid-' + n);
         if(target) {
-            target.classList.remove('video-highlight-active');
-            void target.offsetWidth; 
             target.scrollIntoView({ behavior: 'smooth', block: 'center' });
             target.classList.add('video-highlight-active');
             setTimeout(() => target.classList.remove('video-highlight-active'), 2500);
@@ -319,35 +310,27 @@
         b.classList.add('active');
     }
 
-    function randomPlatform() {
-        const cards = document.querySelectorAll('.platform-card');
-        let count = 0;
-        let interval = setInterval(() => {
-            let r = Math.floor(Math.random() * cards.length);
-            cards.forEach(c => c.classList.remove('random-active', 'selected'));
-            cards[r].classList.add('random-active');
-            if(++count > 15) { 
-                clearInterval(interval); 
-                cards[r].click();
-            }
-        }, 60);
-    }
-
     function runCalc() {
         if(!plat || !grade) { alert("Выберите класс и платформу!"); return; }
+        
+        // Математика вовлеченности
         let targetScore = (type === 'quiz') ? {5:90,6:85,7:70,8:55,9:40}[grade] : (type === 'task' ? {5:75,6:70,7:58,8:46,9:35}[grade] : {5:20,6:30,7:47,8:64,9:80}[grade]);
         let color = targetScore >= 75 ? "#27ae60" : (targetScore >= 50 ? "#f39c12" : "#ff3f34");
+        
         document.getElementById('resPlatName').innerText = plat;
         document.getElementById('resGradeInfo').innerText = `Для учеников ${grade} класса`;
-        let progressCircle = document.getElementById('progressCircle');
-        let progressValue = document.querySelector('.progress-value');
-        let startValue = 0;
+        
+        let circle = document.getElementById('progressCircle');
+        let val = document.querySelector('.progress-value');
+        let start = 0;
+        let speed = 15;
+
         let progress = setInterval(() => {
-            if(startValue >= targetScore) { clearInterval(progress); } else { startValue++; }
-            progressValue.textContent = `${startValue}%`;
-            progressValue.style.color = color;
-            progressCircle.style.background = `conic-gradient(${color} ${startValue * 3.6}deg, #f0f0f0 0deg)`;
-        }, 15);
+            if(start >= targetScore) { clearInterval(progress); } else { start++; }
+            val.textContent = `${start}%`;
+            val.style.color = color;
+            circle.style.background = `conic-gradient(${color} ${start * 3.6}deg, #f0f0f0 0deg)`;
+        }, speed);
     }
 </script>
 </body>
