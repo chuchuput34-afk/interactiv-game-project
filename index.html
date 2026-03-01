@@ -69,7 +69,6 @@
         }
 
         .platform-card img { width: 55px; height: 55px; object-fit: contain; margin-bottom: 12px; border-radius: 10px; }
-        .logo-placeholder { width: 55px; height: 55px; border-radius: 12px; color: white; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 1.4rem; margin-bottom: 12px; }
 
         .platform-card:hover { transform: translateY(-8px); }
         .platform-card.selected { border: 2px solid var(--accent); background: #fff; transform: scale(1.03); }
@@ -110,15 +109,14 @@
         .video-item { border-radius: 20px; overflow: hidden; background: white; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
         video { width: 100%; height: 160px; background: #000; display: block; }
         .video-item p { padding: 10px; font-weight: bold; text-align: center; margin: 0; font-size: 0.85rem; }
-        .video-placeholder { height: 160px; background: #f1f2f6; display: flex; flex-direction: column; align-items: center; justify-content: center; color: #ccc; }
 
         .progress-wrap {
             position: fixed; right: 25px; bottom: 25px; height: 45px; width: 45px;
             cursor: pointer; border-radius: 50px; z-index: 1000; opacity: 0; visibility: hidden; transition: 0.3s; background: white; box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
-        .progress-wrap.active-progress { opacity: 1; visibility: visible; }
+        .progress-wrap.active-progress { opacity: 1; visibility: visible; transform: translateY(0); }
         .progress-wrap svg.progress-circle path { stroke: var(--accent); stroke-width: 4; fill: none; transition: 0.3s; }
-        .progress-wrap i { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); color: var(--accent); }
+        .progress-wrap i { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); color: var(--accent); font-size: 18px; }
 
         footer { text-align: center; padding: 40px; color: #fff; font-size: 0.9rem; }
     </style>
@@ -146,7 +144,7 @@
         <div class="platform-grid">
 
             <div class="platform-card" data-brand="quizizz" data-tip="Лидер для квизов" onclick="selectP('Quizizz', 'quiz', this)">
-                <img src="Quizziz_Logo.png" style="width:55px;height:55px;object-fit:contain;border-radius:10px;" onerror="this.style.display='none'">
+                <img src="Quizziz_Logo.png" onerror="this.style.display='none'">
                 <h3>Quizizz</h3>
                 <div class="action-btns">
                     <a href="https://quizizz.com" target="_blank" class="btn-sm btn-visit" onclick="event.stopPropagation()">Сайт</a>
@@ -155,7 +153,7 @@
             </div>
 
             <div class="platform-card" data-brand="kahoot" data-tip="Классика викторин" onclick="selectP('Kahoot', 'quiz', this)">
-                <img src="kahoot-1024x560-1.png" style="width:55px;height:55px;object-fit:contain;border-radius:10px;" onerror="this.style.display='none'">
+                <img src="kahoot-1024x560-1.png" onerror="this.style.display='none'">
                 <h3>Kahoot</h3>
                 <div class="action-btns">
                     <a href="https://kahoot.com" target="_blank" class="btn-sm btn-visit" onclick="event.stopPropagation()">Сайт</a>
@@ -164,7 +162,7 @@
             </div>
 
             <div class="platform-card" data-brand="baamboozle" data-tip="Командные игры" onclick="selectP('Baamboozle', 'quiz', this)">
-                <img src="Baamboozle.png" style="width:55px;height:55px;object-fit:contain;border-radius:10px;" onerror="this.style.display='none'">
+                <img src="Baamboozle.png" onerror="this.style.display='none'">
                 <h3>Baamboozle</h3>
                 <div class="action-btns">
                     <a href="https://baamboozle.com" target="_blank" class="btn-sm btn-visit" onclick="event.stopPropagation()">Сайт</a>
@@ -173,7 +171,7 @@
             </div>
 
             <div class="platform-card" data-brand="wordwall" data-tip="Шаблоны заданий" onclick="selectP('Wordwall', 'task', this)">
-                <img src="Wordwall.png" style="width:55px;height:55px;object-fit:contain;border-radius:10px;" onerror="this.style.display='none'">
+                <img src="Wordwall.png" onerror="this.style.display='none'">
                 <h3>Wordwall</h3>
                 <div class="action-btns">
                     <a href="https://wordwall.net" target="_blank" class="btn-sm btn-visit" onclick="event.stopPropagation()">Сайт</a>
@@ -182,7 +180,7 @@
             </div>
 
             <div class="platform-card" data-brand="learningapps" data-tip="Пазлы и упражнения" onclick="selectP('LearningApps', 'task', this)">
-                <img src="LearningApps.jpg" style="width:55px;height:55px;object-fit:contain;border-radius:10px;" onerror="this.style.display='none'">
+                <img src="LearningApps.jpg" onerror="this.style.display='none'">
                 <h3>LearningApps</h3>
                 <div class="action-btns">
                     <a href="https://learningapps.org" target="_blank" class="btn-sm btn-visit" onclick="event.stopPropagation()">Сайт</a>
@@ -191,7 +189,7 @@
             </div>
 
             <div class="platform-card" data-brand="udoba" data-tip="Конструктор H5P" onclick="selectP('Udoba', 'task', this)">
-                <img src="Udoba.png" style="width:55px;height:55px;object-fit:contain;border-radius:10px;" onerror="this.style.display='none'">
+                <img src="Udoba.png" onerror="this.style.display='none'">
                 <h3>Udoba</h3>
                 <div class="action-btns">
                     <a href="https://udoba.org" target="_blank" class="btn-sm btn-visit" onclick="event.stopPropagation()">Сайт</a>
@@ -200,7 +198,7 @@
             </div>
 
             <div class="platform-card" data-brand="joyteka" data-tip="Квест-комнаты" onclick="selectP('Joyteka', 'quest', this)">
-                <img src="Joyteka.png" style="width:55px;height:55px;object-fit:contain;border-radius:10px;" onerror="this.style.display='none'">
+                <img src="Joyteka.png" onerror="this.style.display='none'">
                 <h3>Joyteka</h3>
                 <div class="action-btns">
                     <a href="https://joyteka.com" target="_blank" class="btn-sm btn-visit" onclick="event.stopPropagation()">Сайт</a>
@@ -209,7 +207,7 @@
             </div>
 
             <div class="platform-card" data-brand="myquiz" data-tip="Массовые викторины" onclick="selectP('MyQuiz', 'quiz', this)">
-                <img src="myQuiz-Logo.png" style="width:55px;height:55px;object-fit:contain;border-radius:10px;" onerror="this.style.display='none'">
+                <img src="myQuiz-Logo.png" onerror="this.style.display='none'">
                 <h3>MyQuiz</h3>
                 <div class="action-btns">
                     <a href="https://myquiz.ru" target="_blank" class="btn-sm btn-visit" onclick="event.stopPropagation()">Сайт</a>
@@ -217,17 +215,8 @@
                 </div>
             </div>
 
-            <div class="platform-card" data-brand="plickers" data-tip="Опрос по QR-картам" onclick="selectP('Plickers', 'quiz', this)">
-                <img src="Plickers.png" style="width:55px;height:55px;object-fit:contain;border-radius:10px;" onerror="this.style.display='none'">
-                <h3>Plickers</h3>
-                <div class="action-btns">
-                    <a href="https://plickers.com" target="_blank" class="btn-sm btn-visit" onclick="event.stopPropagation()">Сайт</a>
-                    <span class="btn-sm btn-example" style="opacity:0.5; cursor:default;">Скоро</span>
-                </div>
-            </div>
-
             <div class="platform-card" data-brand="genially" data-tip="Интерактивные презентации" onclick="selectP('Genially', 'quest', this)">
-                <img src="Genially.jpg" style="width:55px;height:55px;object-fit:contain;border-radius:10px;" onerror="this.style.display='none'">
+                <img src="Genially.jpg" onerror="this.style.display='none'">
                 <h3>Genially</h3>
                 <div class="action-btns">
                     <a href="https://genially.com" target="_blank" class="btn-sm btn-visit" onclick="event.stopPropagation()">Сайт</a>
@@ -236,7 +225,7 @@
             </div>
 
             <div class="platform-card" data-brand="gimkit" data-tip="Экономика в игре" onclick="selectP('Gimkit', 'quiz', this)">
-                <img src="Gimkit.png" style="width:55px;height:55px;object-fit:contain;border-radius:10px;" onerror="this.style.display='none'">
+                <img src="Gimkit.png" onerror="this.style.display='none'">
                 <h3>Gimkit</h3>
                 <div class="action-btns">
                     <a href="https://gimkit.com" target="_blank" class="btn-sm btn-visit" onclick="event.stopPropagation()">Сайт</a>
@@ -269,23 +258,15 @@
             <div class="video-item"><video controls><source src="Wordwall.mp4"></video><p>4. Wordwall</p></div>
             <div class="video-item"><video controls><source src="LearningApps .mp4"></video><p>5. LearningApps</p></div>
             <div class="video-item"><video controls><source src="Udoba.mp4"></video><p>6. Udoba</p></div>
-            <div class="video-item"><video controls><source src="Joyteka.mp4"></video><p>7. Joytekat</p></div>
+            <div class="video-item"><video controls><source src="Joyteka.mp4"></video><p>7. Joyteka</p></div>
             <div class="video-item"><video controls><source src="MyQuiz.mp4"></video><p>8. MyQuiz</p></div>
-            <div class="video-item"><div class="video-placeholder"><i class="fas fa-clock"></i> Ожидание</div><p>9. Plickers</p></div>
-            <div class="video-item"><video controls><source src="Genially.mp4"></video><p>10. Genially</p></div>
-            <div class="video-item"><video controls><source src="Gimkit.mp4"></video><p>11. Gimkit</p></div>
+            <div class="video-item"><video controls><source src="Genially.mp4"></video><p>9. Genially</p></div>
+            <div class="video-item"><video controls><source src="Gimkit.mp4"></video><p>10. Gimkit</p></div>
         </div>
     </div>
 </div>
 
 <footer><p>© 2026 Алексеева А.А. | КВПК г. Костанай</p></footer>
-
-<div class="progress-wrap" id="scrollProgress" onclick="scrollToTop()">
-    <svg class="progress-circle" width="100%" height="100%" viewBox="-1 -1 102 102">
-        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98" id="progressPath2"></path>
-    </svg>
-    <i class="fas fa-arrow-up"></i>
-</div>
 
 <script>
     let plat = ""; let type = ""; let grade = null;
