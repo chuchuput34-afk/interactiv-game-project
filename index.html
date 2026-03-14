@@ -119,7 +119,7 @@
         .video-item p { padding: 10px; font-weight: bold; text-align: center; margin: 0; font-size: 0.9rem; }
         .video-highlight-active { border-color: var(--accent); box-shadow: 0 0 25px var(--accent); }
 
-        /* --- НОВАЯ КНОПКА НАВЕРХ --- */
+        /* --- СТИЛИ КНОПКИ С ИНДИКАТОРОМ ПРОГРЕССА --- */
         #backToTop {
             display: none;
             position: fixed;
@@ -128,20 +128,44 @@
             z-index: 1000;
             border: none;
             outline: none;
-            background: var(--accent);
-            color: white;
+            background: white;
+            color: var(--accent);
             cursor: pointer;
-            width: 55px;
-            height: 55px;
+            width: 60px;
+            height: 60px;
             border-radius: 50%;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-            transition: 0.3s ease;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+            transition: transform 0.3s;
+            padding: 0;
         }
-        #backToTop:hover { 
-            transform: scale(1.1) translateY(-5px); 
-            background: #686de0;
-            box-shadow: 0 6px 25px rgba(72, 52, 212, 0.4);
+
+        #backToTop svg {
+            position: absolute;
+            top: 0; left: 0;
+            transform: rotate(-90deg);
+            width: 60px;
+            height: 60px;
         }
+
+        #backToTop circle {
+            fill: none;
+            stroke: var(--accent);
+            stroke-width: 4;
+            stroke-dasharray: 176;
+            stroke-dashoffset: 176;
+            stroke-linecap: round;
+            transition: stroke-dashoffset 0.1s;
+        }
+
+        #backToTop i {
+            position: relative;
+            z-index: 2;
+            font-size: 1.2rem;
+        }
+
+        #backToTop:hover { transform: scale(1.1); }
+
+        footer { text-align: center; padding: 40px; color: #fff; font-size: 0.9rem; }
     </style>
 </head>
 <body>
@@ -276,7 +300,8 @@
     </div>
 </div>
 
-<button id="backToTop" onclick="scrollToTop()" title="Наверх">
+<button id="backToTop" onclick="scrollToTop()">
+    <svg><circle id="progressPath" cx="30" cy="30" r="28"></circle></svg>
     <i class="fas fa-arrow-up"></i>
 </button>
 
@@ -336,15 +361,26 @@
         }, 15);
     }
 
-    // --- ЛОГИКА КНОПКИ НАВЕРХ ---
+    // --- ЛОГИКА КНОПКИ С ИНДИКАТОРОМ ПРОГРЕССА ---
     const btt = document.getElementById("backToTop");
+    const progressPath = document.getElementById("progressPath");
+    const pathLength = 176;
+
     window.onscroll = function() {
-        if (document.body.scrollTop > 400 || document.documentElement.scrollTop > 400) {
+        // Показ кнопки
+        if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
             btt.style.display = "block";
         } else {
             btt.style.display = "none";
         }
+
+        // Расчет прогресса
+        const totalHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        const progress = (document.documentElement.scrollTop / totalHeight);
+        const offset = pathLength - (pathLength * progress);
+        progressPath.style.strokeDashoffset = offset;
     };
+
     function scrollToTop() {
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }
