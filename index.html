@@ -170,7 +170,7 @@
         }
         .progress-value { position: relative; font-size: 1.7rem; font-weight: 800; color: var(--text); }
 
-        /* МИНИ-КВАДРАТНЫЙ ВИДЖЕТ БУДИЛЬНИКА САНПИН */
+        /* КВАДРАТНЫЙ ВИДЖЕТ САНПИН */
         .sanpin-square-widget {
             background: rgba(255, 255, 255, 0.9);
             backdrop-filter: blur(15px);
@@ -199,9 +199,7 @@
             cursor: pointer;
             transition: 0.3s;
         }
-        .sanpin-class-card:hover {
-            border-color: var(--accent);
-        }
+        .sanpin-class-card:hover { border-color: var(--accent); }
         .sanpin-class-card.active {
             border-color: var(--accent);
             background: rgba(72, 52, 212, 0.06);
@@ -224,7 +222,34 @@
         .timer-display-square { font-size: 2.2rem; font-weight: 800; letter-spacing: 2px; }
         .sanpin-badge { display: inline-block; padding: 2px 6px; background: #e1b12c; color: white; border-radius: 5px; font-size: 0.7rem; font-weight: bold; }
 
-        /* Верхняя сетка для конструктора и квадратного виджета СанПиН */
+        /* ИНТЕРАКТИВНЫЕ КАРТОЧКИ ДЛЯ ВЫБОРА КЛАССОВ В РАСЧЕТЕ ВОВЛЕЧЕННОСТИ */
+        .calc-grade-section-title { font-weight: bold; font-size: 0.8rem; color: #555; margin: 8px 0 4px 0; }
+        .calc-grades-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 5px;
+            margin-bottom: 6px;
+        }
+        .calc-grade-card {
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 6px 2px;
+            text-align: center;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 0.75rem;
+            transition: 0.3s;
+            color: #333;
+        }
+        .calc-grade-card:hover { border-color: var(--accent); }
+        .calc-grade-card.active {
+            border-color: var(--accent);
+            background: var(--accent);
+            color: white;
+            box-shadow: 0 0 8px rgba(72, 52, 212, 0.3);
+        }
+
         .top-widgets-grid {
             display: grid;
             grid-template-columns: 1fr 340px;
@@ -317,7 +342,6 @@
                     <span class="sanpin-badge" id="sanpinBadge">Норма: 30 мин</span>
                 </div>
 
-                <!-- Кнопки выбора классов в виде мини-карточек -->
                 <div class="sanpin-cards-grid">
                     <div class="sanpin-class-card" onclick="setSanpinLimit(20, this)">
                         <div class="cls-title">1–2 классы</div>
@@ -350,7 +374,7 @@
         </div>
     </div>
 
-    <!-- БЛОК 2: ПЛАТФОРМЫ И РАСЧЕТ ВОВЛЕЧЕННОСТИ -->
+    <!-- БЛОК 2: ПЛАТФОРМЫ И РАСЧЕТ ВОВЛЕЧЕННОСТИ С КАРТОЧКАМИ КЛАССОВ -->
     <div class="main-layout" id="platforms">
         <div class="section-card">
             <h2><i class="fas fa-layer-group"></i> 2. Интерактивные платформы обучения</h2>
@@ -438,33 +462,40 @@
             </div>
         </div>
 
-        <!-- Боковая панель расчета с выпадающим списком классов -->
+        <!-- Боковая панель расчета с интерактивными кнопками классов (1-11) -->
         <div class="sticky-side">
             <div class="section-card">
                 <h2><i class="fas fa-chart-line"></i> Расчет вовлеченности</h2>
-                <div class="form-group" style="margin-bottom: 12px;">
-                    <label>Выберите класс учеников:</label>
-                    <select id="gradeSelectDropdown" class="form-control" onchange="selectGradeDropdown(this)">
-                        <option value="" disabled selected>-- Выберите класс (1-11) --</option>
-                        <optgroup label="Начальная школа">
-                            <option value="1">1 класс</option>
-                            <option value="2">2 класс</option>
-                            <option value="3">3 класс</option>
-                            <option value="4">4 класс</option>
-                        </optgroup>
-                        <optgroup label="Среднее звено">
-                            <option value="5">5 класс</option>
-                            <option value="6">6 класс</option>
-                            <option value="7">7 класс</option>
-                            <option value="8">8 класс</option>
-                            <option value="9">9 класс</option>
-                        </optgroup>
-                        <optgroup label="Старшая школа">
-                            <option value="10">10 класс</option>
-                            <option value="11">11 класс</option>
-                        </optgroup>
-                    </select>
+                
+                <div style="margin-bottom: 15px;">
+                    <label style="display: block; font-weight: bold; margin-bottom: 5px; font-size: 0.85rem; color: #444;">Выберите класс учеников:</label>
+                    
+                    <div class="calc-grade-section-title">Начальная школа:</div>
+                    <div class="calc-grades-grid">
+                        <div class="calc-grade-card" onclick="selectGradeCard(1, this)">1 кл</div>
+                        <div class="calc-grade-card" onclick="selectGradeCard(2, this)">2 кл</div>
+                        <div class="calc-grade-card" onclick="selectGradeCard(3, this)">3 кл</div>
+                        <div class="calc-grade-card" onclick="selectGradeCard(4, this)">4 кл</div>
+                    </div>
+
+                    <div class="calc-grade-section-title">Среднее звено:</div>
+                    <div class="calc-grades-grid">
+                        <div class="calc-grade-card" onclick="selectGradeCard(5, this)">5 кл</div>
+                        <div class="calc-grade-card" onclick="selectGradeCard(6, this)">6 кл</div>
+                        <div class="calc-grade-card" onclick="selectGradeCard(7, this)">7 кл</div>
+                        <div class="calc-grade-card" onclick="selectGradeCard(8, this)">8 кл</div>
+                    </div>
+                    <div class="calc-grades-grid" style="grid-template-columns: repeat(1, 1fr);">
+                        <div class="calc-grade-card" onclick="selectGradeCard(9, this)">9 класс</div>
+                    </div>
+
+                    <div class="calc-grade-section-title">Старшая школа:</div>
+                    <div class="calc-grades-grid" style="grid-template-columns: repeat(2, 1fr);">
+                        <div class="calc-grade-card" onclick="selectGradeCard(10, this)">10 класс</div>
+                        <div class="calc-grade-card" onclick="selectGradeCard(11, this)">11 класс</div>
+                    </div>
                 </div>
+
                 <button id="calcBtn" onclick="runCalc()">Рассчитать вовлеченность</button>
                 <div id="resultArea">
                     <div class="circular-progress" id="progressCircle"><span class="progress-value">0%</span></div>
@@ -524,8 +555,10 @@
         el.classList.add('selected');
     }
 
-    function selectGradeDropdown(sel) {
-        currentGrade = parseInt(sel.value);
+    function selectGradeCard(gradeVal, el) {
+        document.querySelectorAll('.calc-grade-card').forEach(c => c.classList.remove('active'));
+        el.classList.add('active');
+        currentGrade = gradeVal;
     }
 
     function jumpToVideo(n) {
@@ -538,7 +571,7 @@
     }
 
     function runCalc() {
-        if(!currentPlatId || !currentGrade) { alert("Выберите класс из списка и платформу в сетке выше!"); return; }
+        if(!currentPlatId || !currentGrade) { alert("Выберите класс из карточек и платформу в сетке выше!"); return; }
         let target = tableData[currentPlatId][currentGrade];
         let color = target >= 75 ? "#27ae60" : (target >= 50 ? "#f39c12" : "#ff3f34");
         document.getElementById('resPlatName').innerText = currentPlatId;
@@ -588,9 +621,9 @@
         out.style.display = 'block';
     }
 
-    /* Логика таймера СанПиН с интерактивными карточками */
+    /* Таймер СанПиН */
     let timerInterval = null;
-    let secondsLeft = 1800; // по умолчанию 30 минут для 5-9 кл
+    let secondsLeft = 1800;
 
     function setSanpinLimit(minutes, cardElement) {
         document.querySelectorAll('.sanpin-class-card').forEach(c => c.classList.remove('active'));
