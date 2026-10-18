@@ -170,48 +170,62 @@
         }
         .progress-value { position: relative; font-size: 1.7rem; font-weight: 800; color: var(--text); }
 
-        /* МИНИ-КВАДРАТ ВИДЖЕТ БУДИЛЬНИКА САНПИН */
-        .sanpin-mini-box {
+        /* ИНТЕРАКТИВНЫЕ КАРТОЧКИ ВЫБОРА КЛАССОВ САНПИН */
+        .sanpin-cards-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+        @media (max-width: 768px) { .sanpin-cards-grid { grid-template-columns: repeat(2, 1fr); } }
+
+        .sanpin-class-card {
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 14px;
+            padding: 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .sanpin-class-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-2px);
+        }
+        .sanpin-class-card.active {
+            border-color: var(--accent);
+            background: rgba(72, 52, 212, 0.05);
+            box-shadow: 0 0 12px rgba(72, 52, 212, 0.2);
+        }
+        .sanpin-class-card .cls-title { font-weight: bold; font-size: 0.85rem; color: #333; }
+        .sanpin-class-card .cls-time { font-size: 0.75rem; color: #666; margin-top: 2px; }
+
+        /* КРУПНЫЙ БУДИЛЬНИК ТАЙМЕР */
+        .sanpin-big-widget {
             background: rgba(255, 255, 255, 0.9);
             backdrop-filter: blur(15px);
-            border-radius: 20px;
-            padding: 15px;
+            border-radius: 22px;
+            padding: 20px;
             border: 2px solid rgba(72, 52, 212, 0.2);
             box-shadow: 0 6px 20px rgba(72, 52, 212, 0.08);
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            height: 100%;
+            margin-bottom: 25px;
         }
 
-        .alarm-screen-mini {
+        .alarm-screen-large {
             background: #1e1e24;
             color: #00ffcc;
             font-family: 'Courier New', Courier, monospace;
-            padding: 10px;
-            border-radius: 12px;
+            padding: 15px 25px;
+            border-radius: 16px;
             display: flex;
-            justify-content: center;
+            justify-content: space-between;
             align-items: center;
-            gap: 12px;
-            box-shadow: inset 0 2px 6px rgba(0,0,0,0.6);
-            border: 1px solid #333;
-            margin-top: 10px;
-            margin-bottom: 10px;
+            box-shadow: inset 0 3px 10px rgba(0,0,0,0.7);
+            border: 2px solid #333;
+            margin-top: 12px;
         }
-        .timer-display-mini { font-size: 1.6rem; font-weight: 800; letter-spacing: 1px; }
-        .sanpin-badge { display: inline-block; padding: 2px 6px; background: #e1b12c; color: white; border-radius: 5px; font-size: 0.7rem; font-weight: bold; margin-top: 5px; }
-
-        /* Верхняя панель для сетки с виджетом СанПиН */
-        .top-widgets-grid {
-            display: grid;
-            grid-template-columns: 1fr 300px;
-            gap: 25px;
-            align-items: stretch;
-            margin-bottom: 25px;
-        }
-        @media (max-width: 992px) { .top-widgets-grid { grid-template-columns: 1fr; } }
+        .timer-display-large { font-size: 3rem; font-weight: 800; letter-spacing: 3px; text-shadow: 0 0 10px rgba(0,255,204,0.4); }
+        .sanpin-badge { display: inline-block; padding: 3px 8px; background: #e1b12c; color: white; border-radius: 6px; font-size: 0.75rem; font-weight: bold; }
 
         /* Видео блок */
         .video-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px; }
@@ -254,64 +268,76 @@
 
 <div class="container">
 
-    <!-- БЛОК 1: КОНСТРУКТОР УРОКА И МИНИ-БУДИЛЬНИК САНПИН РЯДОМ -->
-    <div class="top-widgets-grid">
-        <div class="section-card" id="constructor" style="margin-bottom: 0;">
-            <h2><i class="fas fa-magic"></i> 1. Конструктор структуры урока</h2>
-            <div class="constructor-wrapper">
-                <p style="margin-top: 0; font-size: 0.9rem; color: #555;">Выберите параллель и цель урока для генерации плана:</p>
-                
-                <div class="filter-grid">
-                    <div class="form-group">
-                        <label>Параллель / Возраст:</label>
-                        <select id="lessonGrade" class="form-control">
-                            <option value="elem">1–4 классы</option>
-                            <option value="mid" selected>5–8 классы</option>
-                            <option value="high">9–11 классы</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>Цель урока:</label>
-                        <select id="lessonFormat" class="form-control">
-                            <option value="intro">Новые знания / Теория</option>
-                            <option value="practice">Практикум</option>
-                            <option value="check">Контроль / Тест</option>
-                        </select>
-                    </div>
-                </div>
-                <button class="action-btn-main" onclick="generateLessonStrategy()"><i class="fas fa-cogs"></i> Сформировать план</button>
-
-                <div id="lessonOutput" class="recommendation-box" style="display:none;"></div>
+    <!-- КРУПНЫЙ БУДИЛЬНИК И ИНТЕРАКТИВНЫЙ ВЫБОР КЛАССОВ САНПИН -->
+    <div class="sanpin-big-widget" id="sanpin">
+        <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; margin-bottom: 10px;">
+            <div style="display: flex; align-items: center; gap: 8px;">
+                <i class="fas fa-clock" style="color: var(--accent); font-size: 1.2rem;"></i>
+                <span style="font-weight: bold; font-size: 1rem; color: #333;">Нормы СанПиН и таймер работы за ПК:</span>
+            </div>
+            <div>
+                <span class="sanpin-badge" id="sanpinBadge">Норма: 30 минут</span>
             </div>
         </div>
 
-        <!-- МИНИ-ВИДЖЕТ БУДИЛЬНИКА САНПИН СБОКУ -->
-        <div class="sanpin-mini-box" id="sanpin">
-            <div>
-                <div style="display: flex; align-items: center; justify-content: center; gap: 6px; margin-bottom: 4px;">
-                    <i class="fas fa-clock" style="color: var(--accent); font-size: 0.95rem;"></i>
-                    <span style="font-weight: bold; font-size: 0.85rem; color: #333;">Нормы СанПиН за ПК:</span>
+        <!-- Красивые карточки выбора вместо селектора -->
+        <div class="sanpin-cards-grid">
+            <div class="sanpin-class-card" onclick="setSanpinLimit(20, this)">
+                <div class="cls-title">1–2 классы</div>
+                <div class="cls-time">не более 20 мин</div>
+            </div>
+            <div class="sanpin-class-card" onclick="setSanpinLimit(25, this)">
+                <div class="cls-title">3–4 классы</div>
+                <div class="cls-time">не более 25 мин</div>
+            </div>
+            <div class="sanpin-class-card active" onclick="setSanpinLimit(30, this)">
+                <div class="cls-title">5–9 классы</div>
+                <div class="cls-time">не более 30 мин</div>
+            </div>
+            <div class="sanpin-class-card" onclick="setSanpinLimit(35, this)">
+                <div class="cls-title">10–11 классы</div>
+                <div class="cls-time">не более 35 мин</div>
+            </div>
+        </div>
+
+        <!-- Крупный цифровой экран будильника -->
+        <div class="alarm-screen-large">
+            <div class="timer-display-large" id="timerDisplay">30:00</div>
+            <div style="display: flex; gap: 10px;">
+                <button class="btn-sm btn-example" style="padding: 10px 18px; font-size: 0.9rem;" onclick="startTimer()"><i class="fas fa-play"></i> Старт</button>
+                <button class="btn-sm btn-visit" style="padding: 10px 18px; font-size: 0.9rem;" onclick="resetTimer()"><i class="fas fa-redo"></i> Сброс</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- БЛОК 1: УНИВЕРСАЛЬНЫЙ КОНСТРУКТОР СТРАТЕГИИ УРОКА -->
+    <div class="section-card" id="constructor">
+        <h2><i class="fas fa-magic"></i> 1. Интерактивный конструктор структуры урока</h2>
+        <div class="constructor-wrapper">
+            <p style="margin-top: 0; font-size: 0.9rem; color: #555;">Выберите параллель и цель урока для автоматической генерации каркаса и тайминга занятия:</p>
+            
+            <div class="filter-grid">
+                <div class="form-group">
+                    <label>Параллель / Возраст:</label>
+                    <select id="lessonGrade" class="form-control">
+                        <option value="elem">1–4 классы (Младшие)</option>
+                        <option value="mid" selected>5–8 классы (Средние)</option>
+                        <option value="high">9–11 классы (Старшие)</option>
+                    </select>
                 </div>
-                <select id="sanpinGradeSelect" class="form-control" style="font-size: 0.8rem; padding: 5px;" onchange="updateSanpinLimit()">
-                    <option value="20">1–2 кл (до 20 мин)</option>
-                    <option value="25">3–4 кл (до 25 мин)</option>
-                    <option value="30" selected>5–9 кл (до 30 мин)</option>
-                    <option value="35">10–11 кл (до 35 мин)</option>
-                </select>
-                <div>
-                    <span class="sanpin-badge" id="sanpinBadge">Норма: 30 минут</span>
+                <div class="form-group">
+                    <label>Тип и цель урока:</label>
+                    <select id="lessonFormat" class="form-control">
+                        <option value="intro">Открытие новых знаний / Теория</option>
+                        <option value="practice">Практикум / Лабораторная работа</option>
+                        <option value="check">Повторение / Контроль знаний</option>
+                    </select>
                 </div>
             </div>
+            <button class="action-btn-main" onclick="generateLessonStrategy()"><i class="fas fa-cogs"></i> Сформировать план урока</button>
 
-            <div>
-                <div style="font-size: 0.7rem; font-weight: bold; color: #555;"><i class="fas fa-stopwatch"></i> Таймер урока</div>
-                <div class="alarm-screen-mini">
-                    <div class="timer-display-mini" id="timerDisplay">30:00</div>
-                    <div style="display: flex; gap: 4px;">
-                        <button class="btn-sm btn-example" style="padding: 5px 8px; font-size: 0.7rem;" onclick="startTimer()"><i class="fas fa-play"></i></button>
-                        <button class="btn-sm btn-visit" style="padding: 5px 8px; font-size: 0.7rem;" onclick="resetTimer()"><i class="fas fa-redo"></i></button>
-                    </div>
-                </div>
+            <div id="lessonOutput" class="recommendation-box" style="display:none;">
+                <!-- Динамический вывод структуры урока -->
             </div>
         </div>
     </div>
@@ -554,14 +580,15 @@
         out.style.display = 'block';
     }
 
-    /* Таймер СанПиН с новыми нормами */
+    /* Логика таймера СанПиН с интерактивными карточками */
     let timerInterval = null;
     let secondsLeft = 1800; // по умолчанию 30 минут для 5-9 кл
 
-    function updateSanpinLimit() {
-        const val = parseInt(document.getElementById('sanpinGradeSelect').value);
-        secondsLeft = val * 60;
-        document.getElementById('sanpinBadge').innerText = `Норма: ${val} минут`;
+    function setSanpinLimit(minutes, cardElement) {
+        document.querySelectorAll('.sanpin-class-card').forEach(c => c.classList.remove('active'));
+        cardElement.classList.add('active');
+        secondsLeft = minutes * 60;
+        document.getElementById('sanpinBadge').innerText = `Норма: ${minutes} минут`;
         renderTimer();
     }
 
@@ -586,7 +613,18 @@
 
     function resetTimer() {
         if(timerInterval) clearInterval(timerInterval);
-        updateSanpinLimit();
+        // сбрасываем к текущему активному значению
+        const activeCard = document.querySelector('.sanpin-class-card.active');
+        if(activeCard) {
+            // извлекаем минуты из текста или дефолт 30
+            let mins = 30;
+            if(activeCard.innerText.includes('20')) mins = 20;
+            if(activeCard.innerText.includes('25')) mins = 25;
+            if(activeCard.innerText.includes('30')) mins = 30;
+            if(activeCard.innerText.includes('35')) mins = 35;
+            secondsLeft = mins * 60;
+        }
+        renderTimer();
     }
 
     /* Кнопка "Наверх" */
