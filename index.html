@@ -91,8 +91,35 @@
             border: 1px solid rgba(255,255,255,0.6);
         }
 
-        .filter-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px; margin-bottom: 15px; }
-        .form-group label { display: block; font-weight: bold; margin-bottom: 5px; font-size: 0.85rem; color: #444; }
+        .filter-grid { display: grid; grid-template-columns: 1fr; gap: 15px; margin-bottom: 15px; }
+        .form-group label { display: block; font-weight: bold; margin-bottom: 8px; font-size: 0.85rem; color: #444; }
+        
+        /* Карточки выбора параллели в конструкторе */
+        .constructor-grades-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+        }
+        @media (max-width: 600px) { .constructor-grades-grid { grid-template-columns: 1fr; } }
+
+        .constr-grade-card {
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            padding: 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .constr-grade-card:hover { border-color: var(--accent); }
+        .constr-grade-card.active {
+            border-color: var(--accent);
+            background: rgba(72, 52, 212, 0.08);
+            box-shadow: 0 0 10px rgba(72, 52, 212, 0.2);
+        }
+        .constr-grade-card .c-title { font-weight: bold; font-size: 0.85rem; color: #333; }
+        .constr-grade-card .c-desc { font-size: 0.72rem; color: #666; margin-top: 2px; }
+
         .form-control {
             width: 100%; padding: 10px 12px; border-radius: 12px; border: 1px solid #ccc; background: white;
             font-size: 0.9rem; font-weight: 600; outline: none; transition: border 0.3s;
@@ -101,7 +128,7 @@
 
         .recommendation-box {
             background: white; border-radius: 16px; padding: 20px; 
-            border-left: 5px solid var(--success);
+            border-left: 6px solid var(--success);
             box-shadow: 0 4px 15px rgba(0,0,0,0.05); margin-top: 15px;
             animation: fadeIn 0.4s ease;
         }
@@ -111,17 +138,18 @@
         .rec-step {
             display: flex;
             align-items: flex-start;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
             background: #f8f9fa;
-            padding: 10px 12px;
-            border-radius: 10px;
+            padding: 12px 14px;
+            border-radius: 12px;
             font-size: 0.9rem;
+            border: 1px solid #eee;
         }
 
         .rec-step i {
             color: var(--accent);
-            font-size: 1rem;
-            margin-right: 10px;
+            font-size: 1.1rem;
+            margin-right: 12px;
             margin-top: 2px;
         }
 
@@ -309,13 +337,23 @@
                 
                 <div class="filter-grid">
                     <div class="form-group">
-                        <label>Параллель / Возраст:</label>
-                        <select id="lessonGrade" class="form-control">
-                            <option value="elem">1–4 классы</option>
-                            <option value="mid" selected>5–8 классы</option>
-                            <option value="high">9–11 классы</option>
-                        </select>
+                        <label>Выберите параллель / возраст:</label>
+                        <div class="constructor-grades-grid">
+                            <div class="constr-grade-card" onclick="selectConstrGrade('elem', this)">
+                                <div class="c-title">1–4 классы</div>
+                                <div class="c-desc">Младшая школа</div>
+                            </div>
+                            <div class="constr-grade-card active" onclick="selectConstrGrade('mid', this)">
+                                <div class="c-title">5–8 классы</div>
+                                <div class="c-desc">Среднее звено</div>
+                            </div>
+                            <div class="constr-grade-card" onclick="selectConstrGrade('high', this)">
+                                <div class="c-title">9–11 классы</div>
+                                <div class="c-desc">Старшая школа</div>
+                            </div>
+                        </div>
                     </div>
+
                     <div class="form-group">
                         <label>Цель урока:</label>
                         <select id="lessonFormat" class="form-control">
@@ -535,6 +573,7 @@
 
 <script>
     let currentPlatId = ""; let currentGrade = null;
+    let selectedConstrGrade = "mid"; // по умолчанию средняя школа
 
     const tableData = {
         "Quizizz":      { 1: 82, 2: 85, 3: 88, 4: 90, 5: 92, 6: 85, 7: 70, 8: 65, 9: 60, 10: 55, 11: 50 },
@@ -553,6 +592,12 @@
         currentPlatId = el.getAttribute('data-id');
         document.querySelectorAll('.platform-card').forEach(c => c.classList.remove('selected'));
         el.classList.add('selected');
+    }
+
+    function selectConstrGrade(gradeVal, el) {
+        document.querySelectorAll('.constr-grade-card').forEach(c => c.classList.remove('active'));
+        el.classList.add('active');
+        selectedConstrGrade = gradeVal;
     }
 
     function selectGradeCard(gradeVal, el) {
@@ -587,34 +632,82 @@
         }, 12);
     }
 
-    /* Генератор каркаса урока */
+    /* Улучшенный генератор каркаса урока с красивыми рекомендациями */
     function generateLessonStrategy() {
-        const grade = document.getElementById('lessonGrade').value;
         const format = document.getElementById('lessonFormat').value;
         const out = document.getElementById('lessonOutput');
 
-        let html = "<h4 style='color: var(--accent); margin-top:0; font-size: 0.95rem;'><i class='fas fa-clipboard-list'></i> Рекомендованный каркас урока (Тайминг):</h4>";
+        let html = "<h4 style='color: var(--accent); margin-top:0; font-size: 1rem; margin-bottom: 12px;'><i class='fas fa-clipboard-list'></i> Рекомендованный каркас урока и тайминг:</h4>";
 
-        if(grade === 'elem') {
-            html += `
-                <div class="rec-step"><i class="fas fa-clock"></i><div><strong>1–10 мин:</strong> Вводная часть, сказочный сюжет, безэкранные алгоритмы (Unplugged CS).</div></div>
-                <div class="rec-step"><i class="fas fa-laptop"></i><div><strong>11–20 мин:</strong> Практическая работа за ПК (Scratch/LearningApps).</div></div>
-                <div class="rec-step"><i class="fas fa-eye-slash"></i><div><strong>21–25 мин:</strong> Обязательная физкультминутка (норма СанПиН).</div></div>
-                <div class="rec-step"><i class="fas fa-check-circle"></i><div><strong>26–45 мин:</strong> Рефлексия, подведение итогов урока.</div></div>
-            `;
-        } else if(grade === 'mid') {
-            html += `
-                <div class="rec-step"><i class="fas fa-clock"></i><div><strong>1–10 мин:</strong> Актуализация опорных знаний, постановка цели.</div></div>
-                <div class="rec-step"><i class="fas fa-laptop"></i><div><strong>11–25 мин:</strong> Практикум в среде разработки или игровой квест (Joyteka).</div></div>
-                <div class="rec-step"><i class="fas fa-trophy"></i><div><strong>26–30 мин:</strong> Соревновательный срез знаний (Quizizz / Kahoot).</div></div>
-                <div class="rec-step"><i class="fas fa-check-circle"></i><div><strong>31–45 мин:</strong> Анализ лидерборда, выставление оценок.</div></div>
-            `;
+        if(selectedConstrGrade === 'elem') {
+            if(format === 'intro') {
+                html += `
+                    <div class="rec-step"><i class="fas fa-play-circle"></i><div><strong>01–10 мин:</strong> Организационный момент, сказочный сюжет и мотивация без ПК (Unplugged CS).</div></div>
+                    <div class="rec-step"><i class="fas fa-laptop"></i><div><strong>11–20 мин:</strong> Интерактивное объяснение новой темы с визуальной демонстрацией.</div></div>
+                    <div class="rec-step"><i class="fas fa-eye-slash"></i><div><strong>21–25 мин:</strong> Обязательная физкультминутка и гимнастика для глаз (норма СанПиН).</div></div>
+                    <div class="rec-step"><i class="fas fa-check-circle"></i><div><strong>26–45 мин:</strong> Закрепление материала через интерактивные тренажеры (LearningApps / Wordwall).</div></div>
+                `;
+            } else if(format === 'practice') {
+                html += `
+                    <div class="rec-step"><i class="fas fa-play-circle"></i><div><strong>01–05 мин:</strong> Постановка учебной задачи и инструктаж по технике безопасности.</div></div>
+                    <div class="rec-step"><i class="fas fa-laptop"></i><div><strong>06–20 мин:</strong> Практическая работа за ПК (создание алгоритмов в Scratch).</div></div>
+                    <div class="rec-step"><i class="fas fa-eye-slash"></i><div><strong>21–25 мин:</strong> Комплекс упражнений для снятия зрительного утомления.</div></div>
+                    <div class="rec-step"><i class="fas fa-check-circle"></i><div><strong>26–45 мин:</strong> Завершение работы, демонстрация проектов и рефлексия.</div></div>
+                `;
+            } else {
+                html += `
+                    <div class="rec-step"><i class="fas fa-play-circle"></i><div><strong>01–08 мин:</strong> Разминка и повторение базовых понятий.</div></div>
+                    <div class="rec-step"><i class="fas fa-gamepad"></i><div><strong>09–22 мин:</strong> Игровой опрос или мини-квиз на платформе Wordwall / Baamboozle.</div></div>
+                    <div class="rec-step"><i class="fas fa-eye-slash"></i><div><strong>23–27 мин:</strong> Физкультминутка и релаксация глаз.</div></div>
+                    <div class="rec-step"><i class="fas fa-check-circle"></i><div><strong>28–45 мин:</strong> Подведение итогов, оценивание достижений учеников.</div></div>
+                `;
+            }
+        } else if(selectedConstrGrade === 'mid') {
+            if(format === 'intro') {
+                html += `
+                    <div class="rec-step"><i class="fas fa-play-circle"></i><div><strong>01–10 мин:</strong> Актуализация опорных знаний и постановка проблемного вопроса.</div></div>
+                    <div class="rec-step"><i class="fas fa-laptop"></i><div><strong>11–25 мин:</strong> Объяснение нового материала с использованием цифровых ресурсов.</div></div>
+                    <div class="rec-step"><i class="fas fa-eye-slash"></i><div><strong>26–30 мин:</strong> Перерыв для разминки и снятия статического напряжения.</div></div>
+                    <div class="rec-step"><i class="fas fa-check-circle"></i><div><strong>31–45 мин:</strong> Первичное закрепление с помощью интерактивного теста (Quizizz / Kahoot).</div></div>
+                `;
+            } else if(format === 'practice') {
+                html += `
+                    <div class="rec-step"><i class="fas fa-play-circle"></i><div><strong>01–08 мин:</strong> Постановка задачи и разбор алгоритма выполнения.</div></div>
+                    <div class="rec-step"><i class="fas fa-laptop-code"></i><div><strong>09–28 мин:</strong> Практикум в среде программирования или веб-платформе (Joyteka).</div></div>
+                    <div class="rec-step"><i class="fas fa-eye-slash"></i><div><strong>29–33 мин:</strong> Обязательная гимнастика для глаз по нормам СанПиН.</div></div>
+                    <div class="rec-step"><i class="fas fa-check-circle"></i><div><strong>34–45 мин:</strong> Разбор типичных ошибок, выставление оценок и рефлексия.</div></div>
+                `;
+            } else {
+                html += `
+                    <div class="rec-step"><i class="fas fa-play-circle"></i><div><strong>01–05 мин:</strong> Организационный этап и инструктаж.</div></div>
+                    <div class="rec-step"><i class="fas fa-trophy"></i><div><strong>06–30 мин:</strong> Соревновательный квиз-турнир на платформах MyQuiz или Quizizz.</div></div>
+                    <div class="rec-step"><i class="fas fa-eye-slash"></i><div><strong>31–35 мин:</strong> Снятие зрительной усталости.</div></div>
+                    <div class="rec-step"><i class="fas fa-check-circle"></i><div><strong>36–45 мин:</strong> Анализ лидерборда, подведение итогов урока.</div></div>
+                `;
+            }
         } else {
-            html += `
-                <div class="rec-step"><i class="fas fa-clock"></i><div><strong>1–10 мин:</strong> Постановка проблемной профессионально-ориентированной задачи.</div></div>
-                <div class="rec-step"><i class="fas fa-laptop-code"></i><div><strong>11–30 мин:</strong> Самостоятельный/парный кодинг, веб-разработка, отладка кода.</div></div>
-                <div class="rec-step"><i class="fas fa-shield-alt"></i><div><strong>31–45 мин:</strong> Защита мини-проекта, рефлексия, методические выводы.</div></div>
-            `;
+            if(format === 'intro') {
+                html += `
+                    <div class="rec-step"><i class="fas fa-play-circle"></i><div><strong>01–10 мин:</strong> Вводная лекция, связь темы с будущей профессиональной деятельностью.</div></div>
+                    <div class="rec-step"><i class="fas fa-laptop-code"></i><div><strong>11–30 мин:</strong> Изучение продвинутых концепций (базы данных, веб-разработка, алгоритмы).</div></div>
+                    <div class="rec-step"><i class="fas fa-eye-slash"></i><div><strong>31–35 мин:</strong> Производственная гимнастика для глаз и осанки.</div></div>
+                    <div class="rec-step"><i class="fas fa-check-circle"></i><div><strong>36–45 мин:</strong> Дискуссия, ответы на вопросы и методические выводы.</div></div>
+                `;
+            } else if(format === 'practice') {
+                html += `
+                    <div class="rec-step"><i class="fas fa-play-circle"></i><div><strong>01–05 мин:</strong> Постановка проектной или исследовательской задачи.</div></div>
+                    <div class="rec-step"><i class="fas fa-laptop-code"></i><div><strong>06–35 мин:</strong> Самостоятельный кодинг, отладка программ или верстка сайтов.</div></div>
+                    <div class="rec-step"><i class="fas fa-eye-slash"></i><div><strong>36–40 мин:</strong> Краткая разминка для снятия напряжения кистей рук и глаз.</div></div>
+                    <div class="rec-step"><i class="fas fa-check-circle"></i><div><strong>41–45 мин:</strong> Экспресс-презентация мини-проектов и самооценка.</div></div>
+                `;
+            } else {
+                html += `
+                    <div class="rec-step"><i class="fas fa-play-circle"></i><div><strong>01–05 мин:</strong> Введение в формат контрольного среза.</div></div>
+                    <div class="rec-step"><i class="fas fa-shield-alt"></i><div><strong>06–35 мин:</strong> Выполнение тестовых заданий или защита практических кейсов.</div></div>
+                    <div class="rec-step"><i class="fas fa-eye-slash"></i><div><strong>36–40 мин:</strong> Упражнения на расслабление зрения.</div></div>
+                    <div class="rec-step"><i class="fas fa-check-circle"></i><div><strong>41–45 мин:</strong> Автоматический подсчет результатов, подведение итогов.</div></div>
+                `;
+            }
         }
 
         out.innerHTML = html;
