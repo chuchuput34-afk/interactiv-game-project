@@ -8,7 +8,7 @@
     <style>
         :root {
             --main-bg: linear-gradient(120deg, #e0c3fc 0%, #8ec5fc 100%);
-            --glass-bg: rgba(255, 255, 255, 0.75);
+            --glass-bg: rgba(255, 255, 255, 0.8);
             --accent: #4834d4;
             --accent-hover: #3c2bb7;
             --text: #2d3436;
@@ -83,29 +83,90 @@
         h2 { color: var(--accent); margin-top: 0; margin-bottom: 25px; display: flex; align-items: center; font-size: 1.5rem; }
         h2 i { margin-right: 12px; }
 
-        /* Табы возрастных особенностей */
-        .tabs-header { display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; }
-        .tab-btn {
-            flex: 1; min-width: 120px; padding: 12px; border: none; background: rgba(255,255,255,0.8);
-            border-radius: 15px; font-weight: bold; cursor: pointer; transition: 0.3s; color: var(--text);
+        /* ВИЗУАЛЬНЫЕ КАРТОЧКИ СТРАТЕГИЙ (Блок 1) */
+        .strategies-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 20px;
         }
-        .tab-btn.active { background: var(--accent); color: white; box-shadow: 0 4px 15px rgba(72, 52, 212, 0.3); }
-        .tab-content { display: none; }
-        .tab-content.active { display: block; animation: fadeIn 0.4s ease; }
+
+        .strategy-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+            border-top: 5px solid var(--accent);
+            transition: transform 0.3s ease;
+        }
+
+        .strategy-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .strategy-card h3 {
+            color: var(--accent);
+            margin-top: 0;
+            display: flex;
+            align-items: center;
+            font-size: 1.15rem;
+            border-bottom: 2px solid #f0f0f0;
+            padding-bottom: 10px;
+        }
+
+        .strategy-card h3 i {
+            margin-right: 10px;
+            font-size: 1.3rem;
+        }
+
+        .strategy-card ul {
+            padding-left: 18px;
+            margin: 10px 0 0 0;
+            font-size: 0.92rem;
+        }
+
+        .strategy-card li {
+            margin-bottom: 8px;
+        }
+
+        /* КОНСТРУКТОР УРОКА (Блок 2) */
+        .constructor-wrapper {
+            background: rgba(255, 255, 255, 0.85);
+            border-radius: 20px;
+            padding: 25px;
+            border: 1px solid rgba(255,255,255,0.6);
+        }
+
+        .filter-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px; margin-bottom: 20px; }
+        .form-group label { display: block; font-weight: bold; margin-bottom: 6px; font-size: 0.85rem; color: #444; }
+        .form-control {
+            width: 100%; padding: 12px; border-radius: 15px; border: 1px solid #ccc; background: white;
+            font-size: 0.95rem; font-weight: 600; outline: none; transition: border 0.3s;
+        }
+        .form-control:focus { border-color: var(--accent); }
+
+        .recommendation-box {
+            background: white; border-radius: 18px; padding: 25px; 
+            border-left: 6px solid var(--success);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.06); margin-top: 20px;
+            animation: fadeIn 0.4s ease;
+        }
 
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* Конструктор */
-        .filter-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px; margin-bottom: 20px; }
-        .form-group label { display: block; font-weight: bold; margin-bottom: 6px; font-size: 0.85rem; }
-        .form-control {
-            width: 100%; padding: 12px; border-radius: 15px; border: 1px solid #ccc; background: white;
-            font-size: 0.95rem; font-weight: 600; outline: none;
+        .rec-step {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 12px;
+            background: #f8f9fa;
+            padding: 12px 15px;
+            border-radius: 12px;
         }
 
-        .recommendation-box {
-            background: white; border-radius: 20px; padding: 20px; border-left: 5px solid var(--accent);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05); margin-top: 15px;
+        .rec-step i {
+            color: var(--accent);
+            font-size: 1.1rem;
+            margin-right: 12px;
+            margin-top: 3px;
         }
 
         /* Платформы */
@@ -205,73 +266,78 @@
 
 <div class="container">
 
-    <!-- БЛОК 1: ВОЗРАСТНЫЕ СТРАТЕГИИ -->
+    <!-- БЛОК 1: ВИЗУАЛЬНЫЕ КАРТОЧКИ СТРАТЕГИЙ ПО СТУПЕНЯМ -->
     <div class="section-card" id="strategies">
         <h2><i class="fas fa-brain"></i> 1. Методические стратегии по ступеням образования</h2>
-        <div class="tabs-header">
-            <button class="tab-btn active" onclick="switchTab('tab-elem', this)">Начальная школа (1–4 классы)</button>
-            <button class="tab-btn" onclick="switchTab('tab-mid', this)">Среднее звено (5–8 классы)</button>
-            <button class="tab-btn" onclick="switchTab('tab-high', this)">Старшая школа (9–11 классы)</button>
-        </div>
+        
+        <div class="strategies-grid">
+            <!-- Начальная школа -->
+            <div class="strategy-card">
+                <h3><i class="fas fa-child"></i> Начальная школа (1–4 классы)</h3>
+                <p><strong>Тип мышления:</strong> Наглядно-образное</p>
+                <ul>
+                    <li><strong>Стратегия:</strong> Game-Based Learning & Unplugged CS.</li>
+                    <li><strong>Методы:</strong> Словесные алгоритмы, сказочные сюжеты, карточные игры без экрана.</li>
+                    <li><strong>Инструменты:</strong> Scratch, Blockly, LearningApps, Wordwall.</li>
+                    <li><strong>Норма ПК:</strong> До 15 минут за урок.</li>
+                </ul>
+            </div>
 
-        <div id="tab-elem" class="tab-content active">
-            <h3>Младшие классы (7–10 лет): Наглядно-образный подход</h3>
-            <ul>
-                <li><strong>Ключевая стратегия:</strong> Game-Based Learning (геймификация) и Unplugged Computer Science (обучение без компьютера).</li>
-                <li><strong>Методические приёмы:</strong> Словесные алгоритмы, карточные задания, физическая роль «Исполнителя», сказочная сюжетика.</li>
-                <li><strong>Инструменты:</strong> Scratch, Blockly, LearningApps, Wordwall, Tinkercad (базовая геометрия).</li>
-                <li><strong>Режим за ПК:</strong> Не более 15 минут непрерывной работы. Смена видов деятельности каждые 10 минут.</li>
-            </ul>
-        </div>
+            <!-- Среднее звено -->
+            <div class="strategy-card">
+                <h3><i class="fas fa-user-graduate"></i> Среднее звено (5–8 классы)</h3>
+                <p><strong>Тип мышления:</strong> Формально-логическое</p>
+                <ul>
+                    <li><strong>Стратегия:</strong> Геймификация и Bridge Approach.</li>
+                    <li><strong>Методы:</strong> Соревновательные блиц-опросы, микро-проекты, 2D-анимация.</li>
+                    <li><strong>Инструменты:</strong> Quizizz, Kahoot, Baamboozle, Joyteka, Python (Pygame).</li>
+                    <li><strong>Норма ПК:</strong> До 20–25 минут + гимнастика для глаз.</li>
+                </ul>
+            </div>
 
-        <div id="tab-mid" class="tab-content">
-            <h3>Средние классы (11–14 лет): Поисково-исследовательский подход</h3>
-            <ul>
-                <li><strong>Ключевая стратегия:</strong> Мостик от визуального к текстовому программированию (Bridge Approach), командный азарт, микро-проекты.</li>
-                <li><strong>Методические приёмы:</strong> Создание 2D-игр, соревновательные викторины, групповые исследования, конструирование.</li>
-                <li><strong>Инструменты:</strong> Quizizz, Kahoot, Baamboozle, Joyteka, Python (Pygame), LEGO EV3 / SPIKE.</li>
-                <li><strong>Режим за ПК:</strong> 20–25 минут. Обязательный комплекс гимнастики для глаз.</li>
-            </ul>
-        </div>
-
-        <div id="tab-high" class="tab-content">
-            <h3>Старшие классы (15–17 лет): Профессионально-ориентированный подход</h3>
-            <ul>
-                <li><strong>Ключевая стратегия:</strong> Problem-Based Learning (PBL), подготовка к экзаменам/Олимпиадам, проектный инжиниринг.</li>
-                <li><strong>Методические приёмы:</strong> Парное программирование, гибкая разработка (Scrum-роли: аналитик, разработчик, тестировщик), кейс-метод.</li>
-                <li><strong>Инструменты:</strong> Python IDE, C++, HTML/CSS/JS, SQL, Blender, Stepik.</li>
-                <li><strong>Режим за ПК:</strong> До 30 минут с техническим перерывом.</li>
-            </ul>
+            <!-- Старшая школа -->
+            <div class="strategy-card" style="border-top-color: #27ae60;">
+                <h3 style="color: #27ae60;"><i class="fas fa-laptop-code"></i> Старшая школа (9–11 классы)</h3>
+                <p><strong>Тип мышления:</strong> Абстрактно-логическое и системное</p>
+                <ul>
+                    <li><strong>Стратегия:</strong> Problem-Based Learning (PBL) и Scrum.</li>
+                    <li><strong>Методы:</strong> Парный кодинг, кейс-метод, веб-разработка, олимпиады.</li>
+                    <li><strong>Инструменты:</strong> Python IDE, C++, HTML/CSS, Genially, Stepik.</li>
+                    <li><strong>Норма ПК:</strong> До 30 минут с тех. перерывом.</li>
+                </ul>
+            </div>
         </div>
     </div>
 
-    <!-- БЛОК 2: УНИВЕРСАЛЬНЫЙ КОНСТРУКТОР СТРАТЕГИИ УРОКА -->
+    <!-- БЛОК 2: УДОБНЫЙ УНИВЕРСАЛЬНЫЙ КОНСТРУКТОР СТРАТЕГИИ УРОКА -->
     <div class="section-card" id="constructor">
         <h2><i class="fas fa-magic"></i> 2. Универсальный конструктор структуры урока</h2>
-        <p style="font-size: 0.95rem; color: #555;">Выберите возрастной этап и цель вашего урока, чтобы получить рекомендованную структуру и методы проведения:</p>
-        
-        <div class="filter-grid">
-            <div class="form-group">
-                <label>Параллель / Возраст:</label>
-                <select id="lessonGrade" class="form-control">
-                    <option value="elem">1–4 классы (Младшие)</option>
-                    <option value="mid" selected>5–8 классы (Средние)</option>
-                    <option value="high">9–11 классы (Старшие)</option>
-                </select>
+        <div class="constructor-wrapper">
+            <p style="margin-top: 0; font-size: 0.95rem; color: #555;">Выберите параллель и цель урока для мгновенной генерации структурированного плана:</p>
+            
+            <div class="filter-grid">
+                <div class="form-group">
+                    <label>Параллель / Возраст:</label>
+                    <select id="lessonGrade" class="form-control">
+                        <option value="elem">1–4 классы (Младшие)</option>
+                        <option value="mid" selected>5–8 классы (Средние)</option>
+                        <option value="high">9–11 классы (Старшие)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Тип и цель урока:</label>
+                    <select id="lessonFormat" class="form-control">
+                        <option value="intro">Открытие новых знаний / Теория</option>
+                        <option value="practice">Практикум / Лабораторная работа</option>
+                        <option value="check">Повторение / Контроль знаний</option>
+                    </select>
+                </div>
             </div>
-            <div class="form-group">
-                <label>Тип и цель урока:</label>
-                <select id="lessonFormat" class="form-control">
-                    <option value="intro">Открытие новых знаний / Теория</option>
-                    <option value="practice">Практикум / Лабораторная работа</option>
-                    <option value="check">Повторение / Контроль / Викторина</option>
-                </select>
-            </div>
-        </div>
-        <button class="action-btn-main" onclick="generateLessonStrategy()"><i class="fas fa-cogs"></i> Сформировать структуру и рекомендации</button>
+            <button class="action-btn-main" onclick="generateLessonStrategy()"><i class="fas fa-cogs"></i> Сформировать план урока</button>
 
-        <div id="lessonOutput" class="recommendation-box" style="display:none;">
-            <!-- Сюда динамически генерируется рекомендация -->
+            <div id="lessonOutput" class="recommendation-box" style="display:none;">
+                <!-- Сюда динамически генерируется красивый пошаговый план -->
+            </div>
         </div>
     </div>
 
@@ -443,7 +509,6 @@
 <footer><p>© 2026 Алексеева А.А. | КВПК г. Костанай</p></footer>
 
 <script>
-    /* Данные вовлеченности платформ для 1-11 классов (5-9 сохранены исходными) */
     let currentPlatId = ""; let currentGrade = null;
 
     const tableData = {
@@ -497,49 +562,34 @@
         }, 12);
     }
 
-    /* Табы возрастных особенностей */
-    function switchTab(tabId, btn) {
-        document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
-        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-        document.getElementById(tabId).classList.add('active');
-        btn.classList.add('active');
-    }
-
-    /* Генератор конструктора урока */
+    /* Красивый генератор плана урока с шагами */
     function generateLessonStrategy() {
         const grade = document.getElementById('lessonGrade').value;
         const format = document.getElementById('lessonFormat').value;
         const out = document.getElementById('lessonOutput');
 
-        let html = "<h4><i class='fas fa-lightbulb'></i> Рекомендованный план и методика:</h4>";
+        let html = "<h4 style='color: var(--accent); margin-top:0;'><i class='fas fa-clipboard-list'></i> Рекомендованный план урока:</h4>";
 
         if(grade === 'elem') {
-            html += "<p><strong>Подход:</strong> Наглядно-образный, игровой, безэкранные техники.</p>";
-            if(format === 'intro') {
-                html += "<p><strong>Структура (45 мин):</strong> 10 мин — сказка/загадка $\rightarrow$ 15 мин — задание за ПК в Scratch/LearningApps $\rightarrow$ 5 мин — физкультминутка $\rightarrow$ 15 мин — коллективный разбор.</p>";
-            } else if(format === 'practice') {
-                html += "<p><strong>Структура (45 мин):</strong> 10 мин — карточки Unplugged CS $\rightarrow$ 15 мин — практический скрипт за ПК $\rightarrow$ 20 мин — демонстрация работ.</p>";
-            } else {
-                html += "<p><strong>Рекомендуемые сервисы:</strong> Wordwall (колесо фортуны), LearningApps (пары команд).</p>";
-            }
+            html += `
+                <div class="rec-step"><i class="fas fa-clock"></i><div><strong>1–10 мин (Мотивация):</strong> Игровой сюжет, сказочный вводный вопрос, безэкранная разминка (Unplugged CS).</div></div>
+                <div class="rec-step"><i class="fas fa-laptop"></i><div><strong>11–25 мин (Практика за ПК):</strong> Визуальное конструирование в Scratch/Blockly или интерактивные пары в LearningApps.</div></div>
+                <div class="rec-step"><i class="fas fa-eye-slash"></i><div><strong>26–30 мин (Здоровье):</strong> Обязательная физкультминутка и гимнастика для глаз (соблюдение норм СанПиН).</div></div>
+                <div class="rec-step"><i class="fas fa-check-circle"></i><div><strong>31–45 мин (Рефлексия):</strong> Коллективное обсуждение результатов, поощрение успехов учащихся.</div></div>
+            `;
         } else if(grade === 'mid') {
-            html += "<p><strong>Подход:</strong> Геймификация, микро-проекты, работа в парах.</p>";
-            if(format === 'intro') {
-                html += "<p><strong>Структура (45 мин):</strong> 12 мин — проблемный диалог $\rightarrow$ 20 мин — практический мини-код/лабораторная $\rightarrow$ 13 мин — быстрая викторина.</p>";
-            } else if(format === 'practice') {
-                html += "<p><strong>Структура (45 мин):</strong> 5 мин — инструктаж $\rightarrow$ 25 мин — разработка мини-проекта (Pygame/EV3) $\rightarrow$ 15 мин — взаимооценка.</p>";
-            } else {
-                html += "<p><strong>Рекомендуемые сервисы:</strong> Quizizz, Kahoot, Joyteka (квест-комната).</p>";
-            }
+            html += `
+                <div class="rec-step"><i class="fas fa-clock"></i><div><strong>1–10 мин (Вводная часть):</strong> Актуализация опорных знаний, постановка проблемной задачи.</div></div>
+                <div class="rec-step"><i class="fas fa-laptop"></i><div><strong>11–30 мин (Основной этап):</strong> Практическая работа с кодом (Pygame/Python) или прохождение игрового квеста (Joyteka).</div></div>
+                <div class="rec-step"><i class="fas fa-trophy"></i><div><strong>31–40 мин (Закрепление):</strong> Соревновательная онлайн-викторина в Quizizz или Kahoot для среза знаний.</div></div>
+                <div class="rec-step"><i class="fas fa-check-circle"></i><div><strong>41–45 мин (Итоги):</strong> Подведение итогов, анализ лидерборда.</div></div>
+            `;
         } else {
-            html += "<p><strong>Подход:</strong> Problem-Based Learning (PBL), парное программирование, Scrum.</p>";
-            if(format === 'intro') {
-                html += "<p><strong>Структура (45 мин):</strong> 15 мин — разбор реального кейса/алгоритма $\rightarrow$ 20 мин — кодинг (Python/Web) $\rightarrow$ 10 мин — рефлексия.</p>";
-            } else if(format === 'practice') {
-                html += "<p><strong>Структура (45 мин):</strong> Самостоятельная командная разработка по ТЗ, отладка кода, работа с баг-трекером.</p>";
-            } else {
-                html += "<p><strong>Рекомендуемые сервисы:</strong> MyQuiz, Genially, онлайн-платформы тестирования.</p>";
-            }
+            html += `
+                <div class="rec-step"><i class="fas fa-clock"></i><div><strong>1–10 мин (Введение в кейс):</strong> Постановка исследовательской или профессионально-ориентированной задачи.</div></div>
+                <div class="rec-step"><i class="fas fa-laptop-code"></i><div><strong>11–35 мин (Проблемное обучение):</strong> Самостоятельный или парный кодинг (Python/Web), разработка проекта, отладка программ.</div></div>
+                <div class="rec-step"><i class="fas fa-shield-alt"></i><div><strong>36–45 мин (Защита и анализ):</strong> Тестирование готового продукта, рефлексия, разбор сложных логических конструкций.</div></div>
+            `;
         }
 
         out.innerHTML = html;
