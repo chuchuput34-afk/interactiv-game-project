@@ -117,7 +117,7 @@
         .action-btn-main { width: 100%; padding: 14px; background: linear-gradient(to right, #4834d4, #686de0); color: white; border: none; border-radius: 12px; font-weight: bold; cursor: pointer; font-size: 0.95rem; transition: 0.3s; }
         .action-btn-main:hover { opacity: 0.95; transform: translateY(-1px); }
 
-        /* КАРТОЧКА ПЛАНА УРОКА */
+        /* КАРТОЧКА ПЛАНА УРОКА С ВЫДЕЛЕННОЙ СТРАТЕГИЕЙ */
         .lesson-result-card {
             background: white;
             border-radius: 18px;
@@ -129,15 +129,25 @@
         }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
 
+        .strategy-banner {
+            background: linear-gradient(to right, rgba(72, 52, 212, 0.1), rgba(116, 185, 255, 0.1));
+            border-left: 5px solid var(--accent);
+            padding: 12px 15px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+        .strategy-title { font-weight: bold; color: var(--accent); font-size: 0.95rem; margin-bottom: 3px; }
+        .strategy-desc { font-size: 0.8rem; color: #555; margin: 0; }
+
         .lesson-header-info {
             display: flex;
             justify-content: space-between;
             align-items: center;
             border-bottom: 2px solid #f1f2f6;
-            padding-bottom: 12px;
+            padding-bottom: 10px;
             margin-bottom: 15px;
         }
-        .lesson-title-tag { font-weight: 800; font-size: 1.05rem; color: var(--accent); }
+        .lesson-title-tag { font-weight: 800; font-size: 1.05rem; color: #2d3436; }
         .lesson-badge { background: #e8f8f5; color: #27ae60; padding: 4px 10px; border-radius: 8px; font-size: 0.75rem; font-weight: bold; }
 
         .timeline-item {
@@ -329,7 +339,7 @@
 </header>
 
 <div class="nav-bar">
-    <a href="#constructor" class="nav-link"><i class="fas fa-magic"></i> План урока</a>
+    <a href="#constructor" class="nav-link"><i class="fas fa-magic"></i> Стратегии и План урока</a>
     <a href="#platforms" class="nav-link"><i class="fas fa-layer-group"></i> Платформы и Расчёт</a>
     <a href="#videos" class="nav-link"><i class="fas fa-video"></i> Инструкции</a>
 </div>
@@ -338,9 +348,9 @@
 
     <div class="top-widgets-grid">
         <div class="section-card" id="constructor" style="margin-bottom: 0;">
-            <h2><i class="fas fa-magic"></i> 1. Структура урока по этапам</h2>
+            <h2><i class="fas fa-magic"></i> 1. Возрастные стратегии и этапы урока</h2>
             <div class="constructor-wrapper">
-                <p style="margin-top: 0; font-size: 0.9rem; color: #555;">Выберите класс для просмотра простого и понятного плана урока:</p>
+                <p style="margin-top: 0; font-size: 0.9rem; color: #555;">Выберите параллель для просмотра применяемой стратегии и структуры урока:</p>
                 
                 <div class="filter-grid">
                     <div class="form-group">
@@ -348,20 +358,20 @@
                         <div class="constructor-grades-grid">
                             <div class="constr-grade-card" onclick="selectConstrGrade('elem', this)">
                                 <div class="c-title">4 класс</div>
-                                <div class="c-desc">Алгоритмы</div>
+                                <div class="c-desc">Игровая стратегия</div>
                             </div>
                             <div class="constr-grade-card active" onclick="selectConstrGrade('mid', this)">
                                 <div class="c-title">7 класс</div>
-                                <div class="c-desc">Python</div>
+                                <div class="c-desc">Соревновательная стратегия</div>
                             </div>
                             <div class="constr-grade-card" onclick="selectConstrGrade('high', this)">
                                 <div class="c-title">10 класс</div>
-                                <div class="c-desc">Web-дизайн</div>
+                                <div class="c-desc">Проектная стратегия</div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <button class="action-btn-main" onclick="generateLessonStrategy()"><i class="fas fa-list-check"></i> Показать этапы урока</button>
+                <button class="action-btn-main" onclick="generateLessonStrategy()"><i class="fas fa-cogs"></i> Сформировать план со стратегией</button>
 
                 <div id="lessonOutput"></div>
             </div>
@@ -588,7 +598,7 @@
         selectedConstrGrade = gradeGroup;
     }
 
-    // Вывод плана урока строго по понятным этапам
+    // Четкая генерация со стратегией и понятными школьными этапами
     function generateLessonStrategy() {
         const output = document.getElementById('lessonOutput');
         
@@ -596,49 +606,67 @@
         if (selectedConstrGrade === 'elem') {
             htmlContent = `
                 <div class="lesson-result-card">
-                    <div class="lesson-header-info">
-                        <div class="lesson-title-tag"><i class="fas fa-child"></i> 4 класс: «Алгоритмы и исполнители»</div>
-                        <span class="lesson-badge">Игры + Unplugged CS</span>
+                    <div class="strategy-banner">
+                        <div class="strategy-title"><i class="fas fa-gamepad"></i> Применяемая стратегия: Игровая (Геймифицированная) + Unplugged CS</div>
+                        <p class="strategy-desc"><strong>Почему выгодно:</strong> У младших школьников наглядно-образное мышление. Изучение алгоритмов через физические игры на ковре снижает утомляемость глаз и прививает любовь к предмету без перегрузки за ПК.</p>
                     </div>
-                    <div class="timeline-item"><div class="t-time">05 мин</div><div class="t-content"><h4>1. Организационный момент</h4><p>Приветствие, проверка готовности к уроку.</p></div></div>
-                    <div class="timeline-item"><div class="t-time">05 мин</div><div class="t-content"><h4>2. Актуализация знаний</h4><p>Обсуждение понятий «помощник» и «команда» из реальной жизни.</p></div></div>
-                    <div class="timeline-item"><div class="t-time">05 мин</div><div class="t-content"><h4>3. Целеполагание</h4><p>Определение темы: учимся составлять пошаговые инструкции.</p></div></div>
-                    <div class="timeline-item"><div class="t-time">12 мин</div><div class="t-content"><h4>4. Теоретическая часть</h4><p>Физическая игра «Робот и Программист» (выполнение шагов карточками на ковре).</p></div></div>
-                    <div class="timeline-item"><div class="t-time">03 мин</div><div class="t-content"><h4>5. Физминутка</h4><p>Зрительная гимнастика и разминка для пальчиков.</p></div></div>
-                    <div class="timeline-item"><div class="t-time">10 мин</div><div class="t-content"><h4>6. Практическая часть</h4><p>Работа за ПК: составление линейного алгоритма в Scratch Jr (в рамках нормы СанПиН).</p></div></div>
-                    <div class="timeline-item"><div class="t-time">05 мин</div><div class="t-content"><h4>7. Рефлексия</h4><p>Оценка своей работы с помощью приема «Светофор».</p></div></div>
+
+                    <div class="lesson-header-info">
+                        <div class="lesson-title-tag">Урок в 4 классе: «Алгоритмы и исполнители»</div>
+                        <span class="lesson-badge">Платформы: Baamboozle, Scratch Jr</span>
+                    </div>
+
+                    <div class="timeline-item"><div class="t-time">05 мин</div><div class="t-content"><h4>1. Организационный момент</h4><p>Приветствие и проверка готовности к уроку.</p></div></div>
+                    <div class="timeline-item"><div class="t-time">05 мин</div><div class="t-content"><h4>2. Актуализация знаний</h4><p>Игровой опрос через Baamboozle (без использования индивидуальных компьютеров учеников).</p></div></div>
+                    <div class="timeline-item"><div class="t-time">05 мин</div><div class="t-content"><h4>3. Целеполагание</h4><p>Формулировка цели: научиться давать точные команды исполнителям.</p></div></div>
+                    <div class="timeline-item"><div class="t-time">12 мин</div><div class="t-content"><h4>4. Теоретическая часть</h4><p>Unplugged-игра «Робот и Программист»: составление маршрута карточками на полках/ковре.</p></div></div>
+                    <div class="timeline-item"><div class="t-time">03 мин</div><div class="t-content"><h4>5. Физминутка</h4><p>Комплекс зрительной гимнастики (моргание, пальминг) и разминка для пальцев.</p></div></div>
+                    <div class="timeline-item"><div class="t-time">10 мин</div><div class="t-content"><h4>6. Практическая часть</h4><p>Работа за ПК: создание движения спрайта в визуальной среде Scratch Jr (строго до 15 мин за ПК по СанПиН).</p></div></div>
+                    <div class="timeline-item"><div class="t-time">05 мин</div><div class="t-content"><h4>7. Рефлексия</h4><p>Оценка успехов с помощью интерактивного приема «Светофор».</p></div></div>
                 </div>
             `;
         } else if (selectedConstrGrade === 'mid') {
             htmlContent = `
                 <div class="lesson-result-card">
-                    <div class="lesson-header-info">
-                        <div class="lesson-title-tag"><i class="fas fa-laptop-code"></i> 7 класс: «Условный оператор в Python»</div>
-                        <span class="lesson-badge">Соревнование + Кодинг</span>
+                    <div class="strategy-banner">
+                        <div class="strategy-title"><i class="fas fa-trophy"></i> Применяемая стратегия: Соревновательно-интерактивная + Визуально-модульная</div>
+                        <p class="strategy-desc"><strong>Почему выгодно:</strong> Для подростков ключевая деятельность — общение и соперничество со сверстниками. Соревновательные квизы стимулируют активность, а парный кодинг на Python облегчает переход к текстовому программированию.</p>
                     </div>
-                    <div class="timeline-item"><div class="t-time">03 мин</div><div class="t-content"><h4>1. Организационный момент</h4><p>Проверка присутствия и организация рабочего пространства.</p></div></div>
-                    <div class="timeline-item"><div class="t-time">05 мин</div><div class="t-content"><h4>2. Актуализация знаний</h4><p>Экспресс-квиз на платформе Quizizz для повторения основ.</p></div></div>
-                    <div class="timeline-item"><div class="t-time">03 мин</div><div class="t-content"><h4>3. Целеполагание</h4><p>Формулировка темы: как научить программу принимать решения.</p></div></div>
-                    <div class="timeline-item"><div class="t-time">10 мин</div><div class="t-content"><h4>4. Теоретическая часть</h4><p>Объяснение ветвлений и условного оператора if...else на схемах.</p></div></div>
-                    <div class="timeline-item"><div class="t-time">02 мин</div><div class="t-content"><h4>5. Физминутка</h4><p>Комплекс «Пальминг + Восьмерка» для снятия напряжения с глаз.</p></div></div>
-                    <div class="timeline-item"><div class="t-time">19 мин</div><div class="t-content"><h4>6. Практическая часть</h4><p>Компьютерный практикум: парное написание программы «Проверка пароля» в Python IDE.</p></div></div>
-                    <div class="timeline-item"><div class="t-time">03 мин</div><div class="t-content"><h4>7. Рефлексия</h4><p>Разбор ошибок и подведение итогов викторины.</p></div></div>
+
+                    <div class="lesson-header-info">
+                        <div class="lesson-title-tag">Урок в 7 классе: «Условный оператор в Python»</div>
+                        <span class="lesson-badge">Платформы: Quizizz, Python IDE</span>
+                    </div>
+
+                    <div class="timeline-item"><div class="t-time">03 мин</div><div class="t-content"><h4>1. Организационный момент</h4><p>Проверка присутствия и организация рабочей среды.</p></div></div>
+                    <div class="timeline-item"><div class="t-time">05 мин</div><div class="t-content"><h4>2. Актуализация знаний</h4><p>Экспресс-соревнование на платформе Quizizz по основам синтаксиса.</p></div></div>
+                    <div class="timeline-item"><div class="t-time">03 мин</div><div class="t-content"><h4>3. Целеполагание</h4><p>Определение задачи: научить программу принимать решения в зависимости от условия.</p></div></div>
+                    <div class="timeline-item"><div class="t-time">10 мин</div><div class="t-content"><h4>4. Теоретическая часть</h4><p>Разбор синтаксиса ветвления <code>if...else</code> на схемах и реальных примерах.</p></div></div>
+                    <div class="timeline-item"><div class="t-time">02 мин</div><div class="t-content"><h4>5. Физминутка</h4><p>Здоровьесберегающий комплекс «Восьмерка + Пальминг» для глаз.</p></div></div>
+                    <div class="timeline-item"><div class="t-time">19 мин</div><div class="t-content"><h4>6. Практическая часть</h4><p>Парный кодинг в Python IDE: разработка программы «Проверка пароля» (до 22 мин ПК по СанПиН).</p></div></div>
+                    <div class="timeline-item"><div class="t-time">03 мин</div><div class="t-content"><h4>7. Рефлексия</h4><p>Разбор ошибок кодинга и поздравление победителей онлайн-квиза.</p></div></div>
                 </div>
             `;
         } else {
             htmlContent = `
                 <div class="lesson-result-card">
-                    <div class="lesson-header-info">
-                        <div class="lesson-title-tag"><i class="fas fa-graduation-cap"></i> 10 класс: «Веб-разработка (HTML & CSS)»</div>
-                        <span class="lesson-badge">Проект + Кейс-метод</span>
+                    <div class="strategy-banner">
+                        <div class="strategy-title"><i class="fas fa-briefcase"></i> Применяемая стратегия: Проектно-исследовательская + Case-study</div>
+                        <div class="strategy-desc"><strong>Почему выгодно:</strong> Старшеклассники ориентированы на профессию. Метод кейсов и реальные веб-проекты учат системному мышлению, работе в команде и созданию готового IT-продукта.</div>
                     </div>
-                    <div class="timeline-item"><div class="t-time">03 мин</div><div class="t-content"><h4>1. Организационный момент</h4><p>Настройка рабочего окружения и готовность к работе.</p></div></div>
-                    <div class="timeline-item"><div class="t-time">04 мин</div><div class="t-content"><h4>2. Актуализация знаний</h4><p>Повторение базовых тегов и принципов разметки.</p></div></div>
-                    <div class="timeline-item"><div class="t-time">03 мин</div><div class="t-content"><h4>3. Целеполагание</h4><p>Постановка задачи: создание лендинга для эко-проекта.</p></div></div>
-                    <div class="timeline-item"><div class="t-time">10 мин</div><div class="t-content"><h4>4. Теоретическая часть</h4><p>Брифинг по структуре веб-страницы и подключению стилей.</p></div></div>
-                    <div class="timeline-item"><div class="t-time">03 мин</div><div class="t-content"><h4>5. Физминутка</h4><p>Офтальмологическая разрядка и упражнения для осанки.</p></div></div>
-                    <div class="timeline-item"><div class="t-time">18 мин</div><div class="t-content"><h4>6. Практическая часть</h4><p>Самостоятельная работа за ПК: верстка HTML-структуры и оформление CSS.</p></div></div>
-                    <div class="timeline-item"><div class="t-time">04 мин</div><div class="t-content"><h4>7. Рефлексия</h4><p>Взаимопроверка проектов (Peer-Review) и выставление оценок.</p></div></div>
+
+                    <div class="lesson-header-info">
+                        <div class="lesson-title-tag">Урок в 10 классе: «Веб-разработка (HTML & CSS)»</div>
+                        <span class="lesson-badge">Платформы: Genially, GitHub, HTML/CSS</span>
+                    </div>
+
+                    <div class="timeline-item"><div class="t-time">03 мин</div><div class="t-content"><h4>1. Организационный момент</h4><p>Настройка рабочего окружения и проверка связи с репозиториями.</p></div></div>
+                    <div class="timeline-item"><div class="t-time">04 мин</div><div class="t-content"><h4>2. Актуализация знаний</h4><p>Повторение базовых тегов через интерактивную инфографику на Genially.</p></div></div>
+                    <div class="timeline-item"><div class="t-time">03 мин</div><div class="t-content"><h4>3. Целеполагание</h4><p>Постановка кейса: разработать адаптивный лендинг для экологического проекта.</p></div></div>
+                    <div class="timeline-item"><div class="t-time">10 мин</div><div class="t-content"><h4>4. Теоретическая часть</h4><p>Брифинг по блочной верстке, семантическим тегам HTML5 и стилям CSS3.</p></div></div>
+                    <div class="timeline-item"><div class="t-time">03 мин</div><div class="t-content"><h4>5. Физминутка</h4><p>Динамическая офтальмологическая разрядка и упражнения для осанки.</p></div></div>
+                    <div class="timeline-item"><div class="t-time">18 мин</div><div class="t-content"><h4>6. Практическая часть</h4><p>Проектная верстка за ПК: составление структуры и подключение таблиц стилей CSS (до 30 мин за ПК по СанПиН).</p></div></div>
+                    <div class="timeline-item"><div class="t-time">04 мин</div><div class="t-content"><h4>7. Рефлексия</h4><p>Взаимопроверка верстки (Peer-Review) и публичная защита результатов.</p></div></div>
                 </div>
             `;
         }
