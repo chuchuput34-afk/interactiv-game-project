@@ -61,7 +61,8 @@
             display: grid;
             grid-template-columns: 1fr 320px;
             gap: 20px;
-            align-items: start;
+            align-items: stretch;
+            margin-bottom: 20px;
         }
 
         @media (max-width: 992px) {
@@ -73,13 +74,14 @@
             backdrop-filter: blur(20px);
             border-radius: 20px; padding: 20px; 
             box-shadow: 0 8px 30px rgba(31, 38, 135, 0.08);
-            margin-bottom: 20px; border: 1px solid rgba(255,255,255,0.4); 
+            border: 1px solid rgba(255,255,255,0.4); 
+            display: flex;
+            flex-direction: column;
         }
 
         h2 { color: var(--accent); margin-top: 0; margin-bottom: 15px; display: flex; align-items: center; font-size: 1.2rem; }
         h2 i { margin-right: 8px; }
 
-        /* КОМПАКТНЫЙ КОНСТРУКТОР */
         .constructor-wrapper {
             background: rgba(255, 255, 255, 0.9);
             border-radius: 16px;
@@ -111,9 +113,6 @@
         }
         .constr-grade-card .c-title { font-weight: bold; font-size: 0.8rem; color: #333; }
         .constr-grade-card .c-desc { font-size: 0.68rem; color: #666; margin-top: 1px; }
-
-        .action-btn-main { width: 100%; padding: 11px; background: linear-gradient(to right, #4834d4, #686de0); color: white; border: none; border-radius: 10px; font-weight: bold; cursor: pointer; font-size: 0.85rem; transition: 0.3s; }
-        .action-btn-main:hover { opacity: 0.95; }
 
         .lesson-result-card {
             background: white;
@@ -171,28 +170,56 @@
         .t-content h4 { margin: 0 0 2px 0; font-size: 0.82rem; color: #333; }
         .t-content p { margin: 0; font-size: 0.75rem; color: #666; }
 
-        /* КОМПАКТНЫЙ ВИДЖЕТ САНПИН (РАСПРЕДЕЛЕН ПОД УДОБНЫЙ РАЗМЕР) */
+        /* ПЛОТНАЯ СЕТКА ПЛАТФОРМ (БЕЗ ПУСТОГО МЕСТА СНИЗУ) */
+        .platform-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fill, minmax(145px, 1fr)); 
+            gap: 10px; 
+            flex-grow: 1;
+            align-content: start;
+        }
+        .platform-card { 
+            background: rgba(255,255,255,0.9); border-radius: 14px; padding: 12px 10px; 
+            text-align: center; cursor: pointer; transition: 0.3s; 
+            border: 2px solid transparent; display: flex; flex-direction: column; align-items: center;
+            justify-content: space-between;
+        }
+        .platform-card h3 { margin: 4px 0; font-size: 0.9rem; }
+        .platform-card img { width: 38px; height: 38px; object-fit: contain; margin-bottom: 4px; border-radius: 6px; }
+        .platform-card:hover { transform: translateY(-2px); background: #fff; }
+        .platform-card.selected { 
+            border-color: var(--accent); background: #fff; 
+            box-shadow: 0 0 12px rgba(72, 52, 212, 0.2);
+        }
+
+        .action-btns { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; margin-top: 6px; width: 100%; }
+        .btn-sm { padding: 4px; border-radius: 6px; text-decoration: none; font-size: 8px; font-weight: bold; text-align: center; }
+        .btn-visit { background: #f1f2f6; color: var(--accent); }
+        .btn-example { background: var(--accent); color: white; }
+        .btn-video-jump { grid-column: span 2; background: #3498db; color: white; border-radius: 6px; padding: 4px; font-size: 8px; text-decoration: none; font-weight: bold; }
+
+        .side-column { display: flex; flex-direction: column; gap: 15px; }
+
         .sanpin-compact-widget {
             background: rgba(255, 255, 255, 0.95);
-            border-radius: 20px;
-            padding: 18px;
+            border-radius: 18px;
+            padding: 15px;
             border: 2px solid rgba(72, 52, 212, 0.15);
-            box-shadow: 0 6px 20px rgba(72, 52, 212, 0.06);
-            margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(72, 52, 212, 0.06);
         }
 
         .sanpin-cards-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 6px;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
         }
 
         .sanpin-class-card {
             background: white;
             border: 1.5px solid #e0e0e0;
             border-radius: 8px;
-            padding: 6px 4px;
+            padding: 5px 4px;
             text-align: center;
             cursor: pointer;
             transition: 0.3s;
@@ -202,68 +229,46 @@
             border-color: var(--accent);
             background: rgba(72, 52, 212, 0.06);
         }
-        .sanpin-class-card .cls-title { font-weight: bold; font-size: 0.73rem; color: #333; }
-        .sanpin-class-card .cls-time { font-size: 0.63rem; color: #666; }
+        .sanpin-class-card .cls-title { font-weight: bold; font-size: 0.72rem; color: #333; }
+        .sanpin-class-card .cls-time { font-size: 0.62rem; color: #666; }
 
         .alarm-screen-compact {
             background: #1e1e24;
             color: #00ffcc;
             font-family: 'Courier New', Courier, monospace;
-            padding: 8px;
-            border-radius: 10px;
+            padding: 6px;
+            border-radius: 8px;
             text-align: center;
             border: 2px solid #333;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
         }
-        .timer-display-compact { font-size: 1.8rem; font-weight: 800; letter-spacing: 1px; }
+        .timer-display-compact { font-size: 1.6rem; font-weight: 800; letter-spacing: 1px; }
         .sanpin-badge { display: inline-block; padding: 2px 6px; background: #e1b12c; color: white; border-radius: 4px; font-size: 0.65rem; font-weight: bold; }
 
-        /* Платформы */
-        .platform-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; }
-        .platform-card { 
-            background: rgba(255,255,255,0.9); border-radius: 14px; padding: 12px; 
-            text-align: center; cursor: pointer; transition: 0.3s; 
-            border: 2px solid transparent; display: flex; flex-direction: column; align-items: center;
-        }
-        .platform-card img { width: 40px; height: 40px; object-fit: contain; margin-bottom: 6px; border-radius: 6px; }
-        .platform-card:hover { transform: translateY(-2px); background: #fff; }
-        .platform-card.selected { 
-            border-color: var(--accent); background: #fff; 
-            box-shadow: 0 0 12px rgba(72, 52, 212, 0.2);
-        }
-
-        .action-btns { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; margin-top: 8px; width: 100%; }
-        .btn-sm { padding: 5px; border-radius: 6px; text-decoration: none; font-size: 8px; font-weight: bold; text-align: center; }
-        .btn-visit { background: #f1f2f6; color: var(--accent); }
-        .btn-example { background: var(--accent); color: white; }
-        .btn-video-jump { grid-column: span 2; background: #3498db; color: white; border-radius: 6px; padding: 4px; font-size: 8px; text-decoration: none; font-weight: bold; }
-
-        .sticky-side { position: sticky; top: 15px; }
-        
-        #calcBtn { width: 100%; padding: 11px; background: linear-gradient(to right, #4834d4, #686de0); color: white; border: none; border-radius: 10px; font-weight: bold; cursor: pointer; font-size: 0.85rem; transition: 0.3s; }
+        #calcBtn { width: 100%; padding: 10px; background: linear-gradient(to right, #4834d4, #686de0); color: white; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 0.82rem; transition: 0.3s; }
         #calcBtn:hover { opacity: 0.95; }
 
         #resultArea { 
-            padding: 15px 10px; border-radius: 16px; 
+            padding: 12px 10px; border-radius: 14px; 
             background: white; border: 1px solid #e0e0e0; 
-            margin-top: 12px; text-align: center; 
+            margin-top: 10px; text-align: center; 
             display: flex; flex-direction: column; align-items: center;
-            min-height: 160px; justify-content: center;
+            min-height: 140px; justify-content: center;
         }
 
         .circular-progress {
-            position: relative; height: 90px; width: 90px;
+            position: relative; height: 80px; width: 80px;
             border-radius: 50%; display: flex; align-items: center;
-            justify-content: center; margin-bottom: 8px;
+            justify-content: center; margin-bottom: 6px;
             background: conic-gradient(var(--accent) 0deg, #f0f0f0 0deg);
         }
         .circular-progress::before {
-            content: ""; position: absolute; height: 70px; width: 70px;
+            content: ""; position: absolute; height: 62px; width: 62px;
             border-radius: 50%; background-color: white;
         }
-        .progress-value { position: relative; font-size: 1.4rem; font-weight: 800; color: var(--text); }
+        .progress-value { position: relative; font-size: 1.3rem; font-weight: 800; color: var(--text); }
 
-        .calc-grade-section-title { font-weight: bold; font-size: 0.75rem; color: #555; margin: 6px 0 3px 0; }
+        .calc-grade-section-title { font-weight: bold; font-size: 0.72rem; color: #555; margin: 5px 0 2px 0; }
         .calc-grades-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -274,11 +279,11 @@
             background: white;
             border: 1.5px solid #e0e0e0;
             border-radius: 6px;
-            padding: 5px 2px;
+            padding: 4px 2px;
             text-align: center;
             cursor: pointer;
             font-weight: bold;
-            font-size: 0.7rem;
+            font-size: 0.68rem;
             color: #333;
         }
         .calc-grade-card:hover { border-color: var(--accent); }
@@ -288,7 +293,7 @@
             color: white;
         }
 
-        .video-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; }
+        .video-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 12px; }
         .video-item { border-radius: 16px; overflow: hidden; background: white; box-shadow: 0 4px 10px rgba(0,0,0,0.04); border: 2px solid transparent; transition: 0.3s; }
         video { width: 100%; height: 110px; background: #000; display: block; }
         .video-item p { padding: 6px; font-weight: bold; text-align: center; margin: 0; font-size: 0.8rem; }
@@ -326,8 +331,8 @@
 
 <div class="container">
 
-    <!-- ГЛАВНЫЙ БЛОК: СТРУКТУРА УРОКА СРАЗУ ПРИ ВХОДЕ СВЕРХУ -->
-    <div class="section-card" id="constructor">
+    <!-- ГЛАВНЫЙ БЛОК: СТРУКТУРА УРОКА -->
+    <div class="section-card" id="constructor" style="margin-bottom: 20px;">
         <h2><i class="fas fa-magic"></i> 1. Возрастные стратегии и структура урока</h2>
         <div class="constructor-wrapper">
             <p style="margin-top: 0; font-size: 0.85rem; color: #555;">Выберите класс для просмотра стратегии и пошагового плана:</p>
@@ -351,9 +356,9 @@
         </div>
     </div>
 
-    <!-- ОСНОВНАЯ СЕТКА: ПЛАТФОРМЫ И КОМПАКТНЫЙ САНПИН СПРАВА -->
+    <!-- ОСНОВНАЯ СЕТКА: ПЛАТФОРМЫ И БОКОВАЯ КОЛОНКА -->
     <div class="main-layout" id="platforms">
-        <div class="section-card" style="margin-bottom: 0;">
+        <div class="section-card">
             <h2><i class="fas fa-layer-group"></i> 2. Интерактивные платформы обучения</h2>
             <div class="platform-grid">
                 <div class="platform-card" data-id="Quizizz" onclick="selectP(this)">
@@ -439,14 +444,13 @@
             </div>
         </div>
 
-        <!-- КОМПАКТНЫЙ САНПИН СПРАВА И РАСЧЕТ ВОВЛЕЧЕННОСТИ -->
-        <div class="sticky-side">
-            <!-- КОМПАКТНЫЙ ВИДЖЕТ САНПИН -->
+        <!-- БОКОВАЯ КОЛОНКА: САНПИН И РАСЧЕТ ВОВЛЕЧЕННОСТИ -->
+        <div class="side-column">
             <div class="sanpin-compact-widget" id="sanpin">
                 <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px;">
                     <div style="display: flex; align-items: center; gap: 5px;">
-                        <i class="fas fa-clock" style="color: var(--accent); font-size: 0.9rem;"></i>
-                        <span style="font-weight: bold; font-size: 0.8rem; color: #333;">Нормы СанПиН</span>
+                        <i class="fas fa-clock" style="color: var(--accent); font-size: 0.85rem;"></i>
+                        <span style="font-weight: bold; font-size: 0.78rem; color: #333;">Нормы СанПиН</span>
                     </div>
                     <span class="sanpin-badge" id="sanpinBadge">Норма: 30 мин</span>
                 </div>
@@ -474,17 +478,16 @@
                     <div class="timer-display-compact" id="timerDisplay">30:00</div>
                 </div>
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 6px;">
-                    <button class="btn-sm btn-example" style="padding: 6px; font-size: 0.75rem;" onclick="startTimer()"><i class="fas fa-play"></i> Старт</button>
-                    <button class="btn-sm btn-visit" style="padding: 6px; font-size: 0.75rem;" onclick="resetTimer()"><i class="fas fa-redo"></i> Сброс</button>
+                    <button class="btn-sm btn-example" style="padding: 5px; font-size: 0.75rem;" onclick="startTimer()"><i class="fas fa-play"></i> Старт</button>
+                    <button class="btn-sm btn-visit" style="padding: 5px; font-size: 0.75rem;" onclick="resetTimer()"><i class="fas fa-redo"></i> Сброс</button>
                 </div>
             </div>
 
-            <!-- РАСЧЕТ ВОВЛЕЧЕННОСТИ -->
-            <div class="section-card">
-                <h2><i class="fas fa-chart-line"></i> Расчет вовлеченности</h2>
+            <div class="section-card" style="padding: 15px;">
+                <h2 style="font-size: 1.05rem; margin-bottom: 10px;"><i class="fas fa-chart-line"></i> Расчет вовлеченности</h2>
                 
-                <div style="margin-bottom: 10px;">
-                    <label style="display: block; font-weight: bold; margin-bottom: 4px; font-size: 0.8rem; color: #444;">Класс учеников:</label>
+                <div style="margin-bottom: 8px;">
+                    <label style="display: block; font-weight: bold; margin-bottom: 3px; font-size: 0.75rem; color: #444;">Класс учеников:</label>
                     
                     <div class="calc-grade-section-title">Начальная школа:</div>
                     <div class="calc-grades-grid">
@@ -501,7 +504,7 @@
                         <div class="calc-grade-card active" onclick="selectGradeCard(7, this)">7 кл</div>
                         <div class="calc-grade-card" onclick="selectGradeCard(8, this)">8 кл</div>
                     </div>
-                    <div class="calc-grades-grid" style="grid-template-columns: repeat(1, 1fr); margin-top: 4px;">
+                    <div class="calc-grades-grid" style="grid-template-columns: repeat(1, 1fr); margin-top: 3px;">
                         <div class="calc-grade-card" onclick="selectGradeCard(9, this)">9 класс</div>
                     </div>
 
@@ -515,15 +518,15 @@
                 <button id="calcBtn" onclick="runCalc()">Рассчитать</button>
                 <div id="resultArea">
                     <div class="circular-progress" id="progressCircle"><span class="progress-value">0%</span></div>
-                    <h3 id="resPlatName" style="margin: 4px 0; font-size: 1rem;">Выбор платформы</h3>
-                    <p id="resGradeInfo" style="margin: 0; font-size: 0.75rem; color: #666;">Укажите платформу и класс</p>
+                    <h3 id="resPlatName" style="margin: 2px 0; font-size: 0.9rem;">Выбор платформы</h3>
+                    <p id="resGradeInfo" style="margin: 0; font-size: 0.7rem; color: #666;">Укажите платформу и класс</p>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- ВИДЕОИНСТРУКЦИИ -->
-    <div class="section-card" id="videos" style="margin-top: 20px;">
+    <!-- ВИДЕОИНСТРУКЦИИ СРАЗУ ПОД СЕТКОЙ БЕЗ ПУСТОГО МЕСТА -->
+    <div class="section-card" id="videos">
         <h2><i class="fas fa-video"></i> 3. Видеоинструкции по сервисам</h2>
         <div class="video-grid">
             <div class="video-item" id="vid-Quizizz"><video controls><source src="Quizizz.mp4" type="video/mp4"></video><p>1. Quizizz</p></div>
