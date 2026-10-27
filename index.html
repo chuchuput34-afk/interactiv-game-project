@@ -10,11 +10,8 @@
             --main-bg: linear-gradient(120deg, #e0c3fc 0%, #8ec5fc 100%);
             --glass-bg: rgba(255, 255, 255, 0.85);
             --accent: #4834d4;
-            --accent-hover: #3c2bb7;
             --text: #2d3436;
             --success: #27ae60;
-            --warning: #f39c12;
-            --danger: #e74c3c;
         }
 
         * { box-sizing: border-box; }
@@ -44,7 +41,6 @@
 
         header p { margin-top: 5px; font-weight: 600; color: #4a4a4a; font-size: 0.9rem; }
 
-        /* Навигационная панель */
         .nav-bar {
             display: flex; justify-content: center; gap: 10px; flex-wrap: wrap;
             margin: 15px auto; max-width: 1350px; padding: 0 20px;
@@ -83,7 +79,6 @@
         h2 { color: var(--accent); margin-top: 0; margin-bottom: 20px; display: flex; align-items: center; font-size: 1.35rem; }
         h2 i { margin-right: 10px; }
 
-        /* КОНСТРУКТОР УРОКА */
         .constructor-wrapper {
             background: rgba(255, 255, 255, 0.85);
             border-radius: 20px;
@@ -119,16 +114,10 @@
         .constr-grade-card .c-title { font-weight: bold; font-size: 0.85rem; color: #333; }
         .constr-grade-card .c-desc { font-size: 0.72rem; color: #666; margin-top: 2px; }
 
-        .form-control {
-            width: 100%; padding: 10px 12px; border-radius: 12px; border: 1px solid #ccc; background: white;
-            font-size: 0.9rem; font-weight: 600; outline: none; transition: border 0.3s;
-        }
-        .form-control:focus { border-color: var(--accent); }
-
         .action-btn-main { width: 100%; padding: 14px; background: linear-gradient(to right, #4834d4, #686de0); color: white; border: none; border-radius: 12px; font-weight: bold; cursor: pointer; font-size: 0.95rem; transition: 0.3s; }
         .action-btn-main:hover { opacity: 0.95; transform: translateY(-1px); }
 
-        /* СТИЛЬНЫЙ БЛОК ВЫВОДА ПЛАНА УРОКА */
+        /* КАРТОЧКА ПЛАНА УРОКА */
         .lesson-result-card {
             background: white;
             border-radius: 18px;
@@ -159,9 +148,7 @@
             border-radius: 12px;
             padding: 12px 14px;
             margin-bottom: 10px;
-            transition: 0.2s;
         }
-        .timeline-item:hover { border-color: #dcdde1; background: #f8f9fa; }
         .t-time {
             background: var(--accent);
             color: white;
@@ -222,7 +209,7 @@
         }
         .progress-value { position: relative; font-size: 1.7rem; font-weight: 800; color: var(--text); }
 
-        /* КВАДРАТНЫЙ ВИДЖЕТ САНПИН */
+        /* ВИДЖЕТ САНПИН */
         .sanpin-square-widget {
             background: rgba(255, 255, 255, 0.9);
             backdrop-filter: blur(15px);
@@ -274,7 +261,6 @@
         .timer-display-square { font-size: 2.2rem; font-weight: 800; letter-spacing: 2px; }
         .sanpin-badge { display: inline-block; padding: 2px 6px; background: #e1b12c; color: white; border-radius: 5px; font-size: 0.7rem; font-weight: bold; }
 
-        /* КАРТОЧКИ ВЫБОРА КЛАССОВ ДЛЯ РАСЧЕТА */
         .calc-grade-section-title { font-weight: bold; font-size: 0.8rem; color: #555; margin: 8px 0 4px 0; }
         .calc-grades-grid {
             display: grid;
@@ -311,14 +297,12 @@
         }
         @media (max-width: 992px) { .top-widgets-grid { grid-template-columns: 1fr; } }
 
-        /* Видео блок */
         .video-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px; }
         .video-item { border-radius: 20px; overflow: hidden; background: white; box-shadow: 0 4px 10px rgba(0,0,0,0.05); border: 3px solid transparent; transition: 0.3s; }
         video { width: 100%; height: 130px; background: #000; display: block; }
         .video-item p { padding: 8px; font-weight: bold; text-align: center; margin: 0; font-size: 0.85rem; }
         .video-highlight-active { border-color: var(--accent); box-shadow: 0 0 20px var(--accent); }
 
-        /* Кнопка "Наверх" */
         #backToTop {
             display: none; position: fixed; bottom: 25px; right: 25px; z-index: 1000;
             border: none; outline: none; background: white; color: var(--accent);
@@ -345,46 +329,44 @@
 </header>
 
 <div class="nav-bar">
-    <a href="#constructor" class="nav-link"><i class="fas fa-magic"></i> Конструктор Урока</a>
+    <a href="#constructor" class="nav-link"><i class="fas fa-magic"></i> План урока</a>
     <a href="#platforms" class="nav-link"><i class="fas fa-layer-group"></i> Платформы и Расчёт</a>
     <a href="#videos" class="nav-link"><i class="fas fa-video"></i> Инструкции</a>
 </div>
 
 <div class="container">
 
-    <!-- КВАДРАТНЫЙ ВИДЖЕТ САНПИН И КОНСТРУКТОР СВЕРХУ -->
     <div class="top-widgets-grid">
         <div class="section-card" id="constructor" style="margin-bottom: 0;">
-            <h2><i class="fas fa-magic"></i> 1. Конструктор структуры урока</h2>
+            <h2><i class="fas fa-magic"></i> 1. Структура урока по этапам</h2>
             <div class="constructor-wrapper">
-                <p style="margin-top: 0; font-size: 0.9rem; color: #555;">Выберите параллель для просмотра утвержденной технологической карты урока:</p>
+                <p style="margin-top: 0; font-size: 0.9rem; color: #555;">Выберите класс для просмотра простого и понятного плана урока:</p>
                 
                 <div class="filter-grid">
                     <div class="form-group">
-                        <label>Выберите параллель / возраст:</label>
+                        <label>Выберите класс:</label>
                         <div class="constructor-grades-grid">
                             <div class="constr-grade-card" onclick="selectConstrGrade('elem', this)">
                                 <div class="c-title">4 класс</div>
-                                <div class="c-desc">Начальная школа</div>
+                                <div class="c-desc">Алгоритмы</div>
                             </div>
                             <div class="constr-grade-card active" onclick="selectConstrGrade('mid', this)">
                                 <div class="c-title">7 класс</div>
-                                <div class="c-desc">Среднее звено</div>
+                                <div class="c-desc">Python</div>
                             </div>
                             <div class="constr-grade-card" onclick="selectConstrGrade('high', this)">
                                 <div class="c-title">10 класс</div>
-                                <div class="c-desc">Старшая школа</div>
+                                <div class="c-desc">Web-дизайн</div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <button class="action-btn-main" onclick="generateLessonStrategy()"><i class="fas fa-cogs"></i> Загрузить технологическую карту</button>
+                <button class="action-btn-main" onclick="generateLessonStrategy()"><i class="fas fa-list-check"></i> Показать этапы урока</button>
 
                 <div id="lessonOutput"></div>
             </div>
         </div>
 
-        <!-- КВАДРАТНЫЙ ВИДЖЕТ БУДИЛЬНИКА САНПИН СПРАВА -->
         <div class="sanpin-square-widget" id="sanpin">
             <div>
                 <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
@@ -427,7 +409,6 @@
         </div>
     </div>
 
-    <!-- БЛОК 2: ПЛАТФОРМЫ И РАСЧЕТ ВОВЛЕЧЕННОСТИ -->
     <div class="main-layout" id="platforms">
         <div class="section-card">
             <h2><i class="fas fa-layer-group"></i> 2. Интерактивные платформы обучения</h2>
@@ -515,7 +496,6 @@
             </div>
         </div>
 
-        <!-- Боковая панель расчета с карточками классов -->
         <div class="sticky-side">
             <div class="section-card">
                 <h2><i class="fas fa-chart-line"></i> Расчет вовлеченности</h2>
@@ -559,7 +539,6 @@
         </div>
     </div>
 
-    <!-- БЛОК 3: ВИДЕОИНСТРУКЦИИ -->
     <div class="section-card" id="videos">
         <h2><i class="fas fa-video"></i> 3. Видеоинструкции по сервисам</h2>
         <div class="video-grid">
@@ -609,7 +588,7 @@
         selectedConstrGrade = gradeGroup;
     }
 
-    // Автоматическая генерация красивых карточек-примеров для 4, 7 и 10 классов
+    // Вывод плана урока строго по понятным этапам
     function generateLessonStrategy() {
         const output = document.getElementById('lessonOutput');
         
@@ -618,14 +597,16 @@
             htmlContent = `
                 <div class="lesson-result-card">
                     <div class="lesson-header-info">
-                        <div class="lesson-title-tag"><i class="fas fa-shapes"></i> 4 класс: «Алгоритмы и исполнители»</div>
-                        <span class="lesson-badge">Стратегия: Unplugged CS + Геймификация</span>
+                        <div class="lesson-title-tag"><i class="fas fa-child"></i> 4 класс: «Алгоритмы и исполнители»</div>
+                        <span class="lesson-badge">Игры + Unplugged CS</span>
                     </div>
-                    <div class="timeline-item"><div class="t-time">01–10 мин</div><div class="t-content"><h4>Организационный момент</h4><p>Актуализация знаний в игровой форме (без ПК).</p></div></div>
-                    <div class="timeline-item"><div class="t-time">11–22 мин</div><div class="t-content"><h4>Теоретический Unplugged-практикум</h4><p>Физическая игра «Робот и Программист»: составление маршрута карточками на ковре.</p></div></div>
-                    <div class="timeline-item"><div class="t-time">23–37 мин</div><div class="t-content"><h4>Компьютерный практикум</h4><p>Работа в Scratch Jr / Scratch (15 минут — строго в пределах нормы СанПиН).</p></div></div>
-                    <div class="timeline-item"><div class="t-time">38–40 мин</div><div class="t-content"><h4>Здоровьесберегающая пауза</h4><p>Комплекс офтальмологической гимнастики.</p></div></div>
-                    <div class="timeline-item"><div class="t-time">41–45 мин</div><div class="t-content"><h4>Рефлексия</h4><p>Подведение итогов через прием «Светофор».</p></div></div>
+                    <div class="timeline-item"><div class="t-time">05 мин</div><div class="t-content"><h4>1. Организационный момент</h4><p>Приветствие, проверка готовности к уроку.</p></div></div>
+                    <div class="timeline-item"><div class="t-time">05 мин</div><div class="t-content"><h4>2. Актуализация знаний</h4><p>Обсуждение понятий «помощник» и «команда» из реальной жизни.</p></div></div>
+                    <div class="timeline-item"><div class="t-time">05 мин</div><div class="t-content"><h4>3. Целеполагание</h4><p>Определение темы: учимся составлять пошаговые инструкции.</p></div></div>
+                    <div class="timeline-item"><div class="t-time">12 мин</div><div class="t-content"><h4>4. Теоретическая часть</h4><p>Физическая игра «Робот и Программист» (выполнение шагов карточками на ковре).</p></div></div>
+                    <div class="timeline-item"><div class="t-time">03 мин</div><div class="t-content"><h4>5. Физминутка</h4><p>Зрительная гимнастика и разминка для пальчиков.</p></div></div>
+                    <div class="timeline-item"><div class="t-time">10 мин</div><div class="t-content"><h4>6. Практическая часть</h4><p>Работа за ПК: составление линейного алгоритма в Scratch Jr (в рамках нормы СанПиН).</p></div></div>
+                    <div class="timeline-item"><div class="t-time">05 мин</div><div class="t-content"><h4>7. Рефлексия</h4><p>Оценка своей работы с помощью приема «Светофор».</p></div></div>
                 </div>
             `;
         } else if (selectedConstrGrade === 'mid') {
@@ -633,34 +614,37 @@
                 <div class="lesson-result-card">
                     <div class="lesson-header-info">
                         <div class="lesson-title-tag"><i class="fas fa-laptop-code"></i> 7 класс: «Условный оператор в Python»</div>
-                        <span class="lesson-badge">Стратегия: Соревновательная + Модульная</span>
+                        <span class="lesson-badge">Соревнование + Кодинг</span>
                     </div>
-                    <div class="timeline-item"><div class="t-time">01–08 мин</div><div class="t-content"><h4>Мотивационный этап</h4><p>Экспресс-контроль и актуализация через квиз на платформе Quizizz.</p></div></div>
-                    <div class="timeline-item"><div class="t-time">09–18 мин</div><div class="t-content"><h4>Теоретический блок</h4><p>Разбор синтаксиса if...else с интерактивной схемой ветвления.</p></div></div>
-                    <div class="timeline-item"><div class="t-time">19–40 мин</div><div class="t-content"><h4>Компьютерный практикум</h4><p>Парный кодинг в Python IDE: разработка программы «Проверка пароля» (до 22 мин ПК).</p></div></div>
-                    <div class="timeline-item"><div class="t-time">41–42 мин</div><div class="t-content"><h4>Здоровьесберегающая пауза</h4><p>Офтальмологический комплекс «Пальминг + Восьмерка».</p></div></div>
-                    <div class="timeline-item"><div class="t-time">43–45 мин</div><div class="t-content"><h4>Рефлексия</h4><p>Разбор ошибок кодинга и подведение итогов.</p></div></div>
+                    <div class="timeline-item"><div class="t-time">03 мин</div><div class="t-content"><h4>1. Организационный момент</h4><p>Проверка присутствия и организация рабочего пространства.</p></div></div>
+                    <div class="timeline-item"><div class="t-time">05 мин</div><div class="t-content"><h4>2. Актуализация знаний</h4><p>Экспресс-квиз на платформе Quizizz для повторения основ.</p></div></div>
+                    <div class="timeline-item"><div class="t-time">03 мин</div><div class="t-content"><h4>3. Целеполагание</h4><p>Формулировка темы: как научить программу принимать решения.</p></div></div>
+                    <div class="timeline-item"><div class="t-time">10 мин</div><div class="t-content"><h4>4. Теоретическая часть</h4><p>Объяснение ветвлений и условного оператора if...else на схемах.</p></div></div>
+                    <div class="timeline-item"><div class="t-time">02 мин</div><div class="t-content"><h4>5. Физминутка</h4><p>Комплекс «Пальминг + Восьмерка» для снятия напряжения с глаз.</p></div></div>
+                    <div class="timeline-item"><div class="t-time">19 мин</div><div class="t-content"><h4>6. Практическая часть</h4><p>Компьютерный практикум: парное написание программы «Проверка пароля» в Python IDE.</p></div></div>
+                    <div class="timeline-item"><div class="t-time">03 мин</div><div class="t-content"><h4>7. Рефлексия</h4><p>Разбор ошибок и подведение итогов викторины.</p></div></div>
                 </div>
             `;
         } else {
             htmlContent = `
                 <div class="lesson-result-card">
                     <div class="lesson-header-info">
-                        <div class="lesson-title-tag"><i class="fas fa-graduation-cap"></i> 10 класс: «Разработка веб-страниц (HTML & CSS)»</div>
-                        <span class="lesson-badge">Стратегия: Проектная + Case-study</span>
+                        <div class="lesson-title-tag"><i class="fas fa-graduation-cap"></i> 10 класс: «Веб-разработка (HTML & CSS)»</div>
+                        <span class="lesson-badge">Проект + Кейс-метод</span>
                     </div>
-                    <div class="timeline-item"><div class="t-time">01–07 мин</div><div class="t-content"><h4>Брифинг и постановка проблемы</h4><p>Анализ техзадания кейса (лендинг для эко-проекта).</p></div></div>
-                    <div class="timeline-item"><div class="t-time">08–25 мин</div><div class="t-content"><h4>Практика за ПК (Часть 1)</h4><p>Разметка структуры страницы с помощью тегов HTML5 (18 минут).</p></div></div>
-                    <div class="timeline-item"><div class="t-time">26–28 мин</div><div class="t-content"><h4>Офтальмологическая разрядка</h4><p>Динамическая пауза для профилактики зрительного утомления.</p></div></div>
-                    <div class="timeline-item"><div class="t-time">29–40 мин</div><div class="t-content"><h4>Практика за ПК (Часть 2)</h4><p>Подключение и настройка внешних таблиц стилей CSS3 (12 минут).</p></div></div>
-                    <div class="timeline-item"><div class="t-time">41–45 мин</div><div class="t-content"><h4>Презентация и Peer-Review</h4><p>Демонстрация верстки и перекрестная взаимопроверка.</p></div></div>
+                    <div class="timeline-item"><div class="t-time">03 мин</div><div class="t-content"><h4>1. Организационный момент</h4><p>Настройка рабочего окружения и готовность к работе.</p></div></div>
+                    <div class="timeline-item"><div class="t-time">04 мин</div><div class="t-content"><h4>2. Актуализация знаний</h4><p>Повторение базовых тегов и принципов разметки.</p></div></div>
+                    <div class="timeline-item"><div class="t-time">03 мин</div><div class="t-content"><h4>3. Целеполагание</h4><p>Постановка задачи: создание лендинга для эко-проекта.</p></div></div>
+                    <div class="timeline-item"><div class="t-time">10 мин</div><div class="t-content"><h4>4. Теоретическая часть</h4><p>Брифинг по структуре веб-страницы и подключению стилей.</p></div></div>
+                    <div class="timeline-item"><div class="t-time">03 мин</div><div class="t-content"><h4>5. Физминутка</h4><p>Офтальмологическая разрядка и упражнения для осанки.</p></div></div>
+                    <div class="timeline-item"><div class="t-time">18 мин</div><div class="t-content"><h4>6. Практическая часть</h4><p>Самостоятельная работа за ПК: верстка HTML-структуры и оформление CSS.</p></div></div>
+                    <div class="timeline-item"><div class="t-time">04 мин</div><div class="t-content"><h4>7. Рефлексия</h4><p>Взаимопроверка проектов (Peer-Review) и выставление оценок.</p></div></div>
                 </div>
             `;
         }
         output.innerHTML = htmlContent;
     }
 
-    // Автоматически генерируем карточку по умолчанию при загрузке
     window.onload = function() {
         generateLessonStrategy();
     };
@@ -693,7 +677,7 @@
                 updateTimerDisplay();
             } else {
                 stopTimer();
-                alert("Внимание! Время непрерывной работы за ПК по нормам СанПиН истекло. Проведите гимнастику для глаз!");
+                alert("Внимание! Время работы за ПК по нормам СанПиН истекло. Проведите физминутку!");
             }
         }, 1000);
     }
