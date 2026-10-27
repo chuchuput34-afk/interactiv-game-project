@@ -317,7 +317,7 @@
 <header>
     <h1>EduNavigator</h1>
     <p>Интерактивный конструктор и навигатор по стратегиям обучения информатике (1–11 классы)</p>
-    <p style="font-size: 0.8rem; opacity: 0.9; margin-top: 4px;">Алексеева А.А. 2026 | КВПК г. Костанай</p>
+    <p style="font-size: 0.8rem; opacity: 0.9; margin-top: 4px;">Алексеева А.А. 2026 | КРУ им. А. Байтұрсынова г. Костанай</p>
 </header>
 
 <div class="nav-bar">
@@ -520,7 +520,7 @@
                     <div class="calc-grades-grid">
                         <div class="calc-grade-card" onclick="selectGradeCard(5, this)">5 кл</div>
                         <div class="calc-grade-card" onclick="selectGradeCard(6, this)">6 кл</div>
-                        <div class="calc-grade-card" onclick="selectGradeCard(7, this)">7 кл</div>
+                        <div class="calc-grade-card active" onclick="selectGradeCard(7, this)">7 кл</div>
                         <div class="calc-grade-card" onclick="selectGradeCard(8, this)">8 кл</div>
                     </div>
                     <div class="calc-grades-grid" style="grid-template-columns: repeat(1, 1fr);">
@@ -569,10 +569,11 @@
     <i class="fas fa-arrow-up"></i>
 </button>
 
-<footer><p>© 2026 Алексеева А.А. | КВПК г. Костанай</p></footer>
+<footer><p>© 2026 Алексеева А.А. | КРУ им. А. Байтұрсынова г. Костанай</p></footer>
 
 <script>
-    let currentPlatId = ""; let currentGrade = null;
+    let currentPlatId = ""; 
+    let currentGrade = 7; // по умолчанию 7 класс
     let selectedConstrGrade = "mid"; // по умолчанию средняя школа
 
     const tableData = {
@@ -588,198 +589,153 @@
         "Genially":     { 1: 40, 2: 45, 3: 50, 4: 55, 5: 60, 6: 65, 7: 68, 8: 80, 9: 85, 10: 90, 11: 94 }
     };
 
-    function selectP(el) {
-        currentPlatId = el.getAttribute('data-id');
-        document.querySelectorAll('.platform-card').forEach(c => c.classList.remove('selected'));
-        el.classList.add('selected');
-    }
-
-    function selectConstrGrade(gradeVal, el) {
+    // --- 1. ЛОГИКА КОНСТРУКТОРА УРОКА ---
+    function selectConstrGrade(gradeGroup, el) {
         document.querySelectorAll('.constr-grade-card').forEach(c => c.classList.remove('active'));
         el.classList.add('active');
-        selectedConstrGrade = gradeVal;
+        selectedConstrGrade = gradeGroup;
     }
 
-    function selectGradeCard(gradeVal, el) {
-        document.querySelectorAll('.calc-grade-card').forEach(c => c.classList.remove('active'));
-        el.classList.add('active');
-        currentGrade = gradeVal;
-    }
-
-    function jumpToVideo(n) {
-        const target = document.getElementById('vid-' + n);
-        if(target) {
-            target.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            target.classList.add('video-highlight-active');
-            setTimeout(() => target.classList.remove('video-highlight-active'), 2000);
-        }
-    }
-
-    function runCalc() {
-        if(!currentPlatId || !currentGrade) { alert("Выберите класс из карточек и платформу в сетке выше!"); return; }
-        let target = tableData[currentPlatId][currentGrade];
-        let color = target >= 75 ? "#27ae60" : (target >= 50 ? "#f39c12" : "#ff3f34");
-        document.getElementById('resPlatName').innerText = currentPlatId;
-        document.getElementById('resGradeInfo').innerText = `Для учеников ${currentGrade} класса`;
-        let circle = document.getElementById('progressCircle');
-        let valText = document.querySelector('.progress-value');
-        let start = 0;
-        let interval = setInterval(() => {
-            if(start >= target) { clearInterval(interval); } else { start++; }
-            valText.textContent = start + '%';
-            valText.style.color = color;
-            circle.style.background = `conic-gradient(${color} ${start * 3.6}deg, #f0f0f0 0deg)`;
-        }, 12);
-    }
-
-    /* Улучшенный генератор каркаса урока с красивыми рекомендациями */
     function generateLessonStrategy() {
         const format = document.getElementById('lessonFormat').value;
-        const out = document.getElementById('lessonOutput');
+        const output = document.getElementById('lessonOutput');
+        output.style.display = 'block';
 
-        let html = "<h4 style='color: var(--accent); margin-top:0; font-size: 1rem; margin-bottom: 12px;'><i class='fas fa-clipboard-list'></i> Рекомендованный каркас урока и тайминг:</h4>";
-
-        if(selectedConstrGrade === 'elem') {
-            if(format === 'intro') {
-                html += `
-                    <div class="rec-step"><i class="fas fa-play-circle"></i><div><strong>01–10 мин:</strong> Организационный момент, сказочный сюжет и мотивация без ПК (Unplugged CS).</div></div>
-                    <div class="rec-step"><i class="fas fa-laptop"></i><div><strong>11–20 мин:</strong> Интерактивное объяснение новой темы с визуальной демонстрацией.</div></div>
-                    <div class="rec-step"><i class="fas fa-eye-slash"></i><div><strong>21–25 мин:</strong> Обязательная физкультминутка и гимнастика для глаз (норма СанПиН).</div></div>
-                    <div class="rec-step"><i class="fas fa-check-circle"></i><div><strong>26–45 мин:</strong> Закрепление материала через интерактивные тренажеры (LearningApps / Wordwall).</div></div>
-                `;
-            } else if(format === 'practice') {
-                html += `
-                    <div class="rec-step"><i class="fas fa-play-circle"></i><div><strong>01–05 мин:</strong> Постановка учебной задачи и инструктаж по технике безопасности.</div></div>
-                    <div class="rec-step"><i class="fas fa-laptop"></i><div><strong>06–20 мин:</strong> Практическая работа за ПК (создание алгоритмов в Scratch).</div></div>
-                    <div class="rec-step"><i class="fas fa-eye-slash"></i><div><strong>21–25 мин:</strong> Комплекс упражнений для снятия зрительного утомления.</div></div>
-                    <div class="rec-step"><i class="fas fa-check-circle"></i><div><strong>26–45 мин:</strong> Завершение работы, демонстрация проектов и рефлексия.</div></div>
-                `;
-            } else {
-                html += `
-                    <div class="rec-step"><i class="fas fa-play-circle"></i><div><strong>01–08 мин:</strong> Разминка и повторение базовых понятий.</div></div>
-                    <div class="rec-step"><i class="fas fa-gamepad"></i><div><strong>09–22 мин:</strong> Игровой опрос или мини-квиз на платформе Wordwall / Baamboozle.</div></div>
-                    <div class="rec-step"><i class="fas fa-eye-slash"></i><div><strong>23–27 мин:</strong> Физкультминутка и релаксация глаз.</div></div>
-                    <div class="rec-step"><i class="fas fa-check-circle"></i><div><strong>28–45 мин:</strong> Подведение итогов, оценивание достижений учеников.</div></div>
-                `;
-            }
-        } else if(selectedConstrGrade === 'mid') {
-            if(format === 'intro') {
-                html += `
-                    <div class="rec-step"><i class="fas fa-play-circle"></i><div><strong>01–10 мин:</strong> Актуализация опорных знаний и постановка проблемного вопроса.</div></div>
-                    <div class="rec-step"><i class="fas fa-laptop"></i><div><strong>11–25 мин:</strong> Объяснение нового материала с использованием цифровых ресурсов.</div></div>
-                    <div class="rec-step"><i class="fas fa-eye-slash"></i><div><strong>26–30 мин:</strong> Перерыв для разминки и снятия статического напряжения.</div></div>
-                    <div class="rec-step"><i class="fas fa-check-circle"></i><div><strong>31–45 мин:</strong> Первичное закрепление с помощью интерактивного теста (Quizizz / Kahoot).</div></div>
-                `;
-            } else if(format === 'practice') {
-                html += `
-                    <div class="rec-step"><i class="fas fa-play-circle"></i><div><strong>01–08 мин:</strong> Постановка задачи и разбор алгоритма выполнения.</div></div>
-                    <div class="rec-step"><i class="fas fa-laptop-code"></i><div><strong>09–28 мин:</strong> Практикум в среде программирования или веб-платформе (Joyteka).</div></div>
-                    <div class="rec-step"><i class="fas fa-eye-slash"></i><div><strong>29–33 мин:</strong> Обязательная гимнастика для глаз по нормам СанПиН.</div></div>
-                    <div class="rec-step"><i class="fas fa-check-circle"></i><div><strong>34–45 мин:</strong> Разбор типичных ошибок, выставление оценок и рефлексия.</div></div>
-                `;
-            } else {
-                html += `
-                    <div class="rec-step"><i class="fas fa-play-circle"></i><div><strong>01–05 мин:</strong> Организационный этап и инструктаж.</div></div>
-                    <div class="rec-step"><i class="fas fa-trophy"></i><div><strong>06–30 мин:</strong> Соревновательный квиз-турнир на платформах MyQuiz или Quizizz.</div></div>
-                    <div class="rec-step"><i class="fas fa-eye-slash"></i><div><strong>31–35 мин:</strong> Снятие зрительной усталости.</div></div>
-                    <div class="rec-step"><i class="fas fa-check-circle"></i><div><strong>36–45 мин:</strong> Анализ лидерборда, подведение итогов урока.</div></div>
-                `;
-            }
+        let htmlContent = "";
+        if (selectedConstrGrade === 'elem') {
+            htmlContent = `
+                <h3 style="margin-top:0; color:var(--accent); font-size:1rem;"><i class="fas fa-shapes"></i> Стратегия для начальной школы (1–4 классы)</h3>
+                <div class="rec-step"><i class="fas fa-gamepad"></i><div><strong>Акцент:</strong> Геймификация и Unplugged CS (обучение без ПК). Максимум 15 мин за компьютером.</div></div>
+                <div class="rec-step"><i class="fas fa-clock"></i><div><strong>Тайминг (45 мин):</strong> Организационный момент (5 мин) -> Физическая игра/алгоритмика (12 мин) -> Практика в Scratch Jr / Wordwall (15 мин) -> Офтальмологическая разминка (3 мин) -> Рефлексия (10 мин).</div></div>
+            `;
+        } else if (selectedConstrGrade === 'mid') {
+            htmlContent = `
+                <h3 style="margin-top:0; color:var(--accent); font-size:1rem;"><i class="fas fa-laptop-code"></i> Стратегия для среднего звена (5–8 классы)</h3>
+                <div class="rec-step"><i class="fas fa-trophy"></i><div><strong>Акцент:</strong> Соревновательные квизы и визуально-модульное программирование (Scratch, Python). Время за ПК — до 25 мин.</div></div>
+                <div class="rec-step"><i class="fas fa-clock"></i><div><strong>Тайминг (45 мин):</strong> Квиз-актуализация на Quizizz/Kahoot (8 мин) -> Теория и схема (10 мин) -> Парный кодинг в Python / Scratch (22 мин) -> Гимнастика для глаз (2 мин) -> Итоги (3 мин).</div></div>
+            `;
         } else {
-            if(format === 'intro') {
-                html += `
-                    <div class="rec-step"><i class="fas fa-play-circle"></i><div><strong>01–10 мин:</strong> Вводная лекция, связь темы с будущей профессиональной деятельностью.</div></div>
-                    <div class="rec-step"><i class="fas fa-laptop-code"></i><div><strong>11–30 мин:</strong> Изучение продвинутых концепций (базы данных, веб-разработка, алгоритмы).</div></div>
-                    <div class="rec-step"><i class="fas fa-eye-slash"></i><div><strong>31–35 мин:</strong> Производственная гимнастика для глаз и осанки.</div></div>
-                    <div class="rec-step"><i class="fas fa-check-circle"></i><div><strong>36–45 мин:</strong> Дискуссия, ответы на вопросы и методические выводы.</div></div>
-                `;
-            } else if(format === 'practice') {
-                html += `
-                    <div class="rec-step"><i class="fas fa-play-circle"></i><div><strong>01–05 мин:</strong> Постановка проектной или исследовательской задачи.</div></div>
-                    <div class="rec-step"><i class="fas fa-laptop-code"></i><div><strong>06–35 мин:</strong> Самостоятельный кодинг, отладка программ или верстка сайтов.</div></div>
-                    <div class="rec-step"><i class="fas fa-eye-slash"></i><div><strong>36–40 мин:</strong> Краткая разминка для снятия напряжения кистей рук и глаз.</div></div>
-                    <div class="rec-step"><i class="fas fa-check-circle"></i><div><strong>41–45 мин:</strong> Экспресс-презентация мини-проектов и самооценка.</div></div>
-                `;
-            } else {
-                html += `
-                    <div class="rec-step"><i class="fas fa-play-circle"></i><div><strong>01–05 мин:</strong> Введение в формат контрольного среза.</div></div>
-                    <div class="rec-step"><i class="fas fa-shield-alt"></i><div><strong>06–35 мин:</strong> Выполнение тестовых заданий или защита практических кейсов.</div></div>
-                    <div class="rec-step"><i class="fas fa-eye-slash"></i><div><strong>36–40 мин:</strong> Упражнения на расслабление зрения.</div></div>
-                    <div class="rec-step"><i class="fas fa-check-circle"></i><div><strong>41–45 мин:</strong> Автоматический подсчет результатов, подведение итогов.</div></div>
-                `;
-            }
+            htmlContent = `
+                <h3 style="margin-top:0; color:var(--accent); font-size:1rem;"><i class="fas fa-graduation-cap"></i> Стратегия для старшей школы (9–11 классы)</h3>
+                <div class="rec-step"><i class="fas fa-briefcase"></i><div><strong>Акцент:</strong> Проектная деятельность, Case-study, веб-разработка и облачный кодинг (Replit, GitHub). Время за ПК — до 35 мин.</div></div>
+                <div class="rec-step"><i class="fas fa-clock"></i><div><strong>Тайминг (45 мин):</strong> Брифинг и постановка кейса (7 мин) -> Практика HTML/CSS/Python часть 1 (18 мин) -> Пауза и разминка (3 мин) -> Практика часть 2 (12 мин) -> Peer-Review и защита (5 мин).</div></div>
+            `;
         }
-
-        out.innerHTML = html;
-        out.style.display = 'block';
+        output.innerHTML = htmlContent;
     }
 
-    /* Таймер СанПиН */
+    // --- 2. ЛОГИКА ТАЙМЕРА САНПИН ---
     let timerInterval = null;
-    let secondsLeft = 1800;
+    let timeLeft = 30 * 60;
+    let totalTimeLimit = 30 * 60;
 
-    function setSanpinLimit(minutes, cardElement) {
+    function setSanpinLimit(minutes, el) {
         document.querySelectorAll('.sanpin-class-card').forEach(c => c.classList.remove('active'));
-        cardElement.classList.add('active');
-        secondsLeft = minutes * 60;
+        el.classList.add('active');
+        totalTimeLimit = minutes * 60;
+        timeLeft = totalTimeLimit;
         document.getElementById('sanpinBadge').innerText = `Норма: ${minutes} мин`;
-        renderTimer();
+        updateTimerDisplay();
+        stopTimer();
     }
 
-    function renderTimer() {
-        const m = Math.floor(secondsLeft / 60).toString().padStart(2, '0');
-        const s = (secondsLeft % 60).toString().padStart(2, '0');
-        document.getElementById('timerDisplay').innerText = `${m}:${s}`;
+    function updateTimerDisplay() {
+        const m = Math.floor(timeLeft / 60);
+        const s = timeLeft % 60;
+        document.getElementById('timerDisplay').innerText = `${m < 10 ? '0' : ''}${m}:${s < 10 ? '0' : ''}${s}`;
     }
 
     function startTimer() {
-        if(timerInterval) clearInterval(timerInterval);
+        if (timerInterval) return;
         timerInterval = setInterval(() => {
-            if(secondsLeft <= 0) {
-                clearInterval(timerInterval);
-                alert("Время непрерывной работы за ПК по нормам СанПиН истекло! Проведите разминку для глаз.");
+            if (timeLeft > 0) {
+                timeLeft--;
+                updateTimerDisplay();
             } else {
-                secondsLeft--;
-                renderTimer();
+                stopTimer();
+                alert("Внимание! Время непрерывной работы за ПК по нормам СанПиН истекло. Проведите физкультминутку и гимнастику для глаз!");
             }
         }, 1000);
     }
 
-    function resetTimer() {
-        if(timerInterval) clearInterval(timerInterval);
-        const activeCard = document.querySelector('.sanpin-class-card.active');
-        if(activeCard) {
-            let mins = 30;
-            if(activeCard.innerText.includes('20')) mins = 20;
-            if(activeCard.innerText.includes('25')) mins = 25;
-            if(activeCard.innerText.includes('30')) mins = 30;
-            if(activeCard.innerText.includes('35')) mins = 35;
-            secondsLeft = mins * 60;
-        }
-        renderTimer();
+    function stopTimer() {
+        clearInterval(timerInterval);
+        timerInterval = null;
     }
 
-    /* Кнопка "Наверх" */
-    const btt = document.getElementById("backToTop");
-    const progressPath = document.getElementById("progressPath");
-    const pathLength = 144;
+    function resetTimer() {
+        stopTimer();
+        timeLeft = totalTimeLimit;
+        updateTimerDisplay();
+    }
 
-    window.onscroll = function() {
-        if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
-            btt.style.display = "block";
-        } else {
-            btt.style.display = "none";
+    // --- 3. ВЫБОР ПЛАТФОРМЫ И РАСЧЕТ ВОВЛЕЧЕННОСТИ ---
+    function selectP(card) {
+        document.querySelectorAll('.platform-card').forEach(c => c.classList.remove('selected'));
+        card.classList.add('selected');
+        currentPlatId = card.getAttribute('data-id');
+    }
+
+    function selectGradeCard(gradeNum, el) {
+        document.querySelectorAll('.calc-grade-card').forEach(c => c.classList.remove('active'));
+        el.classList.add('active');
+        currentGrade = gradeNum;
+    }
+
+    function runCalc() {
+        if (!currentPlatId) {
+            alert("Пожалуйста, выберите интерактивную платформу из списка слева!");
+            return;
+        }
+        if (!currentGrade) {
+            alert("Пожалуйста, выберите класс учеников!");
+            return;
         }
 
+        const score = tableData[currentPlatId] && tableData[currentPlatId][currentGrade] ? tableData[currentPlatId][currentGrade] : 75;
+        
+        document.getElementById('resPlatName').innerText = `${currentPlatId} (${currentGrade} класс)`;
+        document.getElementById('resGradeInfo').innerText = `Коэффициент психолого-возрастной адекватности`;
+        
+        // Анимация кругового прогресса
+        const circle = document.getElementById('progressCircle');
+        circle.style.background = `conic-gradient(var(--accent) ${score * 3.6}deg, #f0f0f0 0deg)`;
+        document.querySelector('.progress-value').innerText = `${score}%`;
+    }
+
+    // --- 4. ПЕРЕХОД К ВИДЕО ---
+    function jumpToVideo(platName) {
+        const vidElem = document.getElementById(`vid-${platName}`);
+        if (vidElem) {
+            vidElem.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            vidElem.classList.add('video-highlight-active');
+            setTimeout(() => {
+                vidElem.classList.remove('video-highlight-active');
+            }, 2000);
+        }
+    }
+
+    // --- 5. КНОПКА ПРОКРУТКИ НАВЕРХ С ПРОЦЕНТОМ ---
+    window.onscroll = function() {
+        const btn = document.getElementById('backToTop');
+        const path = document.getElementById('progressPath');
         const totalHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-        const progress = (document.documentElement.scrollTop / totalHeight);
-        const offset = pathLength - (pathLength * progress);
-        progressPath.style.strokeDashoffset = offset;
+        const currentScroll = window.scrollY;
+        
+        if (currentScroll > 200) {
+            btn.style.display = "block";
+        } else {
+            btn.style.display = "none";
+        }
+
+        const dashoffset = 150 - (currentScroll * 150 / totalHeight);
+        path.style.strokeDashoffset = dashoffset;
     };
 
     function scrollToTop() {
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 </script>
+
 </body>
 </html>
