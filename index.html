@@ -7,62 +7,72 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         :root {
-            --main-bg: linear-gradient(120deg, #e0c3fc 0%, #8ec5fc 100%);
-            --glass-bg: rgba(255, 255, 255, 0.88);
+            --main-bg: linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%);
+            --glass-bg: rgba(255, 255, 255, 0.92);
             --accent: #4834d4;
+            --accent-hover: #3c2bb7;
+            --accent-light: rgba(72, 52, 212, 0.08);
             --text: #2d3436;
-            --success: #27ae60;
+            --text-muted: #636e72;
+            --card-shadow: 0 10px 30px rgba(31, 38, 135, 0.1);
         }
 
         * { box-sizing: border-box; }
 
         body { 
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; 
             background: var(--main-bg);
             background-attachment: fixed;
             margin: 0; padding: 0; color: var(--text); 
-            line-height: 1.5;
+            line-height: 1.6;
         }
 
         header { 
-            padding: 20px; text-align: center; 
-            background: rgba(255, 255, 255, 0.3);
+            padding: 30px 20px; text-align: center; 
+            background: rgba(255, 255, 255, 0.4);
             backdrop-filter: blur(15px);
-            border-bottom: 1px solid rgba(255,255,255,0.4);
+            border-bottom: 1px solid rgba(255,255,255,0.5);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.03);
         }
 
         header h1 { 
-            font-size: 2.2rem; margin: 0; 
+            font-size: 2.5rem; margin: 0; 
             background: linear-gradient(to right, #4834d4, #686de0);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             font-weight: 800;
+            letter-spacing: -0.5px;
         }
 
-        header p { margin: 4px 0 0 0; font-weight: 600; color: #4a4a4a; font-size: 0.85rem; }
+        header p { margin: 6px 0 0 0; font-weight: 600; color: #4a4a4a; font-size: 0.95rem; }
 
         .nav-bar {
-            display: flex; justify-content: center; gap: 8px; flex-wrap: wrap;
-            margin: 12px auto; max-width: 1300px; padding: 0 15px;
+            display: flex; justify-content: center; gap: 12px; flex-wrap: wrap;
+            margin: 20px auto; max-width: 1300px; padding: 0 15px;
         }
 
         .nav-link {
-            background: var(--glass-bg); padding: 6px 14px; border-radius: 20px;
-            text-decoration: none; color: var(--text); font-weight: bold; font-size: 0.8rem;
-            backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.5);
-            transition: 0.3s;
+            background: var(--glass-bg); padding: 10px 20px; border-radius: 25px;
+            text-decoration: none; color: var(--text); font-weight: 700; font-size: 0.88rem;
+            backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.6);
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.03);
         }
 
-        .nav-link:hover { background: var(--accent); color: white; }
+        .nav-link:hover { 
+            background: var(--accent); color: white; 
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(72, 52, 212, 0.3);
+        }
 
-        .container { max-width: 1300px; margin: 15px auto; padding: 0 15px; }
+        .container { max-width: 1350px; margin: 20px auto; padding: 0 20px; }
 
         .main-layout {
             display: grid;
-            grid-template-columns: 1fr 320px;
-            gap: 20px;
+            grid-template-columns: 1fr 340px;
+            gap: 25px;
             align-items: stretch;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
         }
 
         @media (max-width: 992px) {
@@ -72,216 +82,220 @@
         .section-card { 
             background: var(--glass-bg); 
             backdrop-filter: blur(20px);
-            border-radius: 20px; padding: 20px; 
-            box-shadow: 0 8px 30px rgba(31, 38, 135, 0.08);
-            border: 1px solid rgba(255,255,255,0.4); 
+            border-radius: 24px; padding: 25px; 
+            box-shadow: var(--card-shadow);
+            border: 1px solid rgba(255,255,255,0.5); 
             display: flex;
             flex-direction: column;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
         }
 
-        h2 { color: var(--accent); margin-top: 0; margin-bottom: 15px; display: flex; align-items: center; font-size: 1.2rem; }
-        h2 i { margin-right: 8px; }
+        h2 { 
+            color: var(--accent); margin-top: 0; margin-bottom: 20px; 
+            display: flex; align-items: center; font-size: 1.35rem; font-weight: 700;
+        }
+        h2 i { margin-right: 10px; background: var(--accent-light); padding: 8px 12px; border-radius: 12px; }
 
-        /* СТИЛИ ДЛЯ БЛОКА СТРАТЕГИЙ */
+        /* БЛОК СТРАТЕГИЙ */
         .strategies-wrapper {
-            background: rgba(255, 255, 255, 0.9);
-            border-radius: 16px;
-            padding: 20px;
-            border: 1px solid rgba(255,255,255,0.6);
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 22px;
+            border: 1px solid rgba(255,255,255,0.8);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.02);
         }
 
         .strategy-tabs {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 15px;
-            flex-wrap: wrap;
+            display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap;
         }
 
         .tab-btn {
-            padding: 10px 18px;
-            border: none;
-            background: #e2e8f0;
-            color: #334155;
-            font-weight: 600;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 0.85rem;
+            padding: 12px 22px; border: none;
+            background: #f1f5f9; color: #475569;
+            font-weight: 700; border-radius: 12px; cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            font-size: 0.9rem;
         }
 
         .tab-btn.active, .tab-btn:hover {
-            background: var(--accent);
-            color: #fff;
+            background: var(--accent); color: #fff;
+            box-shadow: 0 4px 12px rgba(72, 52, 212, 0.25);
         }
 
         .strategy-content-box {
-            background: #fff;
-            padding: 20px;
-            border-radius: 12px;
-            border-left: 5px solid var(--accent);
-            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+            background: #fff; padding: 22px; border-radius: 16px;
+            border-left: 6px solid var(--accent);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+            animation: fadeIn 0.4s ease;
         }
 
-        .strategy-content-box h3 { margin-top: 0; color: var(--accent); font-size: 1.1rem; }
-        .strategy-desc { color: #475569; font-size: 0.9rem; line-height: 1.6; }
-        .strategy-platforms { margin: 15px 0; }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .strategy-content-box h3 { margin-top: 0; color: var(--accent); font-size: 1.2rem; }
+        .strategy-desc { color: #475569; font-size: 0.95rem; line-height: 1.6; }
+        .strategy-platforms { margin-top: 15px; }
+        
         .platform-badge {
-            display: inline-block;
-            background: #eff6ff;
-            color: #1d4ed8;
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            margin-right: 8px;
-            margin-bottom: 6px;
-            border: 1px solid #bfdbfe;
+            display: inline-block; background: #eef2ff; color: #4338ca;
+            padding: 6px 14px; border-radius: 20px; font-size: 0.85rem;
+            font-weight: 700; margin-right: 8px; margin-bottom: 6px;
+            border: 1px solid #c7d2fe;
         }
 
-        /* ПЛОТНАЯ СЕТКА ПЛАТФОРМ */
+        /* УВЕЛИЧЕННАЯ И УЛУЧШЕННАЯ СЕТКА ПЛАТФОРМ */
         .platform-grid { 
             display: grid; 
-            grid-template-columns: repeat(auto-fill, minmax(145px, 1fr)); 
-            gap: 10px; 
+            grid-template-columns: repeat(auto-fill, minmax(185px, 1fr)); 
+            gap: 16px; 
             flex-grow: 1;
             align-content: start;
         }
+
         .platform-card { 
-            background: rgba(255,255,255,0.9); border-radius: 14px; padding: 12px 10px; 
-            text-align: center; cursor: pointer; transition: 0.3s; 
-            border: 2px solid transparent; display: flex; flex-direction: column; align-items: center;
+            background: #ffffff; border-radius: 18px; padding: 18px 14px; 
+            text-align: center; cursor: pointer; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); 
+            border: 2px solid #eef2f6; display: flex; flex-direction: column; align-items: center;
             justify-content: space-between;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
         }
-        .platform-card h3 { margin: 4px 0; font-size: 0.9rem; }
-        .platform-card img { width: 38px; height: 38px; object-fit: contain; margin-bottom: 4px; border-radius: 6px; }
-        .platform-card:hover { transform: translateY(-2px); background: #fff; }
+
+        .platform-card img { 
+            width: 54px; height: 54px; object-fit: contain; 
+            margin-bottom: 8px; border-radius: 12px;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.08));
+            transition: transform 0.3s ease;
+        }
+
+        .platform-card h3 { margin: 4px 0 10px 0; font-size: 1.05rem; font-weight: 700; color: var(--text); }
+
+        .platform-card:hover { 
+            transform: translateY(-5px); 
+            border-color: #c7d2fe;
+            box-shadow: 0 12px 25px rgba(72, 52, 212, 0.12);
+        }
+
+        .platform-card:hover img { transform: scale(1.08); }
+
         .platform-card.selected { 
-            border-color: var(--accent); background: #fff; 
-            box-shadow: 0 0 12px rgba(72, 52, 212, 0.2);
+            border-color: var(--accent); background: #ffffff; 
+            box-shadow: 0 0 0 3px rgba(72, 52, 212, 0.2), 0 10px 20px rgba(72, 52, 212, 0.15);
         }
 
-        .action-btns { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; margin-top: 6px; width: 100%; }
-        .btn-sm { padding: 4px; border-radius: 6px; text-decoration: none; font-size: 8px; font-weight: bold; text-align: center; }
-        .btn-visit { background: #f1f2f6; color: var(--accent); }
+        .action-btns { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; width: 100%; margin-top: 6px; }
+        
+        .btn-sm { 
+            padding: 6px 8px; border-radius: 8px; text-decoration: none; 
+            font-size: 0.72rem; font-weight: 700; text-align: center; transition: 0.2s;
+        }
+        
+        .btn-visit { background: #f1f5f9; color: var(--accent); }
+        .btn-visit:hover { background: #e2e8f0; }
+        
         .btn-example { background: var(--accent); color: white; }
-        .btn-video-jump { grid-column: span 2; background: #3498db; color: white; border-radius: 6px; padding: 4px; font-size: 8px; text-decoration: none; font-weight: bold; }
+        .btn-example:hover { background: var(--accent-hover); }
+        
+        .btn-video-jump { 
+            grid-column: span 2; background: #0284c7; color: white; 
+            border-radius: 8px; padding: 6px; font-size: 0.72rem; 
+            text-decoration: none; font-weight: 700; transition: 0.2s;
+        }
+        .btn-video-jump:hover { background: #0369a1; }
 
-        .side-column { display: flex; flex-direction: column; gap: 15px; }
+        /* БОКОВАЯ КОЛОНКА */
+        .side-column { display: flex; flex-direction: column; gap: 20px; }
 
         .sanpin-compact-widget {
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 18px;
-            padding: 15px;
-            border: 2px solid rgba(72, 52, 212, 0.15);
-            box-shadow: 0 4px 15px rgba(72, 52, 212, 0.06);
+            background: #ffffff; border-radius: 20px; padding: 18px;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
         }
 
         .sanpin-cards-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 6px;
-            margin-bottom: 8px;
+            display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-bottom: 12px;
         }
 
         .sanpin-class-card {
-            background: white;
-            border: 1.5px solid #e0e0e0;
-            border-radius: 8px;
-            padding: 5px 4px;
-            text-align: center;
-            cursor: pointer;
-            transition: 0.3s;
+            background: #f8fafc; border: 1.5px solid #e2e8f0; border-radius: 10px;
+            padding: 8px 6px; text-align: center; cursor: pointer; transition: 0.2s;
         }
         .sanpin-class-card:hover { border-color: var(--accent); }
-        .sanpin-class-card.active {
-            border-color: var(--accent);
-            background: rgba(72, 52, 212, 0.06);
-        }
-        .sanpin-class-card .cls-title { font-weight: bold; font-size: 0.72rem; color: #333; }
-        .sanpin-class-card .cls-time { font-size: 0.62rem; color: #666; }
+        .sanpin-class-card.active { border-color: var(--accent); background: var(--accent-light); }
+        .sanpin-class-card .cls-title { font-weight: 700; font-size: 0.78rem; color: #334155; }
+        .sanpin-class-card .cls-time { font-size: 0.68rem; color: #64748b; }
 
         .alarm-screen-compact {
-            background: #1e1e24;
-            color: #00ffcc;
-            font-family: 'Courier New', Courier, monospace;
-            padding: 6px;
-            border-radius: 8px;
-            text-align: center;
-            border: 2px solid #333;
-            margin-bottom: 6px;
+            background: #0f172a; color: #38bdf8;
+            font-family: 'Courier New', Courier, monospace; padding: 10px;
+            border-radius: 12px; text-align: center; border: 2px solid #1e293b; margin-bottom: 10px;
         }
-        .timer-display-compact { font-size: 1.6rem; font-weight: 800; letter-spacing: 1px; }
-        .sanpin-badge { display: inline-block; padding: 2px 6px; background: #e1b12c; color: white; border-radius: 4px; font-size: 0.65rem; font-weight: bold; }
+        .timer-display-compact { font-size: 1.8rem; font-weight: 800; letter-spacing: 2px; }
+        .sanpin-badge { display: inline-block; padding: 3px 8px; background: #f59e0b; color: white; border-radius: 6px; font-size: 0.7rem; font-weight: 700; }
 
-        #calcBtn { width: 100%; padding: 10px; background: linear-gradient(to right, #4834d4, #686de0); color: white; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 0.82rem; transition: 0.3s; }
-        #calcBtn:hover { opacity: 0.95; }
+        #calcBtn { 
+            width: 100%; padding: 12px; background: linear-gradient(135deg, #4834d4, #686de0); 
+            color: white; border: none; border-radius: 12px; font-weight: 700; 
+            cursor: pointer; font-size: 0.9rem; transition: 0.3s;
+            box-shadow: 0 4px 12px rgba(72, 52, 212, 0.2);
+        }
+        #calcBtn:hover { transform: translateY(-1px); box-shadow: 0 6px 16px rgba(72, 52, 212, 0.3); }
 
+        /* АНИМИРОВАННЫЙ КАЛЬКУЛЯТОР */
         #resultArea { 
-            padding: 12px 10px; border-radius: 14px; 
-            background: white; border: 1px solid #e0e0e0; 
-            margin-top: 10px; text-align: center; 
+            padding: 16px 12px; border-radius: 16px; 
+            background: #ffffff; border: 1px solid #e2e8f0; 
+            margin-top: 12px; text-align: center; 
             display: flex; flex-direction: column; align-items: center;
-            min-height: 140px; justify-content: center;
+            justify-content: center;
         }
 
         .circular-progress {
-            position: relative; height: 80px; width: 80px;
+            position: relative; height: 90px; width: 90px;
             border-radius: 50%; display: flex; align-items: center;
-            justify-content: center; margin-bottom: 6px;
-            background: conic-gradient(var(--accent) 0deg, #f0f0f0 0deg);
+            justify-content: center; margin-bottom: 10px;
+            background: conic-gradient(var(--accent) 0deg, #f1f5f9 0deg);
+            transition: background 0.1s linear;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.03);
         }
         .circular-progress::before {
-            content: ""; position: absolute; height: 62px; width: 62px;
-            border-radius: 50%; background-color: white;
+            content: ""; position: absolute; height: 72px; width: 72px;
+            border-radius: 50%; background-color: #ffffff;
         }
-        .progress-value { position: relative; font-size: 1.3rem; font-weight: 800; color: var(--text); }
+        .progress-value { position: relative; font-size: 1.4rem; font-weight: 800; color: var(--accent); }
 
-        .calc-grade-section-title { font-weight: bold; font-size: 0.72rem; color: #555; margin: 5px 0 2px 0; }
-        .calc-grades-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 4px;
-            margin-bottom: 4px;
-        }
+        .calc-grade-section-title { font-weight: 700; font-size: 0.75rem; color: #64748b; margin: 8px 0 4px 0; }
+        .calc-grades-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 5px; margin-bottom: 4px; }
         .calc-grade-card {
-            background: white;
-            border: 1.5px solid #e0e0e0;
-            border-radius: 6px;
-            padding: 4px 2px;
-            text-align: center;
-            cursor: pointer;
-            font-weight: bold;
-            font-size: 0.68rem;
-            color: #333;
+            background: #f8fafc; border: 1.5px solid #e2e8f0; border-radius: 8px;
+            padding: 6px 2px; text-align: center; cursor: pointer; font-weight: 700; font-size: 0.72rem; color: #334155; transition: 0.2s;
         }
         .calc-grade-card:hover { border-color: var(--accent); }
-        .calc-grade-card.active {
-            border-color: var(--accent);
-            background: var(--accent);
-            color: white;
-        }
+        .calc-grade-card.active { border-color: var(--accent); background: var(--accent); color: white; }
 
-        .video-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 12px; }
-        .video-item { border-radius: 16px; overflow: hidden; background: white; box-shadow: 0 4px 10px rgba(0,0,0,0.04); border: 2px solid transparent; transition: 0.3s; }
-        video { width: 100%; height: 110px; background: #000; display: block; }
-        .video-item p { padding: 6px; font-weight: bold; text-align: center; margin: 0; font-size: 0.8rem; }
-        .video-highlight-active { border-color: var(--accent); box-shadow: 0 0 15px var(--accent); }
+        /* ВИДЕО */
+        .video-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 16px; }
+        .video-item { border-radius: 16px; overflow: hidden; background: white; box-shadow: 0 4px 12px rgba(0,0,0,0.03); border: 2px solid #e2e8f0; transition: 0.3s; }
+        video { width: 100%; height: 120px; background: #000; display: block; }
+        .video-item p { padding: 8px; font-weight: 700; text-align: center; margin: 0; font-size: 0.85rem; color: #334155; }
+        .video-highlight-active { border-color: var(--accent); box-shadow: 0 0 20px rgba(72, 52, 212, 0.4); }
 
         #backToTop {
-            display: none; position: fixed; bottom: 20px; right: 20px; z-index: 1000;
+            display: none; position: fixed; bottom: 25px; right: 25px; z-index: 1000;
             border: none; outline: none; background: white; color: var(--accent);
-            cursor: pointer; width: 45px; height: 45px; border-radius: 50%;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2); padding: 0;
+            cursor: pointer; width: 50px; height: 50px; border-radius: 50%;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15); padding: 0; transition: 0.3s;
         }
-        #backToTop svg { position: absolute; top: 0; left: 0; transform: rotate(-90deg); width: 45px; height: 45px; }
+        #backToTop:hover { transform: scale(1.1); }
+        #backToTop svg { position: absolute; top: 0; left: 0; transform: rotate(-90deg); width: 50px; height: 50px; }
         #backToTop circle {
-            fill: none; stroke: var(--accent); stroke-width: 3.5; stroke-dasharray: 130;
-            stroke-dashoffset: 130; stroke-linecap: round; transition: stroke-dashoffset 0.1s;
+            fill: none; stroke: var(--accent); stroke-width: 4; stroke-dasharray: 145;
+            stroke-dashoffset: 145; stroke-linecap: round; transition: stroke-dashoffset 0.1s;
         }
-        #backToTop i { position: relative; z-index: 2; font-size: 0.9rem; }
+        #backToTop i { position: relative; z-index: 2; font-size: 1.1rem; }
 
-        footer { text-align: center; padding: 20px; color: #fff; font-size: 0.8rem; }
+        footer { text-align: center; padding: 25px; color: #ffffff; font-size: 0.85rem; font-weight: 600; }
     </style>
 </head>
 <body>
@@ -289,7 +303,7 @@
 <header>
     <h1>EduNavigator</h1>
     <p>Электронный навигатор по стратегиям обучения информатике (1–11 классы)</p>
-    <p style="font-size: 0.75rem; opacity: 0.9;">Алексеева А.А. 2026 | КРУ им. А. Байтұрсынова г. Костанай</p>
+    <p style="font-size: 0.8rem; opacity: 0.9;">Алексеева А.А. 2026 | КРУ им. А. Байтұрсынова г. Костанай</p>
 </header>
 
 <div class="nav-bar">
@@ -304,7 +318,7 @@
     <div class="section-card" id="strategies">
         <h2><i class="fas fa-magic"></i> 1. Возрастные стратегии обучения</h2>
         <div class="strategies-wrapper">
-            <p style="margin-top: 0; font-size: 0.85rem; color: #555;">Выберите возрастную категорию для просмотра стратегии и рекомендованных платформ:</p>
+            <p style="margin-top: 0; font-size: 0.9rem; color: #64748b;">Выберите возрастную категорию для просмотра стратегии и рекомендованных платформ:</p>
             
             <div class="strategy-tabs">
                 <button class="tab-btn active" onclick="switchStrategy('primary', this)">1–4 классы (Младшее звено)</button>
@@ -329,7 +343,8 @@
             <h2><i class="fas fa-layer-group"></i> 2. Интерактивные платформы обучения</h2>
             <div class="platform-grid">
                 <div class="platform-card" data-id="Quizizz" onclick="selectP(this)">
-                    <img src="Quizziz_Logo.png" alt="Quizizz"><h3>Quizizz</h3>
+                    <img src="Quizziz_Logo.png" alt="Quizizz">
+                    <h3>Quizizz</h3>
                     <div class="action-btns">
                         <a href="https://quizizz.com" target="_blank" class="btn-sm btn-visit" onclick="event.stopPropagation()">Сайт</a>
                         <a href="https://wayground.com/join/quiz/68dea19819181cf4ab42fcf2/start?studentShare=true" target="_blank" class="btn-sm btn-example" onclick="event.stopPropagation()">Пример</a>
@@ -337,7 +352,8 @@
                     </div>
                 </div>
                 <div class="platform-card" data-id="Kahoot" onclick="selectP(this)">
-                    <img src="kahoot-1024x560-1.png" alt="Kahoot"><h3>Kahoot</h3>
+                    <img src="kahoot-1024x560-1.png" alt="Kahoot">
+                    <h3>Kahoot</h3>
                     <div class="action-btns">
                         <a href="https://kahoot.com" target="_blank" class="btn-sm btn-visit" onclick="event.stopPropagation()">Сайт</a>
                         <a href="https://create.kahoot.it/details/f138bd56-3c68-4a22-8d33-95e29dcbeed8" target="_blank" class="btn-sm btn-example" onclick="event.stopPropagation()">Пример</a>
@@ -345,7 +361,8 @@
                     </div>
                 </div>
                 <div class="platform-card" data-id="Baamboozle" onclick="selectP(this)">
-                    <img src="Baamboozle.png" alt="Baamboozle"><h3>Baamboozle</h3>
+                    <img src="Baamboozle.png" alt="Baamboozle">
+                    <h3>Baamboozle</h3>
                     <div class="action-btns">
                         <a href="https://baamboozle.com" target="_blank" class="btn-sm btn-visit" onclick="event.stopPropagation()">Сайт</a>
                         <a href="https://www.baamboozle.com/game/4124665" target="_blank" class="btn-sm btn-example" onclick="event.stopPropagation()">Пример</a>
@@ -353,7 +370,8 @@
                     </div>
                 </div>
                 <div class="platform-card" data-id="Wordwall" onclick="selectP(this)">
-                    <img src="Wordwall.png" alt="Wordwall"><h3>Wordwall</h3>
+                    <img src="Wordwall.png" alt="Wordwall">
+                    <h3>Wordwall</h3>
                     <div class="action-btns">
                         <a href="https://wordwall.net" target="_blank" class="btn-sm btn-visit" onclick="event.stopPropagation()">Сайт</a>
                         <a href="https://wordwall.net/resource/71348871" target="_blank" class="btn-sm btn-example" onclick="event.stopPropagation()">Пример</a>
@@ -361,7 +379,8 @@
                     </div>
                 </div>
                 <div class="platform-card" data-id="LearningApps" onclick="selectP(this)">
-                    <img src="LearningApps.jpg" alt="LearningApps"><h3>LearningApps</h3>
+                    <img src="LearningApps.jpg" alt="LearningApps">
+                    <h3>LearningApps</h3>
                     <div class="action-btns">
                         <a href="https://learningapps.org" target="_blank" class="btn-sm btn-visit" onclick="event.stopPropagation()">Сайт</a>
                         <a href="https://learningapps.org/watch?v=pad9ze4xj25" target="_blank" class="btn-sm btn-example" onclick="event.stopPropagation()">Пример</a>
@@ -369,7 +388,8 @@
                     </div>
                 </div>
                 <div class="platform-card" data-id="Udoba" onclick="selectP(this)">
-                    <img src="Udoba.png" alt="Udoba"><h3>Udoba</h3>
+                    <img src="Udoba.png" alt="Udoba">
+                    <h3>Udoba</h3>
                     <div class="action-btns">
                         <a href="https://udoba.org" target="_blank" class="btn-sm btn-visit" onclick="event.stopPropagation()">Сайт</a>
                         <a href="https://udoba.org/node/269725/embed" target="_blank" class="btn-sm btn-example" onclick="event.stopPropagation()">Пример</a>
@@ -377,7 +397,8 @@
                     </div>
                 </div>
                 <div class="platform-card" data-id="Joyteka" onclick="selectP(this)">
-                    <img src="Joyteka.png" alt="Joyteka"><h3>Joyteka</h3>
+                    <img src="Joyteka.png" alt="Joyteka">
+                    <h3>Joyteka</h3>
                     <div class="action-btns">
                         <a href="https://joyteka.com" target="_blank" class="btn-sm btn-visit" onclick="event.stopPropagation()">Сайт</a>
                         <a href="https://joyteka.com/101058095" target="_blank" class="btn-sm btn-example" onclick="event.stopPropagation()">Пример</a>
@@ -385,7 +406,8 @@
                     </div>
                 </div>
                 <div class="platform-card" data-id="MyQuiz" onclick="selectP(this)">
-                    <img src="myQuiz-Logo.png" alt="MyQuiz"><h3>MyQuiz</h3>
+                    <img src="myQuiz-Logo.png" alt="MyQuiz">
+                    <h3>MyQuiz</h3>
                     <div class="action-btns">
                         <a href="https://myquiz.ru" target="_blank" class="btn-sm btn-visit" onclick="event.stopPropagation()">Сайт</a>
                         <a href="https://play.myquiz.ru/p/00976569" target="_blank" class="btn-sm btn-example" onclick="event.stopPropagation()">Пример</a>
@@ -393,7 +415,8 @@
                     </div>
                 </div>
                 <div class="platform-card" data-id="Genially" onclick="selectP(this)">
-                    <img src="Genially.jpg" alt="Genially"><h3>Genially</h3>
+                    <img src="Genially.jpg" alt="Genially">
+                    <h3>Genially</h3>
                     <div class="action-btns">
                         <a href="https://genially.com" target="_blank" class="btn-sm btn-visit" onclick="event.stopPropagation()">Сайт</a>
                         <a href="https://view.genially.com/698f4fc03aa44fce3dd77315/interactive-content-start" target="_blank" class="btn-sm btn-example" onclick="event.stopPropagation()">Пример</a>
@@ -401,7 +424,8 @@
                     </div>
                 </div>
                 <div class="platform-card" data-id="Gimkit" onclick="selectP(this)">
-                    <img src="Gimkit.png" alt="Gimkit"><h3>Gimkit</h3>
+                    <img src="Gimkit.png" alt="Gimkit">
+                    <h3>Gimkit</h3>
                     <div class="action-btns">
                         <a href="https://gimkit.com" target="_blank" class="btn-sm btn-visit" onclick="event.stopPropagation()">Сайт</a>
                         <a href="https://www.gimkit.com/view/6166e00b2170df0022272e73" target="_blank" class="btn-sm btn-example" onclick="event.stopPropagation()">Пример</a>
@@ -414,10 +438,10 @@
         <!-- БОКОВАЯ ПАНЕЛЬ: ТАЙМЕР И КАЛЬКУЛЯТОР ВОВЛЕЧЕННОСТИ -->
         <div class="side-column">
             <div class="sanpin-compact-widget">
-                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px;">
-                    <div style="display: flex; align-items: center; gap: 5px;">
-                        <i class="fas fa-clock" style="color: var(--accent); font-size: 0.85rem;"></i>
-                        <span style="font-weight: bold; font-size: 0.78rem; color: #333;">Виджет-таймер</span>
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+                    <div style="display: flex; align-items: center; gap: 6px;">
+                        <i class="fas fa-clock" style="color: var(--accent); font-size: 0.9rem;"></i>
+                        <span style="font-weight: 700; font-size: 0.85rem; color: #334155;">Виджет-таймер</span>
                     </div>
                     <span class="sanpin-badge" id="sanpinBadge">Норма: 30 мин</span>
                 </div>
@@ -445,16 +469,16 @@
                     <div class="timer-display-compact" id="timerDisplay">30:00</div>
                 </div>
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 6px;">
-                    <button class="btn-sm btn-example" style="padding: 5px; font-size: 0.75rem;" onclick="startTimer()"><i class="fas fa-play"></i> Старт</button>
-                    <button class="btn-sm btn-visit" style="padding: 5px; font-size: 0.75rem;" onclick="resetTimer()"><i class="fas fa-redo"></i> Сброс</button>
+                    <button class="btn-sm btn-example" style="padding: 7px; font-size: 0.78rem;" onclick="startTimer()"><i class="fas fa-play"></i> Старт</button>
+                    <button class="btn-sm btn-visit" style="padding: 7px; font-size: 0.78rem;" onclick="resetTimer()"><i class="fas fa-redo"></i> Сброс</button>
                 </div>
             </div>
 
-            <div class="section-card" style="padding: 15px; margin-bottom: 0;">
-                <h2 style="font-size: 1.05rem; margin-bottom: 10px;"><i class="fas fa-chart-line"></i> Калькулятор вовлеченности</h2>
+            <div class="section-card" style="padding: 18px; margin-bottom: 0;">
+                <h2 style="font-size: 1.1rem; margin-bottom: 12px;"><i class="fas fa-chart-line"></i> Калькулятор вовлеченности</h2>
                 
-                <div style="margin-bottom: 8px;">
-                    <label style="display: block; font-weight: bold; margin-bottom: 3px; font-size: 0.75rem; color: #444;">Класс учеников:</label>
+                <div style="margin-bottom: 10px;">
+                    <label style="display: block; font-weight: 700; margin-bottom: 4px; font-size: 0.78rem; color: #475569;">Класс учеников:</label>
                     
                     <div class="calc-grade-section-title">Начальная школа:</div>
                     <div class="calc-grades-grid">
@@ -471,7 +495,7 @@
                         <div class="calc-grade-card active" onclick="selectGradeCard(7, this)">7 кл</div>
                         <div class="calc-grade-card" onclick="selectGradeCard(8, this)">8 кл</div>
                     </div>
-                    <div class="calc-grades-grid" style="grid-template-columns: repeat(1, 1fr); margin-top: 3px;">
+                    <div class="calc-grades-grid" style="grid-template-columns: repeat(1, 1fr); margin-top: 4px;">
                         <div class="calc-grade-card" onclick="selectGradeCard(9, this)">9 класс</div>
                     </div>
 
@@ -484,9 +508,9 @@
 
                 <button id="calcBtn" onclick="runCalc()">Рассчитать вовлеченность</button>
                 <div id="resultArea">
-                    <div class="circular-progress" id="progressCircle"><span class="progress-value">0%</span></div>
-                    <h3 id="resPlatName" style="margin: 2px 0; font-size: 0.9rem;">Выбор платформы</h3>
-                    <p id="resGradeInfo" style="margin: 0; font-size: 0.7rem; color: #666;">Выберите карточку платформы выше</p>
+                    <div class="circular-progress" id="progressCircle"><span class="progress-value" id="progVal">0%</span></div>
+                    <h3 id="resPlatName" style="margin: 4px 0; font-size: 0.95rem; font-weight: 700;">Выбор платформы</h3>
+                    <p id="resGradeInfo" style="margin: 0; font-size: 0.75rem; color: #64748b;">Выберите карточку платформы выше</p>
                 </div>
             </div>
         </div>
@@ -512,7 +536,7 @@
 </div>
 
 <button id="backToTop" onclick="scrollToTop()">
-    <svg><circle id="progressPath" cx="22.5" cy="22.5" r="20"></circle></svg>
+    <svg><circle id="progressPath" cx="25" cy="25" r="23"></circle></svg>
     <i class="fas fa-arrow-up"></i>
 </button>
 
@@ -521,6 +545,7 @@
 <script>
     let currentPlatId = ""; 
     let currentGrade = 7;
+    let animTimer = null;
 
     const tableData = {
         "Quizizz":      { 1: 82, 2: 85, 3: 88, 4: 90, 5: 92, 6: 85, 7: 70, 8: 65, 9: 60, 10: 55, 11: 50 },
@@ -535,7 +560,7 @@
         "Genially":     { 1: 40, 2: 45, 3: 50, 4: 55, 5: 60, 6: 65, 7: 68, 8: 80, 9: 85, 10: 90, 11: 94 }
     };
 
-    // Переключение стратегий для блока 1
+    // Переключение стратегий
     function switchStrategy(type, el) {
         document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
         el.classList.add('active');
@@ -575,7 +600,7 @@
         }
     }
 
-    // Выбор платформы для калькулятора
+    // Выбор платформы
     function selectP(card) {
         document.querySelectorAll('.platform-card').forEach(c => c.classList.remove('selected'));
         card.classList.add('selected');
@@ -583,7 +608,7 @@
         runCalc();
     }
 
-    // Выбор класса для калькулятора
+    // Выбор класса
     function selectGradeCard(grade, card) {
         const parent = card.parentElement.parentElement;
         parent.querySelectorAll('.calc-grade-card').forEach(c => c.classList.remove('active'));
@@ -592,18 +617,36 @@
         runCalc();
     }
 
-    // Расчет вовлеченности
+    // Расчет вовлеченности с красивой анимацией
     function runCalc() {
         if (!currentPlatId) {
             document.getElementById('resPlatName').innerText = "Выберите платформу!";
-            document.getElementById('resGradeInfo').innerText = "Нажмите на любую карточку выше";
+            document.getElementById('resGradeInfo').innerText = "Нажмите на любую карточку слева";
             return;
         }
-        let val = tableData[currentPlatId][currentGrade];
+
+        let targetVal = tableData[currentPlatId][currentGrade];
         document.getElementById('resPlatName').innerText = currentPlatId;
-        document.getElementById('resGradeInfo').innerText = `Для ${currentGrade} класса`;
-        document.querySelector('.progress-value').innerText = val + "%";
-        document.getElementById('progressCircle').style.background = `conic-gradient(var(--accent) ${val * 3.6}deg, #f0f0f0 0deg)`;
+        document.getElementById('resGradeInfo').innerText = `Коэффициент для ${currentGrade} класса`;
+
+        if (animTimer) clearInterval(animTimer);
+
+        let startVal = 0;
+        let duration = 800; // мс
+        let stepTime = 15;
+        let totalSteps = duration / stepTime;
+        let stepIncrement = targetVal / totalSteps;
+
+        animTimer = setInterval(() => {
+            startVal += stepIncrement;
+            if (startVal >= targetVal) {
+                startVal = targetVal;
+                clearInterval(animTimer);
+            }
+            let currentInt = Math.round(startVal);
+            document.getElementById('progVal').innerText = currentInt + "%";
+            document.getElementById('progressCircle').style.background = `conic-gradient(var(--accent) ${currentInt * 3.6}deg, #f1f5f9 0deg)`;
+        }, stepTime);
     }
 
     // Таймер СанПиН
@@ -635,7 +678,7 @@
                 updateTimerDisplay();
             } else {
                 stopTimer();
-                alert("Время непрерывной работы за ПК истекло! Проведите разминку для глаз.");
+                alert("Время непрерывной работы за ПК истекло! Проведите физминутку и гимнастику для глаз.");
             }
         }, 1000);
     }
@@ -667,7 +710,7 @@
         let path = document.getElementById('progressPath');
         let scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
         let scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-        let progress = 130 - (scrollTop * 130 / scrollHeight);
+        let progress = 145 - (scrollTop * 145 / scrollHeight);
         
         if (path) path.style.strokeDashoffset = progress;
         if (scrollTop > 300) {
