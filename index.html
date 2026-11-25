@@ -71,7 +71,7 @@
             display: grid;
             grid-template-columns: 1fr 340px;
             gap: 25px;
-            align-items: stretch;
+            align-items: start;
             margin-bottom: 25px;
         }
 
@@ -145,7 +145,7 @@
             border: 1px solid #c7d2fe;
         }
 
-        /* УВЕЛИЧЕННАЯ И УЛУЧШЕННАЯ СЕТКА ПЛАТФОРМ */
+        /* СЕТКА ПЛАТФОРМ */
         .platform-grid { 
             display: grid; 
             grid-template-columns: repeat(auto-fill, minmax(185px, 1fr)); 
@@ -187,7 +187,7 @@
         .action-btns { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; width: 100%; margin-top: 6px; }
         
         .btn-sm { 
-            padding: 6px 8px; border-radius: 8px; text-decoration: none; 
+            padding: 6px 8px; border-radius: 8px; text-decoration: none; border: none; cursor: pointer;
             font-size: 0.72rem; font-weight: 700; text-align: center; transition: 0.2s;
         }
         
@@ -252,7 +252,7 @@
         }
 
         .circular-progress {
-            position: relative; height: 90px; width: 90px;
+            position: relative; height: 96px; width: 96px;
             border-radius: 50%; display: flex; align-items: center;
             justify-content: center; margin-bottom: 10px;
             background: conic-gradient(var(--accent) 0deg, #f1f5f9 0deg);
@@ -260,10 +260,21 @@
             box-shadow: inset 0 0 10px rgba(0,0,0,0.03);
         }
         .circular-progress::before {
-            content: ""; position: absolute; height: 72px; width: 72px;
+            content: ""; position: absolute; height: 76px; width: 76px;
             border-radius: 50%; background-color: #ffffff;
         }
-        .progress-value { position: relative; font-size: 1.4rem; font-weight: 800; color: var(--accent); }
+        .progress-value { position: relative; font-size: 1.4rem; font-weight: 800; color: var(--accent); transition: color 0.2s; }
+
+        .level-pill {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 0.72rem;
+            font-weight: 700;
+            margin-bottom: 6px;
+            background: #f1f5f9;
+            color: #64748b;
+        }
 
         .calc-grade-section-title { font-weight: 700; font-size: 0.75rem; color: #64748b; margin: 8px 0 4px 0; }
         .calc-grades-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 5px; margin-bottom: 4px; }
@@ -321,17 +332,18 @@
             <p style="margin-top: 0; font-size: 0.9rem; color: #64748b;">Выберите возрастную категорию для просмотра стратегии и рекомендованных платформ:</p>
             
             <div class="strategy-tabs">
-                <button class="tab-btn active" onclick="switchStrategy('primary', this)">1–4 классы (Младшее звено)</button>
-                <button class="tab-btn" onclick="switchStrategy('middle', this)">5–9 классы (Среднее звено)</button>
-                <button class="tab-btn" onclick="switchStrategy('senior', this)">10–11 классы (Старшее звено)</button>
+                <button type="button" class="tab-btn active" onclick="switchStrategy('primary', this)">1–4 классы (Младшее звено)</button>
+                <button type="button" class="tab-btn" onclick="switchStrategy('middle', this)">5–9 классы (Среднее звено)</button>
+                <button type="button" class="tab-btn" onclick="switchStrategy('senior', this)">10–11 классы (Старшее звено)</button>
             </div>
 
             <div id="strategyBox" class="strategy-content-box">
-                <h3>Визуально-игровая стратегия</h3>
+                <h3>Визуально-игровая стратегия (1–4 классы)</h3>
                 <p class="strategy-desc"><strong>Особенности:</strong> В младшем школьном возрасте детям важна наглядность и смена деятельности. На сайте для младших классов подобраны платформы и сервисы, которые позволяют использовать яркие интерактивные задания и демонстрацию на общем экране без перегрузки внимания и утомления за компьютером.</p>
                 <div class="strategy-platforms">
                     <span class="platform-badge">Baamboozle</span>
                     <span class="platform-badge">Wordwall</span>
+                    <span class="platform-badge">LearningApps</span>
                 </div>
             </div>
         </div>
@@ -346,8 +358,8 @@
                     <img src="Quizziz_Logo.png" alt="Quizizz">
                     <h3>Quizizz</h3>
                     <div class="action-btns">
-                        <a href="https://quizizz.com" target="_blank" class="btn-sm btn-visit" onclick="event.stopPropagation()">Сайт</a>
-                        <a href="https://wayground.com/join/quiz/68dea19819181cf4ab42fcf2/start?studentShare=true" target="_blank" class="btn-sm btn-example" onclick="event.stopPropagation()">Пример</a>
+                        <a href="https://quizizz.com" target="_blank" rel="noopener" class="btn-sm btn-visit" onclick="event.stopPropagation()">Сайт</a>
+                        <a href="https://wayground.com/join/quiz/68dea19819181cf4ab42fcf2/start?studentShare=true" target="_blank" rel="noopener" class="btn-sm btn-example" onclick="event.stopPropagation()">Пример</a>
                         <a href="javascript:void(0)" class="btn-video-jump" onclick="event.stopPropagation(); jumpToVideo('Quizizz')">📽 Инструкция</a>
                     </div>
                 </div>
@@ -355,8 +367,8 @@
                     <img src="kahoot-1024x560-1.png" alt="Kahoot">
                     <h3>Kahoot</h3>
                     <div class="action-btns">
-                        <a href="https://kahoot.com" target="_blank" class="btn-sm btn-visit" onclick="event.stopPropagation()">Сайт</a>
-                        <a href="https://create.kahoot.it/details/f138bd56-3c68-4a22-8d33-95e29dcbeed8" target="_blank" class="btn-sm btn-example" onclick="event.stopPropagation()">Пример</a>
+                        <a href="https://kahoot.com" target="_blank" rel="noopener" class="btn-sm btn-visit" onclick="event.stopPropagation()">Сайт</a>
+                        <a href="https://create.kahoot.it/details/f138bd56-3c68-4a22-8d33-95e29dcbeed8" target="_blank" rel="noopener" class="btn-sm btn-example" onclick="event.stopPropagation()">Пример</a>
                         <a href="javascript:void(0)" class="btn-video-jump" onclick="event.stopPropagation(); jumpToVideo('Kahoot')">📽 Инструкция</a>
                     </div>
                 </div>
@@ -364,8 +376,8 @@
                     <img src="Baamboozle.png" alt="Baamboozle">
                     <h3>Baamboozle</h3>
                     <div class="action-btns">
-                        <a href="https://baamboozle.com" target="_blank" class="btn-sm btn-visit" onclick="event.stopPropagation()">Сайт</a>
-                        <a href="https://www.baamboozle.com/game/4124665" target="_blank" class="btn-sm btn-example" onclick="event.stopPropagation()">Пример</a>
+                        <a href="https://baamboozle.com" target="_blank" rel="noopener" class="btn-sm btn-visit" onclick="event.stopPropagation()">Сайт</a>
+                        <a href="https://www.baamboozle.com/game/4124665" target="_blank" rel="noopener" class="btn-sm btn-example" onclick="event.stopPropagation()">Пример</a>
                         <a href="javascript:void(0)" class="btn-video-jump" onclick="event.stopPropagation(); jumpToVideo('Baamboozle')">📽 Инструкция</a>
                     </div>
                 </div>
@@ -373,8 +385,8 @@
                     <img src="Wordwall.png" alt="Wordwall">
                     <h3>Wordwall</h3>
                     <div class="action-btns">
-                        <a href="https://wordwall.net" target="_blank" class="btn-sm btn-visit" onclick="event.stopPropagation()">Сайт</a>
-                        <a href="https://wordwall.net/resource/71348871" target="_blank" class="btn-sm btn-example" onclick="event.stopPropagation()">Пример</a>
+                        <a href="https://wordwall.net" target="_blank" rel="noopener" class="btn-sm btn-visit" onclick="event.stopPropagation()">Сайт</a>
+                        <a href="https://wordwall.net/resource/71348871" target="_blank" rel="noopener" class="btn-sm btn-example" onclick="event.stopPropagation()">Пример</a>
                         <a href="javascript:void(0)" class="btn-video-jump" onclick="event.stopPropagation(); jumpToVideo('Wordwall')">📽 Инструкция</a>
                     </div>
                 </div>
@@ -382,8 +394,8 @@
                     <img src="LearningApps.jpg" alt="LearningApps">
                     <h3>LearningApps</h3>
                     <div class="action-btns">
-                        <a href="https://learningapps.org" target="_blank" class="btn-sm btn-visit" onclick="event.stopPropagation()">Сайт</a>
-                        <a href="https://learningapps.org/watch?v=pad9ze4xj25" target="_blank" class="btn-sm btn-example" onclick="event.stopPropagation()">Пример</a>
+                        <a href="https://learningapps.org" target="_blank" rel="noopener" class="btn-sm btn-visit" onclick="event.stopPropagation()">Сайт</a>
+                        <a href="https://learningapps.org/watch?v=pad9ze4xj25" target="_blank" rel="noopener" class="btn-sm btn-example" onclick="event.stopPropagation()">Пример</a>
                         <a href="javascript:void(0)" class="btn-video-jump" onclick="event.stopPropagation(); jumpToVideo('LearningApps')">📽 Инструкция</a>
                     </div>
                 </div>
@@ -391,8 +403,8 @@
                     <img src="Udoba.png" alt="Udoba">
                     <h3>Udoba</h3>
                     <div class="action-btns">
-                        <a href="https://udoba.org" target="_blank" class="btn-sm btn-visit" onclick="event.stopPropagation()">Сайт</a>
-                        <a href="https://udoba.org/node/269725/embed" target="_blank" class="btn-sm btn-example" onclick="event.stopPropagation()">Пример</a>
+                        <a href="https://udoba.org" target="_blank" rel="noopener" class="btn-sm btn-visit" onclick="event.stopPropagation()">Сайт</a>
+                        <a href="https://udoba.org/node/269725/embed" target="_blank" rel="noopener" class="btn-sm btn-example" onclick="event.stopPropagation()">Пример</a>
                         <a href="javascript:void(0)" class="btn-video-jump" onclick="event.stopPropagation(); jumpToVideo('Udoba')">📽 Инструкция</a>
                     </div>
                 </div>
@@ -400,8 +412,8 @@
                     <img src="Joyteka.png" alt="Joyteka">
                     <h3>Joyteka</h3>
                     <div class="action-btns">
-                        <a href="https://joyteka.com" target="_blank" class="btn-sm btn-visit" onclick="event.stopPropagation()">Сайт</a>
-                        <a href="https://joyteka.com/101058095" target="_blank" class="btn-sm btn-example" onclick="event.stopPropagation()">Пример</a>
+                        <a href="https://joyteka.com" target="_blank" rel="noopener" class="btn-sm btn-visit" onclick="event.stopPropagation()">Сайт</a>
+                        <a href="https://joyteka.com/101058095" target="_blank" rel="noopener" class="btn-sm btn-example" onclick="event.stopPropagation()">Пример</a>
                         <a href="javascript:void(0)" class="btn-video-jump" onclick="event.stopPropagation(); jumpToVideo('Joyteka')">📽 Инструкция</a>
                     </div>
                 </div>
@@ -409,8 +421,8 @@
                     <img src="myQuiz-Logo.png" alt="MyQuiz">
                     <h3>MyQuiz</h3>
                     <div class="action-btns">
-                        <a href="https://myquiz.ru" target="_blank" class="btn-sm btn-visit" onclick="event.stopPropagation()">Сайт</a>
-                        <a href="https://play.myquiz.ru/p/00976569" target="_blank" class="btn-sm btn-example" onclick="event.stopPropagation()">Пример</a>
+                        <a href="https://myquiz.ru" target="_blank" rel="noopener" class="btn-sm btn-visit" onclick="event.stopPropagation()">Сайт</a>
+                        <a href="https://play.myquiz.ru/p/00976569" target="_blank" rel="noopener" class="btn-sm btn-example" onclick="event.stopPropagation()">Пример</a>
                         <a href="javascript:void(0)" class="btn-video-jump" onclick="event.stopPropagation(); jumpToVideo('MyQuiz')">📽 Инструкция</a>
                     </div>
                 </div>
@@ -418,8 +430,8 @@
                     <img src="Genially.jpg" alt="Genially">
                     <h3>Genially</h3>
                     <div class="action-btns">
-                        <a href="https://genially.com" target="_blank" class="btn-sm btn-visit" onclick="event.stopPropagation()">Сайт</a>
-                        <a href="https://view.genially.com/698f4fc03aa44fce3dd77315/interactive-content-start" target="_blank" class="btn-sm btn-example" onclick="event.stopPropagation()">Пример</a>
+                        <a href="https://genially.com" target="_blank" rel="noopener" class="btn-sm btn-visit" onclick="event.stopPropagation()">Сайт</a>
+                        <a href="https://view.genially.com/698f4fc03aa44fce3dd77315/interactive-content-start" target="_blank" rel="noopener" class="btn-sm btn-example" onclick="event.stopPropagation()">Пример</a>
                         <a href="javascript:void(0)" class="btn-video-jump" onclick="event.stopPropagation(); jumpToVideo('Genially')">📽 Инструкция</a>
                     </div>
                 </div>
@@ -427,8 +439,8 @@
                     <img src="Gimkit.png" alt="Gimkit">
                     <h3>Gimkit</h3>
                     <div class="action-btns">
-                        <a href="https://gimkit.com" target="_blank" class="btn-sm btn-visit" onclick="event.stopPropagation()">Сайт</a>
-                        <a href="https://www.gimkit.com/view/6166e00b2170df0022272e73" target="_blank" class="btn-sm btn-example" onclick="event.stopPropagation()">Пример</a>
+                        <a href="https://gimkit.com" target="_blank" rel="noopener" class="btn-sm btn-visit" onclick="event.stopPropagation()">Сайт</a>
+                        <a href="https://www.gimkit.com/view/6166e00b2170df0022272e73" target="_blank" rel="noopener" class="btn-sm btn-example" onclick="event.stopPropagation()">Пример</a>
                         <a href="javascript:void(0)" class="btn-video-jump" onclick="event.stopPropagation(); jumpToVideo('Gimkit')">📽 Инструкция</a>
                     </div>
                 </div>
@@ -443,34 +455,34 @@
                         <i class="fas fa-clock" style="color: var(--accent); font-size: 0.9rem;"></i>
                         <span style="font-weight: 700; font-size: 0.85rem; color: #334155;">Виджет-таймер</span>
                     </div>
-                    <span class="sanpin-badge" id="sanpinBadge">Норма: 30 мин</span>
+                    <span class="sanpin-badge" id="sanpinBadge">Норма: 25 мин</span>
                 </div>
 
                 <div class="sanpin-cards-grid">
+                    <div class="sanpin-class-card" onclick="setSanpinLimit(15, this)">
+                        <div class="cls-title">1 класс</div>
+                        <div class="cls-time">до 15 мин</div>
+                    </div>
                     <div class="sanpin-class-card" onclick="setSanpinLimit(20, this)">
-                        <div class="cls-title">1–2 кл</div>
+                        <div class="cls-title">2–3 кл</div>
                         <div class="cls-time">до 20 мин</div>
                     </div>
-                    <div class="sanpin-class-card" onclick="setSanpinLimit(25, this)">
-                        <div class="cls-title">3–4 кл</div>
+                    <div class="sanpin-class-card active" onclick="setSanpinLimit(25, this)">
+                        <div class="cls-title">4–8 кл</div>
                         <div class="cls-time">до 25 мин</div>
                     </div>
-                    <div class="sanpin-class-card active" onclick="setSanpinLimit(30, this)">
-                        <div class="cls-title">5–9 кл</div>
+                    <div class="sanpin-class-card" onclick="setSanpinLimit(30, this)">
+                        <div class="cls-title">9–11 кл</div>
                         <div class="cls-time">до 30 мин</div>
-                    </div>
-                    <div class="sanpin-class-card" onclick="setSanpinLimit(35, this)">
-                        <div class="cls-title">10–11 кл</div>
-                        <div class="cls-time">до 35 мин</div>
                     </div>
                 </div>
 
                 <div class="alarm-screen-compact">
-                    <div class="timer-display-compact" id="timerDisplay">30:00</div>
+                    <div class="timer-display-compact" id="timerDisplay">25:00</div>
                 </div>
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 6px;">
-                    <button class="btn-sm btn-example" style="padding: 7px; font-size: 0.78rem;" onclick="startTimer()"><i class="fas fa-play"></i> Старт</button>
-                    <button class="btn-sm btn-visit" style="padding: 7px; font-size: 0.78rem;" onclick="resetTimer()"><i class="fas fa-redo"></i> Сброс</button>
+                    <button type="button" class="btn-sm btn-example" style="padding: 7px; font-size: 0.78rem;" onclick="startTimer()"><i class="fas fa-play"></i> Старт</button>
+                    <button type="button" class="btn-sm btn-visit" style="padding: 7px; font-size: 0.78rem;" onclick="resetTimer()"><i class="fas fa-redo"></i> Сброс</button>
                 </div>
             </div>
 
@@ -506,10 +518,11 @@
                     </div>
                 </div>
 
-                <button id="calcBtn" onclick="runCalc()">Рассчитать вовлеченность</button>
+                <button type="button" id="calcBtn" onclick="runCalc()">Рассчитать вовлеченность</button>
                 <div id="resultArea">
                     <div class="circular-progress" id="progressCircle"><span class="progress-value" id="progVal">0%</span></div>
-                    <h3 id="resPlatName" style="margin: 4px 0; font-size: 0.95rem; font-weight: 700;">Выбор платформы</h3>
+                    <span class="level-pill" id="levelBadge">Уровень: не определен</span>
+                    <h3 id="resPlatName" style="margin: 2px 0; font-size: 0.95rem; font-weight: 700;">Выбор платформы</h3>
                     <p id="resGradeInfo" style="margin: 0; font-size: 0.75rem; color: #64748b;">Выберите карточку платформы выше</p>
                 </div>
             </div>
@@ -535,7 +548,7 @@
 
 </div>
 
-<button id="backToTop" onclick="scrollToTop()">
+<button type="button" id="backToTop" onclick="scrollToTop()" aria-label="Наверх">
     <svg><circle id="progressPath" cx="25" cy="25" r="23"></circle></svg>
     <i class="fas fa-arrow-up"></i>
 </button>
@@ -547,60 +560,85 @@
     let currentGrade = 7;
     let animTimer = null;
 
+    let sanpinLimitMinutes = 25;
+    let remainingSeconds = sanpinLimitMinutes * 60;
+    let countdownInterval = null;
+
+    // 5–9 классы — из предоставленной таблицы;
+    // 1–4 и 10–11 классы — согласно Таблице 3 (Приложение Б) и возрастным стратегиям в курсовой
     const tableData = {
-        "Quizizz":      { 1: 82, 2: 85, 3: 88, 4: 90, 5: 92, 6: 85, 7: 70, 8: 65, 9: 60, 10: 55, 11: 50 },
-        "Kahoot":       { 1: 80, 2: 83, 3: 86, 4: 89, 5: 90, 6: 85, 7: 68, 8: 60, 9: 62, 10: 58, 11: 52 },
-        "Baamboozle":   { 1: 85, 2: 88, 3: 90, 4: 92, 5: 92, 6: 88, 7: 75, 8: 55, 9: 50, 10: 45, 11: 40 },
-        "MyQuiz":       { 1: 75, 2: 78, 3: 82, 4: 84, 5: 85, 6: 82, 7: 65, 8: 52, 9: 45, 10: 40, 11: 35 },
-        "Gimkit":       { 1: 78, 2: 81, 3: 85, 4: 87, 5: 88, 6: 83, 7: 60, 8: 58, 9: 50, 10: 45, 11: 42 },
-        "LearningApps": { 1: 88, 2: 86, 3: 84, 4: 82, 5: 80, 6: 75, 7: 75, 8: 60, 9: 45, 10: 40, 11: 35 },
-        "Wordwall":     { 1: 86, 2: 85, 3: 83, 4: 81, 5: 80, 6: 73, 7: 80, 8: 55, 9: 52, 10: 45, 11: 40 },
-        "Udoba":        { 1: 70, 2: 73, 3: 75, 4: 74, 5: 75, 6: 72, 7: 78, 8: 50, 9: 42, 10: 38, 11: 35 },
-        "Joyteka":      { 1: 30, 2: 35, 3: 40, 4: 45, 5: 50, 6: 52, 7: 65, 8: 82, 9: 83, 10: 88, 11: 90 },
-        "Genially":     { 1: 40, 2: 45, 3: 50, 4: 55, 5: 60, 6: 65, 7: 68, 8: 80, 9: 85, 10: 90, 11: 94 }
+        "Quizizz":      { 1: 42, 2: 48, 3: 58, 4: 68, 5: 92, 6: 85, 7: 70, 8: 65, 9: 60, 10: 55, 11: 50 },
+        "Kahoot":       { 1: 40, 2: 46, 3: 55, 4: 66, 5: 90, 6: 85, 7: 68, 8: 60, 9: 62, 10: 56, 11: 52 },
+        "Baamboozle":   { 1: 96, 2: 95, 3: 94, 4: 92, 5: 92, 6: 88, 7: 75, 8: 55, 9: 50, 10: 38, 11: 32 },
+        "Wordwall":     { 1: 94, 2: 93, 3: 92, 4: 90, 5: 80, 6: 73, 7: 80, 8: 55, 9: 52, 10: 40, 11: 35 },
+        "LearningApps": { 1: 72, 2: 78, 3: 88, 4: 86, 5: 80, 6: 75, 7: 75, 8: 60, 9: 45, 10: 38, 11: 34 },
+        "MyQuiz":       { 1: 32, 2: 38, 3: 45, 4: 55, 5: 85, 6: 82, 7: 65, 8: 52, 9: 45, 10: 52, 11: 48 },
+        "Gimkit":       { 1: 30, 2: 36, 3: 44, 4: 54, 5: 88, 6: 83, 7: 60, 8: 58, 9: 50, 10: 54, 11: 48 },
+        "Udoba":        { 1: 28, 2: 34, 3: 42, 4: 50, 5: 75, 6: 72, 7: 78, 8: 50, 9: 42, 10: 80, 11: 76 },
+        "Joyteka":      { 1: 22, 2: 28, 3: 36, 4: 44, 5: 50, 6: 52, 7: 65, 8: 82, 9: 83, 10: 88, 11: 86 },
+        "Genially":     { 1: 20, 2: 26, 3: 34, 4: 42, 5: 60, 6: 65, 7: 68, 8: 80, 9: 85, 10: 92, 11: 95 }
     };
+
+    const strategiesData = {
+        primary: {
+            title: "Визуально-игровая стратегия (1–4 классы)",
+            desc: "<strong>Особенности:</strong> В младшем школьном возрасте детям важна наглядность и смена деятельности. На сайте для младших классов подобраны платформы и сервисы, которые позволяют использовать яркие интерактивные задания и демонстрацию на общем экране без перегрузки внимания и утомления за компьютером.",
+            platforms: ["Baamboozle", "Wordwall", "LearningApps"]
+        },
+        middle: {
+            title: "Соревновательно-игровая стратегия (5–9 классы)",
+            desc: "<strong>Особенности:</strong> Подросткам необходим дух соперничества и быстрый эмоциональный отклик. В эту категорию на сайте вошли динамичные викторины и квизы, которые позволяют за короткое время проверить знания, устроить командное соревнование и поддерживать высокую мотивацию к предмету.",
+            platforms: ["Quizizz", "Kahoot", "MyQuiz", "Gimkit", "Joyteka", "Udoba"]
+        },
+        senior: {
+            title: "Проектно-исследовательская стратегия (10–11 классы)",
+            desc: "<strong>Особенности:</strong> Старшеклассники ориентированы на практическую пользу и будущую профессию. Для них отобраны сервисы для создания реальных цифровых продуктов, интерактивных плакатов, лонгридов и работы с учебными материалами в самостоятельных и групповых проектах.",
+            platforms: ["Genially", "Udoba", "Joyteka"]
+        }
+    };
+
+    function getLevelStyle(percent) {
+        if (percent < 55) {
+            return {
+                color: "#ef4444",
+                bgTint: "rgba(239, 68, 68, 0.12)",
+                label: "Низкая вовлеченность"
+            };
+        } else if (percent < 80) {
+            return {
+                color: "#f59e0b",
+                bgTint: "rgba(245, 158, 11, 0.14)",
+                label: "Средняя вовлеченность"
+            };
+        } else {
+            return {
+                color: "#10b981",
+                bgTint: "rgba(16, 185, 129, 0.14)",
+                label: "Высокая вовлеченность"
+            };
+        }
+    }
 
     // Переключение стратегий
     function switchStrategy(type, el) {
         document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
         el.classList.add('active');
         
+        const data = strategiesData[type];
         const box = document.getElementById('strategyBox');
-        if (type === 'primary') {
-            box.innerHTML = `
-                <h3>Визуально-игровая стратегия (1–4 классы)</h3>
-                <p class="strategy-desc"><strong>Особенности:</strong> В младшем школьном возрасте детям важна наглядность и смена деятельности. На сайте для младших классов подобраны платформы и сервисы, которые позволяют использовать яркие интерактивные задания и демонстрацию на общем экране без перегрузки внимания и утомления за компьютером.</p>
-                <div class="strategy-platforms">
-                    <span class="platform-badge">Baamboozle</span>
-                    <span class="platform-badge">Wordwall</span>
-                </div>
-            `;
-        } else if (type === 'middle') {
-            box.innerHTML = `
-                <h3>Соревновательно-игровая стратегия (5–9 классы)</h3>
-                <p class="strategy-desc"><strong>Особенности:</strong> Подросткам необходим дух соперничества и быстрый эмоциональный отклик. В эту категорию вошли динамичные викторины и квизы, которые позволяют за короткое время проверить знания, устроить командное соревнование и поддерживать высокую мотивацию к предмету.</p>
-                <div class="strategy-platforms">
-                    <span class="platform-badge">Quizizz</span>
-                    <span class="platform-badge">Kahoot!</span>
-                    <span class="platform-badge">Gimkit</span>
-                    <span class="platform-badge">Joyteka</span>
-                </div>
-            `;
-        } else if (type === 'senior') {
-            box.innerHTML = `
-                <h3>Проектно-исследовательская стратегия (10–11 классы)</h3>
-                <p class="strategy-desc"><strong>Особенности:</strong> Старшеклассники ориентированы на практическую пользу и будущую профессию. Для них отобраны сервисы для создания реальных цифровых продуктов, верстки сайтов, работы с кодом и презентациями, где они могут работать над самостоятельными и групповыми проектами.</p>
-                <div class="strategy-platforms">
-                    <span class="platform-badge">Genially</span>
-                    <span class="platform-badge">Udoba</span>
-                    <span class="platform-badge">MyQuiz</span>
-                    <span class="platform-badge">LearningApps</span>
-                </div>
-            `;
-        }
+        if (!data || !box) return;
+
+        const badgesHtml = data.platforms
+            .map(p => `<span class="platform-badge">${p}</span>`)
+            .join('');
+
+        box.innerHTML = `
+            <h3>${data.title}</h3>
+            <p class="strategy-desc">${data.desc}</p>
+            <div class="strategy-platforms">${badgesHtml}</div>
+        `;
     }
 
-    // Выбор платформы
     function selectP(card) {
         document.querySelectorAll('.platform-card').forEach(c => c.classList.remove('selected'));
         card.classList.add('selected');
@@ -608,122 +646,143 @@
         runCalc();
     }
 
-    // Выбор класса
-    function selectGradeCard(grade, card) {
-        const parent = card.parentElement.parentElement;
-        parent.querySelectorAll('.calc-grade-card').forEach(c => c.classList.remove('active'));
-        card.classList.add('active');
+    function selectGradeCard(grade, el) {
+        document.querySelectorAll('.calc-grade-card').forEach(c => c.classList.remove('active'));
+        el.classList.add('active');
         currentGrade = grade;
-        runCalc();
+        if (currentPlatId) {
+            runCalc();
+        }
     }
 
-    // Расчет вовлеченности с красивой анимацией
     function runCalc() {
+        const platNameEl = document.getElementById('resPlatName');
+        const gradeInfoEl = document.getElementById('resGradeInfo');
+        const progValEl = document.getElementById('progVal');
+        const circleEl = document.getElementById('progressCircle');
+        const badgeEl = document.getElementById('levelBadge');
+
         if (!currentPlatId) {
-            document.getElementById('resPlatName').innerText = "Выберите платформу!";
-            document.getElementById('resGradeInfo').innerText = "Нажмите на любую карточку слева";
+            platNameEl.textContent = "Платформа не выбрана";
+            gradeInfoEl.textContent = "Нажмите на карточку сервиса в списке слева";
             return;
         }
 
-        let targetVal = tableData[currentPlatId][currentGrade];
-        document.getElementById('resPlatName').innerText = currentPlatId;
-        document.getElementById('resGradeInfo').innerText = `Коэффициент для ${currentGrade} класса`;
+        const targetVal = (tableData[currentPlatId] && tableData[currentPlatId][currentGrade]) || 0;
+        const finalStyle = getLevelStyle(targetVal);
 
-        if (animTimer) clearInterval(animTimer);
+        platNameEl.textContent = currentPlatId;
+        gradeInfoEl.textContent = `Прогноз вовлеченности для ${currentGrade} класса`;
+        badgeEl.textContent = finalStyle.label;
+        badgeEl.style.color = finalStyle.color;
+        badgeEl.style.background = finalStyle.bgTint;
 
-        let startVal = 0;
-        let duration = 800; // мс
-        let stepTime = 15;
-        let totalSteps = duration / stepTime;
-        let stepIncrement = targetVal / totalSteps;
+        if (animTimer) {
+            clearInterval(animTimer);
+        }
+
+        let currentVal = 0;
+        const stepTime = 15;
+        const totalSteps = 25;
+        const stepIncrement = targetVal / totalSteps;
 
         animTimer = setInterval(() => {
-            startVal += stepIncrement;
-            if (startVal >= targetVal) {
-                startVal = targetVal;
+            currentVal += stepIncrement;
+            if (currentVal >= targetVal) {
+                currentVal = targetVal;
                 clearInterval(animTimer);
             }
-            let currentInt = Math.round(startVal);
-            document.getElementById('progVal').innerText = currentInt + "%";
-            document.getElementById('progressCircle').style.background = `conic-gradient(var(--accent) ${currentInt * 3.6}deg, #f1f5f9 0deg)`;
+            const rounded = Math.round(currentVal);
+            const activeStyle = getLevelStyle(rounded);
+            const deg = (rounded / 100) * 360;
+
+            progValEl.textContent = `${rounded}%`;
+            progValEl.style.color = activeStyle.color;
+            circleEl.style.background = `conic-gradient(${activeStyle.color} ${deg}deg, #f1f5f9 ${deg}deg)`;
         }, stepTime);
     }
 
-    // Таймер СанПиН
-    let timerInterval = null;
-    let timeLeft = 30 * 60;
-    let totalTime = 30 * 60;
+    function jumpToVideo(id) {
+        document.querySelectorAll('.video-item').forEach(item => item.classList.remove('video-highlight-active'));
+        const target = document.getElementById(`vid-${id}`);
+        if (target) {
+            target.classList.add('video-highlight-active');
+            target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+    }
 
-    function setSanpinLimit(mins, card) {
-        document.querySelectorAll('.sanpin-class-card').forEach(c => c.classList.remove('active'));
-        card.classList.add('active');
-        document.getElementById('sanpinBadge').innerText = "Норма: " + mins + " мин";
-        totalTime = mins * 60;
-        timeLeft = totalTime;
-        updateTimerDisplay();
-        stopTimer();
+    function formatTime(sec) {
+        const m = Math.floor(sec / 60).toString().padStart(2, '0');
+        const s = (sec % 60).toString().padStart(2, '0');
+        return `${m}:${s}`;
     }
 
     function updateTimerDisplay() {
-        let m = Math.floor(timeLeft / 60);
-        let s = timeLeft % 60;
-        document.getElementById('timerDisplay').innerText = (m < 10 ? "0" + m : m) + ":" + (s < 10 ? "0" + s : s);
+        const display = document.getElementById('timerDisplay');
+        if (display) {
+            display.textContent = formatTime(remainingSeconds);
+        }
+    }
+
+    function setSanpinLimit(minutes, el) {
+        document.querySelectorAll('.sanpin-class-card').forEach(c => c.classList.remove('active'));
+        el.classList.add('active');
+
+        sanpinLimitMinutes = minutes;
+        const badge = document.getElementById('sanpinBadge');
+        if (badge) {
+            badge.textContent = `Норма: ${minutes} мин`;
+        }
+        resetTimer();
     }
 
     function startTimer() {
-        if (timerInterval) return;
-        timerInterval = setInterval(() => {
-            if (timeLeft > 0) {
-                timeLeft--;
+        if (countdownInterval) return;
+        countdownInterval = setInterval(() => {
+            if (remainingSeconds > 0) {
+                remainingSeconds--;
                 updateTimerDisplay();
             } else {
-                stopTimer();
-                alert("Время непрерывной работы за ПК истекло! Проведите физминутку и гимнастику для глаз.");
+                clearInterval(countdownInterval);
+                countdownInterval = null;
+                alert("Время непрерывной работы за ПК по СанПиН РК завершено! Проведите гимнастику для глаз и физкультминутку.");
             }
         }, 1000);
     }
 
-    function stopTimer() {
-        clearInterval(timerInterval);
-        timerInterval = null;
-    }
-
     function resetTimer() {
-        stopTimer();
-        timeLeft = totalTime;
+        if (countdownInterval) {
+            clearInterval(countdownInterval);
+            countdownInterval = null;
+        }
+        remainingSeconds = sanpinLimitMinutes * 60;
         updateTimerDisplay();
     }
-
-    // Переход к видео
-    function jumpToVideo(platName) {
-        const vidElem = document.getElementById('vid-' + platName);
-        if (vidElem) {
-            vidElem.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            vidElem.classList.add('video-highlight-active');
-            setTimeout(() => vidElem.classList.remove('video-highlight-active'), 2000);
-        }
-    }
-
-    // Кнопка наверх
-    window.onscroll = function() {
-        let btn = document.getElementById('backToTop');
-        let path = document.getElementById('progressPath');
-        let scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
-        let scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-        let progress = 145 - (scrollTop * 145 / scrollHeight);
-        
-        if (path) path.style.strokeDashoffset = progress;
-        if (scrollTop > 300) {
-            btn.style.display = "block";
-        } else {
-            btn.style.display = "none";
-        }
-    };
 
     function scrollToTop() {
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }
-</script>
 
+    window.addEventListener('scroll', () => {
+        const btn = document.getElementById('backToTop');
+        const circle = document.getElementById('progressPath');
+        const scrollTop = window.scrollY || document.documentElement.scrollTop;
+        const docHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+
+        if (scrollTop > 250) {
+            btn.style.display = 'flex';
+            btn.style.alignItems = 'center';
+            btn.style.justifyContent = 'center';
+        } else {
+            btn.style.display = 'none';
+        }
+
+        if (circle && docHeight > 0) {
+            const circumference = 145;
+            const progress = Math.min(Math.max(scrollTop / docHeight, 0), 1);
+            circle.style.strokeDashoffset = circumference - progress * circumference;
+        }
+    });
+</script>
 </body>
 </html>
